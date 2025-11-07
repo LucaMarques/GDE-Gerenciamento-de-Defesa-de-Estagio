@@ -1,0 +1,265 @@
+:root {
+    --font-primary: 'Poppins', sans-serif;
+    --font-secondary: 'Roboto', sans-serif;
+
+    --color-bg: #fff;    /* fundo */
+    --color-header: rgb(35, 90, 141);    /* header e footer */
+    --color-primary: #5cb85c;  /* hover e destaques */
+    --color-muted: #d9d9d9;     /* Seções */
+    --color-text-light: #fff;  /* texto ou icons branco */
+    --color-text-black: #000; /* texto ou icons preto */
+    --color-icon: #F3F3F3;   /* icons branco e input */
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a{
+    text-decoration: none;
+    color: var(--color-text-dark);
+}
+
+main {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container{
+    position: relative;
+    height: 480px;
+    width: 768px;
+    border-radius: 12px;
+    box-shadow: 0 5px 10px var(--color-header);
+    overflow: hidden;
+}
+
+/* Estilos para o movimento de transição */
+.login-container.move .form-login{
+    transform: translateX(100%);
+}
+
+.login-container.move .form-register{
+    transform: translateX(0%);
+    z-index: 1;
+    opacity: 1;
+}
+
+/* Container que envolve os dois formulários */
+.form-container{
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+
+/* =============================== */
+/* =========== FORMULÁRIO ========== */
+/* =============================== */
+.form {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--color-text-light);
+    padding: 55px 0;
+    transition: 1s;
+}
+
+/* Estilos específicos dos formulários */
+.form-register{
+    transform: translateX(-100%);
+    z-index: -1;
+    opacity: 0;
+}
+
+/* Títulos e textos */
+.form-title{
+    color: var(--color-text-dark);
+    font-size: 3rem;
+    font-weight: 400;
+}
+
+.form-title-light{
+    color: var(--color-text-light);
+}
+
+/* Inputs */
+.form-input-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-input{
+    width: 300px;
+    height: 40px;
+    padding: 10px 20px;
+    border-style: none;
+    background-color: var(--color-icon);
+}
+
+/* Botões */
+.form-button{
+    width: 140px;
+    height: 40px;
+    border-style: none;
+    border-radius: 50px;
+    border: 2px solid var(--color-text-black);
+    background-color: transparent;
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: .7s;
+}
+
+.form-button:hover{
+    background-color: var(--color-primary);
+    color: var(--color-text-light);
+}
+
+.form-button-light{
+    border: 2px solid var(--color-text-light);
+    color: var(--color-text-light);
+}
+
+.form-button-light:hover{
+    background-color: var(--color-primary);
+    border: 2px solid var(--color-text-light);
+    color: var(--color-bg);
+}
+
+/* Ícones Sociais */
+.form-social{
+    display: flex;
+    gap: 24px;
+}
+
+.social-icon{
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    background-color: var(--color-icon);
+    box-shadow: 0 4px 4px #0004;
+    transition: .5s;
+}
+
+.social-icon:hover{
+    background-color: var(--color-primary);
+    transform: translateY(-15%);
+    color: var(--color-text-light);
+}
+
+/* =============================== */
+/* =========== OVERLAY ============ */
+/* =============================== */
+.overlay-container{
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    color: var(--color-bg);
+    text-align: center;
+    transform: translateX(100%);
+    z-index: 10;
+    transition: 1s;
+}
+
+.login-container.move .overlay-container{
+    transform: translateX(0%);
+}
+
+.overlay{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 40px;
+    background-color: var(--color-header);
+    transition: 1s;
+}
+
+.login-container.move .overlay:nth-child(2) {
+    z-index: -1;
+    opacity: 0;
+}
+
+.form-tipo select{
+    border-radius: 12px;
+    font-size: 14px;
+    padding: 5px;
+}
+
+/* Textos para Mobile (Inicialmente ocultos) */
+.mobile-text{
+    display: none;
+}
+
+/* =============================== */
+/* =========== MEDIA QUERIES ======== */
+/* =============================== */
+
+/* Tablet (max-width: 768px) */
+@media (max-width:768px){
+    /* Login Container */
+    .login-container{
+        width: 75vw;
+        height: 75vh;
+    }
+    /* Formulários */
+    .form{
+        width: 100%;
+        justify-content: space-evenly;
+    }
+    .form-register{
+        position: absolute;
+        background-color: var(--color-primary);
+        color: var(--color-bg);
+        transform: translateX(100%);
+    }
+    .login-container.move .form-register{
+        transform: translateX(0%);
+    }
+    /* Botões */
+    .form-button{
+        background-color: var(--color-primary);
+        color: var(--color-bg);
+        border: 2px solid var(--color-bg);
+    }
+    /* Overlay */
+    .overlay-container{
+        display: none;
+    }
+    /* Textos Mobile */
+    .mobile-text{
+        display: block;
+    }
+    .mobile-text a {
+        font-weight: 900;
+        color: inherit;
+    }
+}
+
+/* Mobile (max-width: 480px) */
+@media (max-width:480px){
+    /* Login Container */
+    .login-container{
+        width: 100vw;
+        height: 100vh;
+        box-shadow: none;
+    }
+}

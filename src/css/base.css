@@ -26,7 +26,7 @@ body{
 .cabecalho{
     width: 100%;
     background-color: var(--color-header);
-    padding: 5px;
+    padding: 20px;
     display: flex;
     width: 100%;
     top: 0;
