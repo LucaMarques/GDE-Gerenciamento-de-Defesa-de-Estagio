@@ -11,31 +11,29 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="./src/css/login.css">
-    
-
-    <title>Login - Leonid</title>
+    <title>Login</title>
 </head>
 <body>
     <main>
         <div class="login-container" id="login-container">
             <div class="form-container">
-                <form class="form form-login">
+                <form id="form-login" class="form form-login">
                     <h2 class="form-title">Entrar</h2>
                     <div class="form-input-container">
-                        <input type="email" class="form-input" placeholder="Email">
-                        <input type="password" class="form-input" placeholder="Senha">
+                        <input type="email" id="email-login" class="form-input" placeholder="Email">
+                        <input type="password" id="senha-login" class="form-input" placeholder="Senha">
                     </div>
                     <a href="#" class="form-link">Esqueceu a senha?</a>
-                    <button type="button" class="form-button">Logar</button>
+                    <button type="button" id="btn-login" class="form-button">Logar</button>
                     <p class="mobile-text">
                         Não tem conta?
                         <a href="#" id="open-register-mobile">Registre-se</a>
                     </p>
                 </form>
-                <form class="form form-register">
+                <form id="form-cadastro" class="form form-register">
                     <h2 class="form-title">Criar Conta</h2>
                     <div class="form-tipo">
-                         <select id="tipoUsuario" required>
+                         <select id="tipo-usuario" required>
                             <option value="">Selecione o tipo</option>
                             <option value="aluno">Aluno</option>
                             <option value="orientador">Orientador</option>
@@ -43,12 +41,12 @@
                         </select>
                     </div>
                     <div class="form-input-container">
-                        <input type="text" class="form-input" placeholder="Nome">
-                        <input type="text" class="form-input" placeholder="Matricula">
-                        <input type="email" class="form-input" placeholder="Email">
-                        <input type="password" class="form-input" placeholder="Senha">
+                        <input type="text" id="nome-cadastro" class="form-input" placeholder="Nome">
+                        <input type="text" id="matricula-cadastro" class="form-input" placeholder="Matricula">
+                        <input type="email" id="email-cadastro" class="form-input" placeholder="Email">
+                        <input type="password" id="senha-cadastro" class="form-input" placeholder="Senha">
                     </div>
-                    <button type="button" class="form-button">Cadastrar</button>
+                    <button type="button" id="btn-cadastro" class="form-button">Cadastrar</button>
                     <p class="mobile-text">
                         Já tem conta?
                         <a href="#" id="open-login-mobile">Login</a>

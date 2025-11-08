@@ -26,9 +26,8 @@ body{
 .cabecalho{
     width: 100%;
     background-color: var(--color-header);
-    padding: 20px;
+    padding: 15px 20px;
     display: flex;
-    width: 100%;
     top: 0;
     left: 0;
     z-index: 1000;
@@ -50,6 +49,8 @@ body{
 .botoes {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
 }
 
 .btn-usuario i,
@@ -63,8 +64,6 @@ body{
     font-size: 25px;
     color: var(--color-text-light);
     transition: transform 0.3s, color 0.3s;
-    margin-right: 15px;
-    margin-top: 15px;
 }
 
 .btn-usuario:hover i,
@@ -73,10 +72,6 @@ body{
     color: var(--color-primary);
     transform: scale(1.1);
     cursor: pointer;
-}
-
-.btn-usuario i {
-    margin-right: 15px;
 }
 
 .bi:hover {
@@ -134,7 +129,7 @@ body{
 .footer {
     background-color: var(--color-header);
     color: var(--color-text-light);
-    padding: 20px 20px 20px;
+    padding: 40px 20px 20px;
     text-align: center;
 }
 
