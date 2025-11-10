@@ -1,0 +1,373 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #e9eef6 0%, #c3d0e6 100%);
+    color: #222;
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+}
+
+.perfil-container {
+    background: none;
+    padding: 20px;
+    box-shadow: 0 4px 24px 0 rgba(35,90,141,0.08);
+    max-width: 1300px;
+    margin: 48px auto 48px auto;
+    box-shadow: none;
+    border: none;
+    transition: none;
+    border-radius: 12px;
+}
+
+.perfil-row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 48px;
+    width: 100%;
+    justify-content: flex-start;
+}
+
+/* Card vertical para foto e nome */
+.card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 1px 4px rgba(35,90,141,0.06);
+    border: 1px solid #dbe6f3;
+    padding: 48px 36px;
+    min-width: 320px;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.perfil-card-esquerda {
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    box-shadow: none;
+    margin-left: 0;
+}
+
+.foto-perfil-vertical {
+    width: 140px;
+    height: 140px;
+    border-radius: 32px;
+    box-shadow: 0 2px 12px 2px rgba(35,90,141,0.09);
+    margin: 12px;
+    border: 6px solid #235a8d;
+    box-shadow: 0 2px 16px rgba(35,90,141,0.13);
+    margin-bottom: 22px;
+    background: #e9eef6;
+}
+
+.nome-perfil {
+    font-size: 1.35em;
+    color: #235a8d;
+    margin-bottom: 8px;
+    margin-top: 0;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-align: center;
+}
+
+.tipo-usuario {
+    font-size: 1em;
+    color: #17406a;
+    margin-bottom: 0;
+    margin-top: 0;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    text-align: center;
+    background: #e9eef6;
+    padding: 4px 12px;
+    border-radius: 8px;
+}
+
+.campo-status {
+    display: flex;
+    align-items: center;
+    background: #f8fbff;
+    border-radius: 10px;
+    box-shadow: 0 1px 8px rgba(35,90,141,0.07);
+    padding: 14px 22px;
+    font-size: 1.12em;
+    color: #235a8d;
+    gap: 12px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    width: 100%;
+}
+
+.status-estagio {
+    font-weight: 600;
+    padding: 6px 18px;
+    border-radius: 8px;
+    font-size: 1em;
+    margin-left: 8px;
+    background: #e9eef6;
+    color: #235a8d;
+    border: 1px solid #b3c7e6;
+}
+
+.status-estagio.em-tramite {
+    background: #fff3cd;
+    color: #856404;
+    border: 0.5px solid #ffeeba;
+}
+
+.status-estagio.pendente {
+    background: #f8d7da;
+    color: #721c24;
+    border: 0.5px solid #f5c6cb;
+}
+
+.status-estagio.concluido {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.perfil-card-direita {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    flex: 1;
+    width: 100%;
+    min-width: 700px;        /* mantém alinhado no desktop */
+    max-width: 1200px;
+
+    padding: 60px 48px;      /* espaçamento confortável no desktop */
+    background: #f8fbff;
+
+    position: relative;
+    z-index: 0;
+    overflow: hidden;
+    box-sizing: border-box;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(35, 90, 141, 0.08);
+}
+
+.perfil-card-direita h3 {
+    color: #17406a;
+    font-size: 1.18em;
+    margin-bottom: 22px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+}
+
+.info-campos {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.header-info-pessoais {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 22px;
+    margin-top: -10px; 
+}
+
+.header-info-pessoais h3 {
+    color: #17406a;
+    font-size: 1.18em;
+    margin: 0;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    margin-top: -15px;
+}
+
+.btn-alterar-dados {
+    background: #235a8d;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 7px 14px;
+    font-size: 1em;
+    font-weight: 550;
+    cursor: pointer;
+    transition: background 0.2s;
+    box-shadow: 0 2px 8px rgba(35,90,141,0.08);
+    margin-top: -30px;
+}
+
+.btn-alterar-dados:hover {
+    background: #17406a;
+}
+
+/* Nova linha para dois campos lado a lado */
+.linha-campos {
+    display: flex;
+    flex-direction: row;
+    gap: 18px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: #f8fbff;
+    border-radius: 10px;
+    box-shadow: 0 1px 8px rgba(35,90,141,0.07);
+    padding: 14px 22px;
+    font-size: 1.12em;
+    color: #235a8d;
+    gap: 12px;
+    flex: 1 1 45%;
+    min-width: 220px;
+    width: auto;
+    box-sizing: border-box;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+}
+
+.campo-label {
+    color: #17406a;
+    font-weight: 600;
+    min-width: 0;
+    margin-right: 8px;
+}
+
+.campo-valor {
+    color: #235a8d;
+    font-weight: 400;
+}
+
+.perfil-col {
+    flex: 1;
+}
+
+.perfil-img-col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.perfil-container:hover {
+    box-shadow: 0 12px 40px rgba(35,90,141,0.22);
+}
+
+.foto-perfil {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #235a8d;
+    box-shadow: 0 2px 12px rgba(35,90,141,0.10);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.foto-perfil:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 24px rgba(35,90,141,0.18);
+}
+
+.info-perfil {
+    width: 100%;
+    text-align: left;
+    font-size: 1.15rem;
+    color: #235a8d;
+    background: #f8fbff;
+    padding: 24px 20px;
+    border-radius: 10px;
+    box-shadow: 0 1px 8px rgba(35,90,141,0.07);
+    letter-spacing: 0.01em;
+}
+
+.info-perfil p {
+    margin: 12px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.08em;
+}
+
+.info-perfil strong {
+    color: #17406a;
+    min-width: 100px;
+}
+
+/* Estilos exclusivos para a página de perfil */
+@media (max-width: 900px) {
+    .perfil-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: auto;
+        max-height: none;
+        margin: 0 auto;
+    }
+    .perfil-row {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        gap: 24px;
+    }
+    .perfil-card-esquerda {
+        max-width: 320px;
+        width: 100%;
+        margin-left: 0;
+        padding-top: 32px;
+        padding-bottom: 32px;
+    }
+    .perfil-card-direita {
+        min-width: 0;         
+        max-width: 100%;
+        width: 100%;
+        height: auto;
+        padding: 60px 24px;     
+        margin: 0 auto;         
+        box-sizing: border-box;
+    }
+    .linha-campos {
+        flex-direction: column;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 600px) {
+    .perfil-container {
+        max-width: 100vw;
+        margin: 16px auto 0 auto;
+        padding: 0;
+    }
+    .card {
+        padding: 18px 6px;
+        border-radius: 16px;
+    }
+    .foto-perfil-vertical {
+        width: 90px;
+        height: 90px;
+        max-width: 100%;
+        width: 100%;
+        margin-left: 0;
+        padding-top: 32px;
+        padding-bottom: 32px;
+        min-width: 0;
+    }
+    .tipo-usuario {
+        font-size: 0.95em;
+        padding: 2px 8px;
+    }
+    .campo {
+        font-size: 0.98em;
+        padding: 8px 8px;
+    }
+    .campo-label {
+        min-width: 90px;
+    }
+}
