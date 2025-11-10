@@ -1,17 +1,29 @@
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import '../css/base.css'
-import usuariosBase from '../data/usuarios.json'
 import { criaHeader } from "./components/header.js";
 import { criaFooter } from "./components/footer.js";
 
-document.getElementById("header").appendChild(criaHeader());
-document.getElementById("footer").appendChild(criaFooter());
+const header = criaHeader();
+const footer = criaFooter();
+document.body.prepend(header);
+document.body.append(footer);
 
-// Tem que pegar  dps o tipo do localStorage 
-const tipoUsuario = localStorage.getItem("tipoUsuario") || "aluno";
+// Verificando o tipo de usuario
+const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
+if (!usuarioLogado) {
+  alert("Você precisa fazer login primeiro!");
+  window.location.href = "login.html";
+}
+
+const tipoUsuario = usuarioLogado.tipo; 
+const nome = usuarioLogado.nome;
 
 const cardsContainer = document.getElementById("cardsContainer");
 const titulo = document.getElementById("tituloUsuario");
+
+// Testando persistencia de dado vendo se muda o nome no painel
+const nomeDisplay = document.getElementById("nomeUsuario");
+if (nomeDisplay) nomeDisplay.textContent = nome;
 
 // Cards conforme o tipo
 const opcoesPorUsuario = {
@@ -34,9 +46,11 @@ const opcoesPorUsuario = {
   ]
 };
 
-const nomeUsuario = tipoUsuario.charAt(0).toUpperCase() + tipoUsuario.slice(1);
-titulo.textContent = `Painel do ${nomeUsuario}`;
+// Muda o titulo da pagina de acordo o tipo do usuario
+const nomeTipo = tipoUsuario.charAt(0).toUpperCase() + tipoUsuario.slice(1);
+if (titulo) titulo.textContent = `Painel do ${nomeTipo}`;
 
+// Gera os cards conforme o tipo do usuário
 opcoesPorUsuario[tipoUsuario].forEach(opcao => {
   const card = document.createElement("div");
   card.className = "card";
@@ -46,3 +60,4 @@ opcoesPorUsuario[tipoUsuario].forEach(opcao => {
   `;
   cardsContainer.appendChild(card);
 });
+
