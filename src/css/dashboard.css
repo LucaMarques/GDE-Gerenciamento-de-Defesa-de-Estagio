@@ -1,0 +1,31 @@
+.dashboard-container {
+  text-align: center;
+  padding: 2rem;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.card {
+  background: #e6e6e6;
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.card:hover {
+  background: #d3d3d3;
+  transform: translateY(-3px);
+}
+
+.card i {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
