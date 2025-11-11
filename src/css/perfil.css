@@ -15,11 +15,13 @@ body {
     padding: 20px;
     box-shadow: 0 4px 24px 0 rgba(35,90,141,0.08);
     max-width: 1300px;
-    margin: 48px auto 48px auto;
-    box-shadow: none;
+    margin: 48px auto;
     border: none;
     transition: none;
     border-radius: 12px;
+    height: auto;
+    min-height: 100vh;
+    gap: 48px;
 }
 
 .perfil-row {
@@ -79,13 +81,12 @@ body {
 .tipo-usuario {
     font-size: 1em;
     color: #17406a;
-    margin-bottom: 0;
-    margin-top: 0;
+    margin: 10px;
     font-weight: 500;
     letter-spacing: 0.01em;
     text-align: center;
     background: #e9eef6;
-    padding: 4px 12px;
+    padding: 8px 12px;
     border-radius: 8px;
 }
 
@@ -99,8 +100,7 @@ body {
     font-size: 1.12em;
     color: #235a8d;
     gap: 12px;
-    margin-top: 8px;
-    margin-bottom: 8px;
+    margin: 12px;
     width: 100%;
 }
 
@@ -134,25 +134,21 @@ body {
 }
 
 .perfil-card-direita {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-
     flex: 1;
     width: 100%;
-    min-width: 700px;        /* mantém alinhado no desktop */
+    min-width: 700px;       
     max-width: 1200px;
-
-    padding: 60px 48px;      /* espaçamento confortável no desktop */
+    min-height: 500px;
+    height: auto;
+    padding: 60px 48px;     
     background: #f8fbff;
-
-    position: relative;
     z-index: 0;
     overflow: hidden;
     box-sizing: border-box;
     border-radius: 16px;
     box-shadow: 0 2px 12px rgba(35, 90, 141, 0.08);
+    overflow: visible;
+    box-sizing: border-box;
 }
 
 .perfil-card-direita h3 {
@@ -185,7 +181,8 @@ body {
     margin: 0;
     font-weight: 600;
     letter-spacing: 0.01em;
-    margin-top: -15px;
+    margin-bottom: 20px;
+    margin-left: 10px;
 }
 
 .btn-alterar-dados {
@@ -199,7 +196,8 @@ body {
     cursor: pointer;
     transition: background 0.2s;
     box-shadow: 0 2px 8px rgba(35,90,141,0.08);
-    margin-top: -30px;
+    margin-bottom: 20px;
+    align-self: flex-end;
 }
 
 .btn-alterar-dados:hover {
@@ -310,6 +308,7 @@ body {
         max-height: none;
         margin: 0 auto;
     }
+
     .perfil-row {
         flex-direction: column;
         align-items: center;
@@ -317,6 +316,7 @@ body {
         width: 100%;
         gap: 24px;
     }
+
     .perfil-card-esquerda {
         max-width: 320px;
         width: 100%;
@@ -324,6 +324,7 @@ body {
         padding-top: 32px;
         padding-bottom: 32px;
     }
+
     .perfil-card-direita {
         min-width: 0;         
         max-width: 100%;
@@ -333,6 +334,7 @@ body {
         margin: 0 auto;         
         box-sizing: border-box;
     }
+    
     .linha-campos {
         flex-direction: column;
         gap: 12px;
@@ -341,33 +343,85 @@ body {
 
 @media (max-width: 600px) {
     .perfil-container {
-        max-width: 100vw;
-        margin: 16px auto 0 auto;
-        padding: 0;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 10px;
+        padding: 16px;
+        gap: 16px;
+        width: auto;
     }
+
     .card {
-        padding: 18px 6px;
-        border-radius: 16px;
-    }
-    .foto-perfil-vertical {
-        width: 90px;
-        height: 90px;
-        max-width: 100%;
         width: 100%;
-        margin-left: 0;
-        padding-top: 32px;
-        padding-bottom: 32px;
-        min-width: 0;
+        padding: 16px 10px;
+        border-radius: 14px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     }
+
+    .foto-perfil-vertical {
+        width: 120px;
+        height: 120px;
+        margin: 10px auto 10px;
+        display: block;
+        object-fit: cover;
+    }
+
+    .nome-perfil {
+        font-size: 1.1em;
+        text-align: center;
+        margin-bottom: 4px;
+    }
+
     .tipo-usuario {
-        font-size: 0.95em;
-        padding: 2px 8px;
+        font-size: 0.9em;
+        text-align: center;
+        margin-bottom: 12px;
+        padding: 4px 10px;
+        border-radius: 8px;
+        background-color: #e9f3ff;
+        display: inline-block;
     }
+
+    .campo-status{
+        margin: 0 auto;
+        padding: 14px;
+        text-align: center;
+    }
+
+    .header-info-pessoais {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+
+    .btn-alterar-dados {
+        font-size: 0.9em;
+    }
+
+    .info-campos-dupla {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .linha-campos {
+        flex-direction: column;
+        gap: 6px;
+    }
+
     .campo {
         font-size: 0.98em;
         padding: 8px 8px;
     }
+    
     .campo-label {
         min-width: 90px;
+        margin-bottom: 4px;
+    }
+
+    .campo-valor {
+        word-break: break-word;
     }
 }
