@@ -19,14 +19,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Verifica a existencia dos componentes para que evite erros caso eles nao existam
     if (btnMenu && menuLateral && btnFechar) {
-    btnMenu.addEventListener('click', () => {
-        menuLateral.style.width = '250px';
-    });
+        btnMenu.addEventListener('click', () => {
+            menuLateral.style.width = '250px';
+        });
 
-    btnFechar.addEventListener('click', () => {
-        menuLateral.style.width = '0';
-    });
-}
+        btnFechar.addEventListener('click', () => {
+            menuLateral.style.width = '0';
+        });
+    }
+
+    // Botão de Logout
+    const btnLogout = document.getElementById('btn-logout')
+    
+    if (btnLogout) {
+        btnLogout.addEventListener("click", (evento) =>{
+            evento.preventDefault();
+            localStorage.removeItem("usuarioLogado");
+            localStorage.removeItem('tipoUsuario');
+            sessionStorage.clear();
+            window.location.href = './login.html';
+        });
+    }
 
 });
 
