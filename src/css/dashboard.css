@@ -1,6 +1,11 @@
 .dashboard-container {
   text-align: center;
   padding: 2rem;
+  margin: 20px;
+}
+
+.dashboard-container h2{
+  margin-bottom: 30px;
 }
 
 .cards {
