@@ -11,7 +11,7 @@ export function criaHeader() {
 
                 <div class="botoes">
                     <div class="usuario">
-                        <a class="btn-usuario">
+                        <a href="../perfil.html" class="btn-usuario">
                             <i class="bi bi-person-fill"></i>
                         </a>
                     </div>
@@ -35,9 +35,22 @@ export function criaHeader() {
                 <a href="javascript:void(0)" class="btn-fechar" id="btn-fechar">
                     <i class="bi bi-x-lg"></i>
                 </a>
-                <a href="#">Calendário</a>
-                <a href="#">Compromissos</a>
-                <a href="#">Lembretes</a>
+                <a href="../dashboard.html">
+                    <i class="bi bi-house-door-fill"></i>
+                    Inicio
+                </a>
+                <a href="../perfil.html">
+                    <i class="bi bi-person-fill"></i>
+                    Meu perfil
+                </a>
+                <a href="../defesas.html">
+                    <i class="bi bi-calendar-fill"></i>
+                    Agenda de Defesas
+                </a>
+                <a href="#" id="btn-logout">
+                    <i class="bi bi-box-arrow-right"></i>
+                    Logout
+                </a>
             </nav>
         </header>
     `;
