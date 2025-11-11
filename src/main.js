@@ -1,8 +1,8 @@
 import 'bootstrap-icons/font/bootstrap-icons.css'
-import '../css/base.css'
+import './css/base.css'
 import { criaHeader } from "./components/header.js";
 import { criaFooter } from "./components/footer.js";
-
+ 
 document.addEventListener("DOMContentLoaded", () => {
     // Cria o header e o footer em todas as páginas
     const header = criaHeader();
