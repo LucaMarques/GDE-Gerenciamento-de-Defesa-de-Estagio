@@ -5,7 +5,6 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import { criaHeader } from "./components/header.js";
 import { criaFooter } from "./components/footer.js";
 
-//c omponente para criar a linha (reutilizado)
 function criarLinhaDefesa(defesa, usuarios) {
   const aluno =
     usuarios.find((u) => u.id === defesa.alunoId)?.nome ||
@@ -14,7 +13,6 @@ function criarLinhaDefesa(defesa, usuarios) {
     usuarios.find((u) => u.id === defesa.orientadorId)?.nome ||
     `ID: ${defesa.orientadorId}`;
 
-  // Lógica de classe para o status
   let statusClass = "status-pendente";
   if (defesa.status === "aprovada") statusClass = "status-aprovada";
   if (defesa.status === "reprovada") statusClass = "status-reprovada";
@@ -37,12 +35,10 @@ function renderizarHistorico() {
 
   const defesasHistorico = todasDefesas;
 
-  // Mapeia os dados para HTML
   const htmlTabela = defesasHistorico
     .map((defesa) => criarLinhaDefesa(defesa, todosUsuarios))
     .join("");
 
-  // Injeta no DOM (o ID do tbody é 'lista-historico')
   const tbody = document.getElementById("lista-historico");
   if (defesasHistorico.length > 0) {
     tbody.innerHTML = htmlTabela;
