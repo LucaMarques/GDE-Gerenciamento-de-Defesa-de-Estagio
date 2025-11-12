@@ -25,7 +25,7 @@ body{
 
 .cabecalho {
     width: 100%;
-    background: linear-gradient(90deg, #fff 0%, #38ef7d 60%, #12c2e9 100%);
+    background-color: var(--color-header);
     padding: 15px 20px;
     display: flex;
     top: 0;
@@ -45,12 +45,12 @@ body{
     width: 75px;
     height: auto;
     display: block;
-    filter: brightness(0.95) grayscale(0.1) contrast(1.1) drop-shadow(0 0 2px #17406a);
+        color: var(--color-text-light);
 }
 
 .botoes {
     display: flex;
-    justify-content: flex-end;
+        color: var(--color-text-light);
     align-items: center;
     gap: 1rem;
 }
@@ -208,8 +208,8 @@ body{
 }
 
 .footer {
-    background: linear-gradient(90deg, #fff 0%, #38ef7d 60%, #12c2e9 100%);
-    color: #17406a;
+    background-color: var(--color-header);
+    color: var(--color-text-light);
     padding: 40px 20px 20px;
     text-align: center;
 }
@@ -245,7 +245,7 @@ body{
 .footer-description {
     margin-top: 0.75rem;
     font-size: 0.95rem;
-    color: #ccc;
+    color: var(--color-text-light);
 }
 
 .footer-social-nav {
@@ -256,7 +256,7 @@ body{
     font-size: 1.1rem;
     font-weight: 600;
     margin-bottom: 1rem;
-    color: var(--color-text--ligth);
+    color: var(--color-text-light);
 }
 
 .footer-social-list {
@@ -273,7 +273,7 @@ body{
     align-items: center;
     gap: 0.4rem;
     font-size: 0.95rem;
-    color: var(--color-text--ligth);
+    color: var(--color-text-light);
     text-decoration: none;
     transition: color 0.3s ease;
 }
@@ -286,7 +286,7 @@ body{
     text-align: center;
     margin-top: 2rem;
     font-size: 0.85rem;
-    color: #17406a;
+    color: var(--color-text-light);
     border-top: 1px solid rgba(35, 90, 141, 0.1);
     padding-top: 1rem;
 }
