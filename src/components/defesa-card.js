@@ -6,6 +6,7 @@ export function criarCard(defesa){
       <div class="container-info">
         <div>
           <p>Orientador: ${defesa.orientador}</p>
+          <p>Status: ${defesa.status}</p>
           <p>Data: ${defesa.data}</p>
           <p>Horário: ${defesa.horario}</p>
         </div>
