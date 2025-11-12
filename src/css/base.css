@@ -80,6 +80,95 @@ body{
     transform: scale(1.1);
 }
 
+.notificacao {
+  position: relative;
+  display: inline-block;
+}
+
+.menu-notificacao {
+    position: absolute;
+    top: 45px;
+    right: 0;
+    width: 300px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: -8px 0px 32px rgba(35,90,141,0.18);
+    border: 1px solid #e6e9ef;
+    display: none;
+    flex-direction: column;
+    z-index: 1000;
+    overflow: hidden;
+    animation: slideDown 0.3s ease;
+}
+
+.menu-notificacao.aberta {
+    display: flex;
+}
+
+.menu-notificacao h3 {
+    background: var(--color-header);
+    color: var(--color-text-light);
+    padding: 12px;
+    font-size: 1rem;
+    text-align: center;
+    font-weight: 500;
+}
+
+.menu-notificacao ul {
+    list-style: none;
+    max-height: 250px;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0;
+}
+
+.menu-notificacao ul li {
+    padding: 10px 14px;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #eee;
+    color: #17406a;
+    transition: background 0.2s;
+}
+
+.menu-notificacao ul li:hover {
+    background: #f8fff7;
+}
+
+/* ======== ANIMAÇÃO ======== */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ======== BADGE ======== */
+.btn-notificacao {
+    position: relative;
+    display: inline-block;
+}
+
+.badge {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    background-color: #ff4d4d;
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 50%;
+    box-shadow: 0 0 6px rgba(0,0,0,0.2);
+}
+
+.notificacao-item.lida {
+  background-color: var(--color-primary);        
+}
+
 /* Menu lateral moderno */
 .menu-lateral {
     height: 100%;
