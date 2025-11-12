@@ -25,13 +25,13 @@ body{
 
 .cabecalho {
     width: 100%;
-    background: linear-gradient(90deg, #fff 0%, #38ef7d 60%, #12c2e9 100%);
+    background-color: var(--color-header);
     padding: 15px 20px;
     display: flex;
     top: 0;
     left: 0;
     z-index: 1000;
-    color: #17406a;
+    color: var(--color-text-light);
 }
 
 .container-header {
@@ -45,7 +45,7 @@ body{
     width: 75px;
     height: auto;
     display: block;
-    filter: brightness(0.95) grayscale(0.1) contrast(1.1) drop-shadow(0 0 2px #17406a);
+    filter: none;
 }
 
 .botoes {
@@ -208,8 +208,8 @@ body{
 }
 
 .footer {
-    background: linear-gradient(90deg, #fff 0%, #38ef7d 60%, #12c2e9 100%);
-    color: #17406a;
+    background-color: var(--color-header);
+    color: var(--color-text-light);
     padding: 40px 20px 20px;
     text-align: center;
 }
@@ -286,8 +286,8 @@ body{
     text-align: center;
     margin-top: 2rem;
     font-size: 0.85rem;
-    color: #17406a;
-    border-top: 1px solid rgba(35, 90, 141, 0.1);
+    color: #ccc;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     padding-top: 1rem;
 }
 
