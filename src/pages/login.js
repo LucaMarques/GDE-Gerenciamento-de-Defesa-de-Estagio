@@ -36,7 +36,10 @@ document.addEventListener("DOMContentLoaded", () => {
             return
         }
 
-        const novoUsuario = { nome, matricula, email, senha, tipo };
+        const novoUsuario = {
+            nome, matricula, email, senha, tipo, curso: "", 
+            cpf: "", sexo: "", nascimento: "", telefone: "", endereco: ""
+        };
         usuarios.push(novoUsuario);
         localStorage.setItem('usuarios', JSON.stringify(usuarios))
         alert('Cadastro realizado com sucesso!')
