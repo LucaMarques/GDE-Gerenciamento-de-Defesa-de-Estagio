@@ -23,21 +23,21 @@ document.addEventListener('DOMContentLoaded'  , () => {
   // Cards conforme o tipo
   const opcoesPorUsuario = {
     aluno: [
-      { icon: "fa-user", text: "Meus dados" },
-      { icon: "fa-plus", text: "Solicitar defesa" },
-      { icon: "fa-calendar-days", text: "Agenda de defesas" },
-      { icon: "fa-file-lines", text: "Histórico" }
+      { icon: "fa-user", text: "Meus dados", pagina: "perfil.html"},
+      { icon: "fa-plus", text: "Solicitar defesa", pagina: "defesas.html" },
+      { icon: "fa-calendar-days", text: "Agenda de defesas", pagina: "defesas.html"  },
+      { icon: "fa-file-lines", text: "Histórico", pagina: "defesas.html"  }
     ],
     orientador: [
-      { icon: "fa-list-check", text: "Avaliar defesas" },
-      { icon: "fa-calendar", text: "Minhas defesas" },
-      { icon: "fa-chart-line", text: "Relatórios" }
+      { icon: "fa-list-check", text: "Avaliar defesas", pagina: "defesas.html"  },
+      { icon: "fa-calendar", text: "Minhas defesas", pagina: "defesas.html"  },
+      { icon: "fa-chart-line", text: "Relatórios", pagina: "defesas.html"  }
     ],
     coordenador: [
-      { icon: "fa-users-gear", text: "Gerenciar usuários" },
-      { icon: "fa-clipboard-list", text: "Gerenciar defesas" },
-      { icon: "fa-database", text: "Gerenciar dados" },
-      { icon: "fa-chart-pie", text: "Painel de estatísticas" }
+      { icon: "fa-users-gear", text: "Gerenciar usuários", pagina: "defesas.html"  },
+      { icon: "fa-clipboard-list", text: "Gerenciar defesas", pagina: "defesas.html"  },
+      { icon: "fa-database", text: "Gerenciar dados", pagina: "defesas.html"  },
+      { icon: "fa-chart-pie", text: "Painel de estatísticas", pagina: "defesas.html"  }
     ]
   };
 
@@ -53,6 +53,12 @@ document.addEventListener('DOMContentLoaded'  , () => {
       <i class="fa-solid ${opcao.icon}"></i>
       <p>${opcao.text}</p>
     `;
+
+    // Redireciona ao clicar no card
+    card.addEventListener("click", () => {
+      window.location.href = opcao.pagina;
+    });
+
     cardsContainer.appendChild(card);
   });
 });

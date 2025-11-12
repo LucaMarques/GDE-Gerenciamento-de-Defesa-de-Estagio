@@ -302,6 +302,7 @@ body{
     color: var(--color-text-light);
     padding: 40px 20px 20px;
     text-align: center;
+    margin-top: auto;
 }
 
 .container-footer {

@@ -5,7 +5,7 @@ export function criaHeader() {
     header.innerHTML = `
         <header class="cabecalho" id="header">
             <div class="container-header">
-                <a href="/GDE-Gerenciamento-de-Defesa-de-Estagio/index.html" class="header-logo">
+                <a href="/GDE-Gerenciamento-de-Defesa-de-Estagio/dashboard.html" class="header-logo">
                     <img src="./logo.png" alt="Logo GDE">
                 </a>
 

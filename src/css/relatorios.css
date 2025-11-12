@@ -1,0 +1,65 @@
+#main-content {
+  flex-grow: 1;
+  padding: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 20px auto;
+  box-sizing: border-box;
+}
+
+#main-content h2 {
+  color: #004a91;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.btn-toggle-relatorio {
+  background-color: #004a91;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  margin-top: 1.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.btn-toggle-relatorio:hover {
+  background-color: #003366;
+  transform: translateY(-2px);
+}
+
+.container-relatorio-lista {
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
+  border-top: 1px solid #eee;
+}
+
+.card-defesa {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.card-defesa h3 {
+  margin-top: 0;
+  color: #003366;
+}
+.card-defesa p {
+  margin: 0.5rem 0;
+  line-height: 1.6;
+}
+.card-defesa .status-aberto {
+  color: #c9302c; /* Vermelho para pendentes */
+  font-weight: bold;
+}
+.card-defesa .status-concluida {
+  color: #4cae4c; /* Verde para concluídos */
+  font-weight: bold;
+}
