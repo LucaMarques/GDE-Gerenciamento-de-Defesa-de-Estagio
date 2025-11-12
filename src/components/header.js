@@ -43,12 +43,12 @@ export function criaHeader() {
                     <i class="bi bi-person-fill"></i>
                     Meu perfil
                 </a>
-                <a href="../dashboard.html">
+                <a href="/GDE-Gerenciamento-de-Defesa-de-Estagio/defesas">
                     <i class="bi bi-calendar-fill"></i>
                     Defesas
                 </a>
                 <!-- Adiciona uma classe especial ao link de logout -->
-                <a href="#" class="logout-link">
+                <a href="/GDE-Gerenciamento-de-Defesa-de-Estagio/login" class="logout-link">
                     <i class="bi bi-box-arrow-right"></i>
                     Logout
                 </a>

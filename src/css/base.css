@@ -95,7 +95,7 @@ body{
     border-bottom-left-radius: 24px;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     position: fixed;
     z-index: 1001;
 }
@@ -108,6 +108,7 @@ body{
 
 .menu-lateral a {
     padding: 14px 28px 14px 40px;
+    width: 80%;
     text-decoration: none;
     font-size: 1.15rem;
     color: #17406a;
@@ -115,7 +116,7 @@ body{
     align-items: center;
     gap: 16px;
     border-radius: 12px;
-    margin: 18px 16px;
+    margin: 10px 13px;
     font-weight: 500;
     letter-spacing: 0.01em;
     transition: background 0.2s, color 0.2s, transform 0.2s;
@@ -126,7 +127,7 @@ body{
 }
 
 .menu-lateral a:hover {
-    background: linear-gradient(90deg, #e9eef6 60%, #38ef7d 100%);
+    background: linear-gradient(90deg, #f4fff3 40%, #38ef7d 100%);
     color: #235a8d;
     transform: translateX(-4px) scale(1.04);
     box-shadow: 0 4px 16px rgba(35,90,141,0.10);

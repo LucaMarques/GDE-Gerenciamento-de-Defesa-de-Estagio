@@ -1,4 +1,7 @@
+import { montarLayout } from "../main";
+
 document.addEventListener('DOMContentLoaded', () => {
+  montarLayout();
   const btnAlterar = document.querySelector('.btn-alterar-dados');
   const camposKeys = [
     'matricula', 'curso', 'email', 'cpf', 'sexo', 'nascimento', 'telefone', 'endereco'
