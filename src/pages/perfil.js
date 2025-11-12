@@ -7,6 +7,31 @@ document.addEventListener('DOMContentLoaded', () => {
     'matricula', 'curso', 'email', 'cpf', 'sexo', 'nascimento', 'telefone', 'endereco'
   ];
 
+
+  // puxa o usuario logado do local storage
+  const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
+
+  // verifica se esta logado e passa os dados
+  if (usuarioLogado) {
+    localStorage.setItem('nome', usuarioLogado.nome || '');
+    localStorage.setItem('matricula', usuarioLogado.matricula || '');
+    localStorage.setItem('email', usuarioLogado.email || '');
+    localStorage.setItem('curso', usuarioLogado.curso || '');
+    localStorage.setItem('cpf', usuarioLogado.cpf || '');
+    localStorage.setItem('sexo', usuarioLogado.sexo || '');
+    localStorage.setItem('nascimento', usuarioLogado.nascimento || '');
+    localStorage.setItem('telefone', usuarioLogado.telefone || '');
+    localStorage.setItem('endereco', usuarioLogado.endereco || '');
+  } 
+  else {
+    alert("Você não está logado. Faça login!");
+    window.location.href = "login.html";
+  }
+
+  // tira os dados fixos do html
+  const campos = document.querySelectorAll('.campo-valor');
+  campos.forEach(campo => campo.textContent = '');
+
   function carregarDados() {
     const campos = document.querySelectorAll('.campo-valor');
     campos.forEach((campo, i) => {
@@ -15,6 +40,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
   carregarDados();
+
+  const nomePerfil = document.querySelector('.nome-perfil');
+  const tipoUsuario = document.querySelector('.tipo-usuario');
+  
+  nomePerfil.textContent = usuarioLogado.nome;
+  tipoUsuario.textContent = usuarioLogado.tipo;
+  
+
 
   btnAlterar.addEventListener('click', () => {
     // Buscar os campos atuais toda vez que for editar
@@ -101,6 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function salvarDados() {
     const inputs = document.querySelectorAll('.input-edicao');
     const valores = Array.from(inputs).map(input => input.value);
+
     if (!validarCampos(valores)) return;
     inputs.forEach((input, i) => {
       const span = document.createElement('span');
@@ -115,6 +149,20 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       input.replaceWith(span);
     });
+
+    let usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+    camposKeys.forEach((key, i) => {
+      usuarioLogado[key] = valores[i];
+    });
+    localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
+
+    let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+    const idx = usuarios.findIndex(u => u.nome === usuarioLogado.nome);
+    if (idx !== -1) {
+      usuarios[idx] = usuarioLogado;
+      localStorage.setItem('usuarios', JSON.stringify(usuarios));
+    }
+
     document.querySelector('.btn-salvar-dados').remove();
     btnAlterar.style.display = 'inline-block';
   }
