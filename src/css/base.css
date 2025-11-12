@@ -45,12 +45,12 @@ body{
     width: 75px;
     height: auto;
     display: block;
-    filter: none;
+        color: var(--color-text-light);
 }
 
 .botoes {
     display: flex;
-    justify-content: flex-end;
+        color: var(--color-text-light);
     align-items: center;
     gap: 1rem;
 }
@@ -245,7 +245,7 @@ body{
 .footer-description {
     margin-top: 0.75rem;
     font-size: 0.95rem;
-    color: #ccc;
+    color: var(--color-text-light);
 }
 
 .footer-social-nav {
@@ -256,7 +256,7 @@ body{
     font-size: 1.1rem;
     font-weight: 600;
     margin-bottom: 1rem;
-    color: var(--color-text--ligth);
+    color: var(--color-text-light);
 }
 
 .footer-social-list {
@@ -273,7 +273,7 @@ body{
     align-items: center;
     gap: 0.4rem;
     font-size: 0.95rem;
-    color: var(--color-text--ligth);
+    color: var(--color-text-light);
     text-decoration: none;
     transition: color 0.3s ease;
 }
@@ -286,8 +286,8 @@ body{
     text-align: center;
     margin-top: 2rem;
     font-size: 0.85rem;
-    color: #ccc;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--color-text-light);
+    border-top: 1px solid rgba(35, 90, 141, 0.1);
     padding-top: 1rem;
 }
 
