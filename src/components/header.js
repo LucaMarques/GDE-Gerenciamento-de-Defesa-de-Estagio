@@ -17,9 +17,15 @@ export function criaHeader() {
                     </div>
 
                     <div class="notificacao">
-                        <a class="btn-notificacao">
+                        <a class="btn-notificacao" id="btn-notificacao">
                            <i class="bi bi-bell-fill"></i>
+                           <span class="badge" id="contador">3</span>
                         </a>
+
+                        <div class="menu-notificacao" id="menu-notificacao">
+                            <h3>Notificações</h3>
+                            <ul id="lista-notificacao"></ul>
+                        </div>
                     </div> 
 
                     <div class="menu-mobile">
