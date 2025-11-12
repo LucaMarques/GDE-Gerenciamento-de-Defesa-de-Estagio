@@ -5,13 +5,13 @@ export function criaHeader() {
     header.innerHTML = `
         <header class="cabecalho" id="header">
             <div class="container-header">
-                <a href="#" class="header-logo">
-                    <img src="./public/logo.png" alt="Logo GDE">
+                <a href="/GDE-Gerenciamento-de-Defesa-de-Estagio/index.html" class="header-logo">
+                    <img src="./logo.png" alt="Logo GDE">
                 </a>
 
                 <div class="botoes">
                     <div class="usuario">
-                        <a href="../perfil.html" class="btn-usuario">
+                        <a href="/GDE-Gerenciamento-de-Defesa-de-Estagio/perfil.html" class="btn-usuario">
                             <i class="bi bi-person-fill"></i>
                         </a>
                     </div>
@@ -35,11 +35,11 @@ export function criaHeader() {
                 <a href="javascript:void(0)" class="btn-fechar" id="btn-fechar">
                     <i class="bi bi-x-lg"></i>
                 </a>
-                <a href="../dashboard.html">
+                <a href="/GDE-Gerenciamento-de-Defesa-de-Estagio/dashboard.html">
                     <i class="bi bi-house-door-fill"></i>
                     Inicio
                 </a>
-                <a href="../perfil.html">
+                <a href="/GDE-Gerenciamento-de-Defesa-de-Estagio/perfil.html">
                     <i class="bi bi-person-fill"></i>
                     Meu perfil
                 </a>
