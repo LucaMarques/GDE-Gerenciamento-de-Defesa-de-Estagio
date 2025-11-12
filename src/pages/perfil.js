@@ -4,8 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
   montarLayout();
   const btnAlterar = document.querySelector('.btn-alterar-dados');
   const camposKeys = [
-    'nome', 'matricula', 'curso', 'email', 'cpf', 'sexo', 'nascimento', 'telefone', 'endereco'
+    'matricula', 'curso', 'email', 'cpf', 'sexo', 'nascimento', 'telefone', 'endereco'
   ];
+
 
   // puxa o usuario logado do local storage
   const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
