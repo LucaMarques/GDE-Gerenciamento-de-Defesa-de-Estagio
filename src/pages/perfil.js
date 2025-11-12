@@ -148,6 +148,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
 
+    let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+    const idx = usuarios.findIndex(u => u.nome === usuarioLogado.nome);
+    if (idx !== -1) {
+      usuarios[idx] = usuarioLogado;
+      localStorage.setItem('usuarios', JSON.stringify(usuarios));
+    }
+
     document.querySelector('.btn-salvar-dados').remove();
     btnAlterar.style.display = 'inline-block';
   }
