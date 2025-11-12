@@ -41,6 +41,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   carregarDados();
 
+  const nomePerfil = document.querySelector('.nome-perfil');
+  const tipoUsuario = document.querySelector('.tipo-usuario');
+  
+  nomePerfil.textContent = usuarioLogado.nome;
+  tipoUsuario.textContent = usuarioLogado.tipo;
+  
+
+
   btnAlterar.addEventListener('click', () => {
     // Buscar os campos atuais toda vez que for editar
     const camposAtuais = document.querySelectorAll('.campo-valor');
