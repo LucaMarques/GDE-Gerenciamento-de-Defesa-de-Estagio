@@ -3,11 +3,12 @@ export function criaFooter() {
     footer.classList.add("footer");
     
     footer.innerHTML = `
-        <footer class="footer" id="footer">
+        <footer class="foot
+        er" id="footer">
         <div class="container-footer">
             <div class="footer-section">
-                <img src="./logo.png" alt="Logo GDE">
-                <h2>GDE - Gerenciamento de defesas de Estágio</h2>
+                <img src="./public/logo.png" alt="Logo GDE">
+                <h2>GDE - Gerenciamento de Defesas de Estágio</h2>
             </div>
 
             <nav class="footer-social-nav">

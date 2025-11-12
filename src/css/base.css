@@ -23,7 +23,7 @@ body{
     color: var(--color-text)
 }
 
-.cabecalho{
+.cabecalho {
     width: 100%;
     background-color: var(--color-header);
     padding: 15px 20px;
@@ -31,6 +31,7 @@ body{
     top: 0;
     left: 0;
     z-index: 1000;
+    color: var(--color-text-light);
 }
 
 .container-header {
@@ -41,9 +42,10 @@ body{
 }
 
 .container-header img{
-    width: 55px;
+    width: 75px;
     height: auto;
     display: block;
+    filter: none;
 }
 
 .botoes {
@@ -78,49 +80,124 @@ body{
     transform: scale(1.1);
 }
 
+/* Menu lateral moderno */
 .menu-lateral {
     height: 100%;
-    width: 0; /* Começa escondido */
-    position: fixed;
-    z-index: 1001;
+    width: 0;
     top: 0;
     right: 0;
-    background-color: var(--color-header);
+    background: #fff;
     overflow-x: hidden;
-    transition: width 0.5s;
-    padding-top: 60px;
-    box-shadow: -5px 0px 15px rgba(0, 0, 0, 0);
+    transition: width 0.4s cubic-bezier(.77,0,.18,1);
+    padding-top: 100px;
+    box-shadow: -8px 0px 32px rgba(35,90,141,0.18);
+    border-top-left-radius: 24px;
+    border-bottom-left-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: fixed;
+    z-index: 1001;
 }
 
 .menu-lateral.aberto {
-    width: 250px;
-    box-shadow: -5px 0px 15px rgba(0, 0, 0, 0.5);
+    width: 220px;
+    box-shadow: -8px 0px 40px rgba(35,90,141,0.22);
+    z-index: 1002;
 }
 
 .menu-lateral a {
-    padding: 8px 8px 8px 32px;
+    padding: 14px 28px 14px 40px;
     text-decoration: none;
-    font-size: 25px;
-    color: var(--color-text-light);
-    display: block;
-    transition: 0.3s;
+    font-size: 1.15rem;
+    color: #17406a;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-radius: 12px;
+    margin: 18px 16px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    box-shadow: 0 2px 8px rgba(35,90,141,0.04);
 }
 
 .menu-lateral a:hover {
-    color: var(--color-primary);
+    background: linear-gradient(90deg, #e9eef6 60%, #38ef7d 100%);
+    color: #235a8d;
+    transform: translateX(-4px) scale(1.04);
+    box-shadow: 0 4px 16px rgba(35,90,141,0.10);
+}
+
+.menu-lateral a i {
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    margin-right: 0;
+    margin-left: 0;
+    vertical-align: middle;
+    color: #17406a;
+    transition: color 0.2s;
+}
+
+.menu-lateral a:hover i {
+    color: #12e961;
 }
 
 /* Botão de fechar (X) */
-.menu-lateral .btn-fechar i {
+.menu-lateral .btn-fechar {
     position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 30px;
-    margin-top: 20px;
+    top: 28px;
+    right: 28px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1100;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.menu-lateral .btn-fechar:hover {
+    background: #e9eef6;
+}
+
+.menu-lateral .btn-fechar i {
+    font-size: 22px;
+    color: #38ef7d;
+    background: transparent;
+    border-radius: 50%;
+    box-shadow: none;
+    padding: 0;
+    transition: color 0.2s;
+    pointer-events: none;
+}
+
+.menu-lateral .btn-fechar:hover i {
+    color: #235a8d;
 }
 
 .menu-lateral i {
-    font-size: 20px;
+    font-size: 1.5em;
+    color: #12c2e9;
+    transition: color 0.2s;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.menu-lateral a:hover i {
+    color: #38ef7d;
+    z-index: 1000;
 }
 
 .conteudo{
@@ -209,9 +286,16 @@ body{
     text-align: center;
     margin-top: 2rem;
     font-size: 0.85rem;
-    color: #aaa;
+    color: #ccc;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     padding-top: 1rem;
+}
+
+.menu-lateral .logout-link {
+    margin-top: 200px;
+    margin-bottom: 10px;
+    background: #f8f8f8;
+    border-radius: 12px;
 }
 
 @media (max-width: 768px) {
@@ -229,7 +313,7 @@ body{
     }
 
     .menu-lateral.aberto {
-        width: 200px;
+        width: 140px;
     }
 
     .menu-lateral a {

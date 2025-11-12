@@ -1,9 +1,7 @@
-import 'bootstrap-icons/font/bootstrap-icons.css'
-import './css/base.css'
 import { criaHeader } from "./components/header.js";
 import { criaFooter } from "./components/footer.js";
 
-export function montarLayout() {
+document.addEventListener("DOMContentLoaded", () => {
     // Cria o header e o footer em todas as páginas
     const header = criaHeader();
     const footer = criaFooter();
@@ -11,7 +9,7 @@ export function montarLayout() {
     // Adiciona no inicio e no final do body
     document.body.prepend(header);
     document.body.append(footer);
- 
+
     // Menu lateral
     const btnMenu = document.getElementById('btn-menu');
     const menuLateral = document.getElementById('menu-lateral');
@@ -40,5 +38,6 @@ export function montarLayout() {
             window.location.href = './login.html';
         });
     }
-}
+});
+
 

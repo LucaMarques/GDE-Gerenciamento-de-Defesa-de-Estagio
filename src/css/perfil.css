@@ -33,7 +33,6 @@ body {
     justify-content: flex-start;
 }
 
-/* Card vertical para foto e nome */
 .card {
     background: #fff;
     border-radius: 16px;
@@ -204,7 +203,25 @@ body {
     background: #17406a;
 }
 
-/* Nova linha para dois campos lado a lado */
+.btn-salvar-dados {
+    background: #235a8d;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 7px 14px;
+    font-size: 1em;
+    font-weight: 550;
+    cursor: pointer;
+    transition: background 0.2s;
+    box-shadow: 0 2px 8px rgba(35,90,141,0.08);
+    margin-bottom: 20px;
+    align-self: flex-end;
+}
+
+.btn-salvar-dados:hover {
+    background: #17406a;
+}
+
 .linha-campos {
     display: flex;
     flex-direction: row;
@@ -297,7 +314,25 @@ body {
     min-width: 100px;
 }
 
-/* Estilos exclusivos para a página de perfil */
+.input-edicao {
+  padding: 8px 12px;
+  border: 1.5px solid #235a8d;
+  border-radius: 8px;
+  background: #f8fbff;
+  color: #17406a;
+  font-size: 1em;
+  font-family: inherit;
+  margin: 4px 0;
+  outline: none;
+  box-shadow: 0 1px 6px rgba(35,90,141,0.07);
+  transition: border-color 0.2s;
+}
+
+.input-edicao:focus {
+  border-color: #17406a;
+  background: #e9eef6;
+}
+
 @media (max-width: 900px) {
     .perfil-container {
         display: flex;
@@ -397,6 +432,10 @@ body {
     }
 
     .btn-alterar-dados {
+        font-size: 0.9em;
+    }
+
+    .btn-salvar-dados {
         font-size: 0.9em;
     }
 
