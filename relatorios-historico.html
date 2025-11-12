@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Relatório - Histórico de Defesas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="app-container">
+      <main class="app-main">
+        <h1>Histórico de Defesas</h1>
+
+        <a
+          href="/relatorios.html"
+          class="btn-voltar"
+          style="
+            text-decoration: none;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+          "
+        >
+          &larr; Voltar para Relatórios
+        </a>
+
+        <div class="tabela-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Aluno</th>
+                <th>Orientador</th>
+                <th>Data</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+
+            <tbody id="lista-historico"></tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+
+    <script type="module" src="/js/relatorios-historico.js"></script>
+  </body>
+</html>
