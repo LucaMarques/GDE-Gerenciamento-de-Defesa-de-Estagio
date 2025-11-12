@@ -315,17 +315,21 @@ body {
 }
 
 .input-edicao {
-  padding: 8px 12px;
-  border: 1.5px solid #235a8d;
-  border-radius: 8px;
-  background: #f8fbff;
-  color: #17406a;
-  font-size: 1em;
-  font-family: inherit;
-  margin: 4px 0;
-  outline: none;
-  box-shadow: 0 1px 6px rgba(35,90,141,0.07);
-  transition: border-color 0.2s;
+    padding: 8px 12px;
+    border: 1.5px solid #235a8d;
+    border-radius: 8px;
+    background: #f8fbff;
+    color: #17406a;
+    font-size: 1em;
+    font-family: inherit;
+    margin: 4px 0;
+    outline: none;
+    box-shadow: 0 1px 6px rgba(35,90,141,0.07);
+    transition: border-color 0.2s;
+    flex: 1 1 45%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .input-edicao:focus {
