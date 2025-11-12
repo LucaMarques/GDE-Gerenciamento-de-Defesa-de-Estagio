@@ -1,8 +1,6 @@
-import 'bootstrap-icons/font/bootstrap-icons.css'
-import './css/base.css'
 import { criaHeader } from "./components/header.js";
 import { criaFooter } from "./components/footer.js";
- 
+
 document.addEventListener("DOMContentLoaded", () => {
     // Cria o header e o footer em todas as páginas
     const header = criaHeader();
@@ -11,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Adiciona no inicio e no final do body
     document.body.prepend(header);
     document.body.append(footer);
- 
+
     // Menu lateral
     const btnMenu = document.getElementById('btn-menu');
     const menuLateral = document.getElementById('menu-lateral');
@@ -40,7 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
             window.location.href = './login.html';
         });
     }
-
 });
 
 

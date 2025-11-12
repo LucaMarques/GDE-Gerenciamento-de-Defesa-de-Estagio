@@ -1,18 +1,15 @@
-/* Reset básico para evitar problemas de espaçamento */
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Fundo geral e fonte do site */
 body {
     background: linear-gradient(135deg, #e9eef6 0%, #c3d0e6 100%);
     color: #222;
     font-family: 'Segoe UI', 'Arial', sans-serif;
 }
 
-/* Container principal do perfil (envolve tudo) */
 .perfil-container {
     background: none;
     padding: 20px;
@@ -27,7 +24,6 @@ body {
     gap: 48px;
 }
 
-/* Linha principal que divide em dois cards: esquerda (foto) e direita (dados) */
 .perfil-row {
     display: flex;
     flex-direction: row;
@@ -37,7 +33,6 @@ body {
     justify-content: flex-start;
 }
 
-/* Card vertical para foto e nome do usuário */
 .card {
     background: #fff;
     border-radius: 16px;
@@ -51,7 +46,6 @@ body {
     align-items: center;
 }
 
-/* Card da esquerda: foto, nome, tipo de usuário, status */
 .perfil-card-esquerda {
     justify-content: flex-start;
     align-items: center;
@@ -61,7 +55,6 @@ body {
     margin-left: 0;
 }
 
-/* Foto de perfil (vertical) */
 .foto-perfil-vertical {
     width: 140px;
     height: 140px;
@@ -74,7 +67,6 @@ body {
     background: #e9eef6;
 }
 
-/* Nome do usuário */
 .nome-perfil {
     font-size: 1.35em;
     color: #235a8d;
@@ -85,7 +77,6 @@ body {
     text-align: center;
 }
 
-/* Tipo de usuário (Aluno, Professor, etc) */
 .tipo-usuario {
     font-size: 1em;
     color: #17406a;
@@ -98,7 +89,6 @@ body {
     border-radius: 8px;
 }
 
-/* Status da defesa (Em trâmite, Pendente, Concluído) */
 .campo-status {
     display: flex;
     align-items: center;
@@ -113,7 +103,6 @@ body {
     width: 100%;
 }
 
-/* Estilo do status da defesa */
 .status-estagio {
     font-weight: 600;
     padding: 6px 18px;
@@ -143,7 +132,6 @@ body {
     border: 1px solid #c3e6cb;
 }
 
-/* Card da direita: informações pessoais */
 .perfil-card-direita {
     flex: 1;
     width: 100%;
@@ -162,7 +150,6 @@ body {
     box-sizing: border-box;
 }
 
-/* Título das informações pessoais */
 .perfil-card-direita h3 {
     color: #17406a;
     font-size: 1.18em;
@@ -171,7 +158,6 @@ body {
     letter-spacing: 0.01em;
 }
 
-/* Container dos campos de informações pessoais */
 .info-campos {
     width: 100%;
     display: flex;
@@ -179,7 +165,6 @@ body {
     gap: 18px;
 }
 
-/* Cabeçalho das informações pessoais (título + botão) */
 .header-info-pessoais {
     display: flex;
     align-items: center;
@@ -199,7 +184,6 @@ body {
     margin-left: 10px;
 }
 
-/* Botão para editar os dados do perfil */
 .btn-alterar-dados {
     background: #235a8d;
     color: #fff;
@@ -219,7 +203,6 @@ body {
     background: #17406a;
 }
 
-/* Botão de salvar dados, igual ao de alterar */
 .btn-salvar-dados {
     background: #235a8d;
     color: #fff;
@@ -239,14 +222,12 @@ body {
     background: #17406a;
 }
 
-/* Linha que agrupa dois campos lado a lado */
 .linha-campos {
     display: flex;
     flex-direction: row;
     gap: 18px;
 }
 
-/* Cada campo individual (matrícula, curso, etc) */
 .campo {
     display: flex;
     flex-direction: row;
@@ -267,7 +248,6 @@ body {
     max-width: 100%;
 }
 
-/* Label do campo (ex: "Matrícula:") */
 .campo-label {
     color: #17406a;
     font-weight: 600;
@@ -275,13 +255,65 @@ body {
     margin-right: 8px;
 }
 
-/* Valor do campo (ex: "202514320033") */
 .campo-valor {
     color: #235a8d;
     font-weight: 400;
 }
 
-/* Estilo para os campos de edição do perfil */
+.perfil-col {
+    flex: 1;
+}
+
+.perfil-img-col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.perfil-container:hover {
+    box-shadow: 0 12px 40px rgba(35,90,141,0.22);
+}
+
+.foto-perfil {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #235a8d;
+    box-shadow: 0 2px 12px rgba(35,90,141,0.10);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.foto-perfil:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 24px rgba(35,90,141,0.18);
+}
+
+.info-perfil {
+    width: 100%;
+    text-align: left;
+    font-size: 1.15rem;
+    color: #235a8d;
+    background: #f8fbff;
+    padding: 24px 20px;
+    border-radius: 10px;
+    box-shadow: 0 1px 8px rgba(35,90,141,0.07);
+    letter-spacing: 0.01em;
+}
+
+.info-perfil p {
+    margin: 12px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.08em;
+}
+
+.info-perfil strong {
+    color: #17406a;
+    min-width: 100px;
+}
+
 .input-edicao {
   padding: 8px 12px;
   border: 1.5px solid #235a8d;
@@ -301,7 +333,6 @@ body {
   background: #e9eef6;
 }
 
-/* Responsividade para telas menores (até 900px) */
 @media (max-width: 900px) {
     .perfil-container {
         display: flex;
@@ -345,7 +376,6 @@ body {
     }
 }
 
-/* Responsividade para celulares (até 600px) */
 @media (max-width: 600px) {
     .perfil-container {
         flex-direction: column;
