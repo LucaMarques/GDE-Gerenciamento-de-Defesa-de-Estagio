@@ -3,7 +3,7 @@
     --font-secondary: 'Roboto', sans-serif;
 
     --color-bg: #18786e;    /* fundo */
-    --color-header: #1c1c1c;   /* header e footer ou #1c1c1c*/
+    --color-header: #2A2F31;   /* header e footer ou #1c1c1c*/
     --color-primary: #0fa394;  /* hover e destaques */
      --color-primary-light: #17c7b5;
     --color-muted: #d9d9d9;     /* Seções */
@@ -279,7 +279,7 @@ body{
 }
 
 .menu-lateral a:hover {
-    background: linear-gradient(90deg, #f4fff3 5%, var(--color-primary) 90%);
+    background: linear-gradient(90deg, #b5b2b2 5%, var(--color-primary) 90%);
     color: #235a8d;
     transform: translateX(-4px) scale(1.04);
     box-shadow: 0 4px 16px rgba(35,90,141,0.10);
@@ -322,7 +322,7 @@ body{
 }
 
 .menu-lateral .btn-fechar:hover {
-    background: var(--color-text-light);;
+    background: #b5b2b2;
 }
 
 .menu-lateral .btn-fechar i {
