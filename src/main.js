@@ -76,6 +76,10 @@ export function montarLayout(){
             if (!menuNotificacao.contains(e.target) && !btnNotificacao.contains(e.target)) {
                 menuNotificacao.classList.remove("aberta");
             }
+
+        menuNotificacao.addEventListener("click", (e) => {
+            e.stopPropagation();
+            });
         });
     }
 
