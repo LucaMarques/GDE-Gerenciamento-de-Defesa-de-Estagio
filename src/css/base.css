@@ -2,11 +2,12 @@
     --font-primary: 'Poppins', sans-serif;
     --font-secondary: 'Roboto', sans-serif;
 
-    --color-bg: #fff;    /* fundo */
-    --color-header: #1C1C1C;    /* header e footer */
-    --color-primary: #5cb85c;  /* hover e destaques */
+    --color-bg: #18786e;    /* fundo */
+    --color-header: #2A2F31;   /* header e footer ou #1c1c1c*/
+    --color-primary: #0fa394;  /* hover e destaques */
+     --color-primary-light: #17c7b5;
     --color-muted: #d9d9d9;     /* Seções */
-    --color-text-light: #fff;  /* texto ou icons branco */
+    --color-text-light: #E0E0E0;  /* texto ou icons branco */
     --color-text-black: #000; /* texto ou icons preto */
     --color-icon: #e5e5e8;   /* icons branco e input */
     --header-height: 64px; /* altura padrão do header fixo (ajustável) */
@@ -20,14 +21,12 @@
 
 body{
     font-family: var(--font-primary);
-    background-color: var(--color-bg);
     color: var(--color-text);
-    
 }
 
 .cabecalho {
     width: 100%;
-    background-color: var(--color-header);
+    background: var(--color-header);
     padding: 15px 20px;
     display: flex;
     top: 0;
@@ -70,7 +69,7 @@ body{
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: var(--color-text-light);
     text-decoration: none;
     transition: color 0.3s ease;
     overflow: visible; 
@@ -79,7 +78,7 @@ body{
 .btn-menu i,
 .btn-notificacao i {
     font-size: 30px;
-    color: white;
+    color: var(--color-text-light);
     transition: transform 0.3s ease, color 0.3s ease;
 }
 
@@ -96,21 +95,21 @@ body{
     transform: translateX(-50%);
     width: 0%;
     height: 3px;
-    background-color: white;
+    background-color: var(--color-text-light);
     border-radius: 4px;
     transition: width 0.3s ease, background-color 0.3s ease;
 }
 
 .btn-menu:hover i,
 .btn-notificacao:hover i {
-    color: #5cb85c;
+    color: var(--color-primary);
     transform: scale(1.1);
 }
 
 .btn-menu:hover::after,
 .btn-notificacao:hover::after {
     width: 70%; 
-    background-color: #5cb85c;
+    background-color: var(--color-primary);
 }
 
 .notificacao {
@@ -173,7 +172,7 @@ body{
 
 .menu-notificacao ul li:not(.lida) {
     background: linear-gradient(90deg, rgba(46, 204, 113, 0.15), rgba(39, 174, 96, 0.25));
-    border-left: 3px solid #5cb85c;
+    border-left: 3px solid var(--color-primary);
     color: #d4f8d4;
 }
 
@@ -198,7 +197,7 @@ body{
 }
 
 .menu-notificacao ul li i {
-    color: #5cb85c;
+    color: var(--color-primary);
     font-size: 1.2rem;
     margin-top: 2px;
 }
@@ -212,7 +211,7 @@ body{
     position: absolute;
     top: -5px;
     right: -5px;
-    background-color: #5cb85c;
+    background-color: var(--color-primary);
     color: #fff;
     font-size: 0.7rem;
     font-weight: bold;
@@ -280,7 +279,7 @@ body{
 }
 
 .menu-lateral a:hover {
-    background: linear-gradient(90deg, #f4fff3 40%, #38ef7d 100%);
+    background: linear-gradient(90deg, #f4fff3 40%, var(--color-primary) 100%);
     color: #235a8d;
     transform: translateX(-4px) scale(1.04);
     box-shadow: 0 4px 16px rgba(35,90,141,0.10);
@@ -301,7 +300,7 @@ body{
 }
 
 .menu-lateral a:hover i {
-    color: #12e961;
+    color: var(--color-primary);
 }
 
 /* Botão de fechar (X) */
@@ -323,7 +322,7 @@ body{
 }
 
 .menu-lateral .btn-fechar:hover {
-    background: #e9eef6;
+    background: var(--color-text-light);;
 }
 
 .menu-lateral .btn-fechar i {
@@ -338,7 +337,7 @@ body{
 }
 
 .menu-lateral .btn-fechar:hover i {
-    color: #38ef7d;
+    color: var(--color-primary);
 }
 
 .menu-lateral i {
@@ -350,7 +349,7 @@ body{
 }
 
 .menu-lateral a:hover i {
-    color: #38ef7d;
+    color: var(--color-primary);
     z-index: 1000;
 }
 
@@ -368,7 +367,7 @@ body{
 }
 
 .footer {
-    background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+    background: var(--color-header);
     color: #e0e0e0;
     padding: 20px 20px 30px;
     text-align: center;
@@ -400,7 +399,7 @@ body{
 .footer-section h2 {
     font-size: 1.3rem;
     font-weight: 600;
-    color: #5cb85c; /* verde principal */
+    color: var(--color-primary); 
     margin-top: 1rem;
     letter-spacing: 0.5px;
 }
@@ -420,12 +419,6 @@ body{
     border-top: 1px solid rgba(255, 255, 255, 0.05);
     padding-top: 1.2rem;
 }
-
-.footer-bottom span {
-    color: #5cb85c;
-    font-weight: 500;
-}
-
 
 @media (max-width: 768px) {
     .cabecalho {
