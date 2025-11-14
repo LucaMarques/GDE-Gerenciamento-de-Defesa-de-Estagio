@@ -16,24 +16,72 @@ document.addEventListener("DOMContentLoaded", () => {
         usuarios = usuariosBase;
     }
 
+    document.getElementById("matricula-cadastro").addEventListener("input", function () {
+        this.value = this.value.replace(/\D/g, "");
+    });
+
+    const nomeInput = document.getElementById("nome-cadastro");
+
+    nomeInput.addEventListener("input", function () {
+        let texto = this.value;
+        texto = texto.replace(/[0-9]/g, '');
+        texto = texto.replace(/\s{2,}/g, ' ');
+        this.value = texto;
+    });
+
+    
+    nomeInput.addEventListener('blur', function() {
+        let nome = this.value.trim();
+        nome = nome.replace(/\s+/g, ' ');
+        nome = nome.replace(/\b\w/g, l => l.toUpperCase());
+        this.value = nome;
+    });
+
     // Página de cadastro
     document.getElementById('btn-cadastro').addEventListener('click', () => {
-        const tipo = document.getElementById('tipo-usuario').value;
-        const nome = document.getElementById('nome-cadastro').value;
-        const matricula = document.getElementById('matricula-cadastro').value;
-        const email = document.getElementById('email-cadastro').value;
-        const senha = document.getElementById('senha-cadastro').value;
+        const tipo = document.getElementById('tipo-usuario').value.trim();
+        const nome = document.getElementById('nome-cadastro').value.trim();
+        const matricula = document.getElementById('matricula-cadastro').value.trim();
+        const email = document.getElementById('email-cadastro').value.trim();
+        const senha = document.getElementById('senha-cadastro').value.trim();
+
+        const msgErro = document.getElementById('msg-cadastro-error');
+
+        msgErro.style.display = "none";
+        msgErro.textContent = "";
+
+        const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if (nome === '' || matricula === '' || email === '' || senha === '' || tipo === ''){
-            alert('Preencha todos os campos!');
-            return
+            msgErro.textContent = 'Preencha todos os campos!'
+            msgErro.style.display = 'block';
+            return;
+        }
+
+        if (!regexEmail.test(email)){
+            msgErro.textContent = 'Digite um email válido!';
+            msgErro.style.display = 'block';
+            return;
+        }
+
+        if (senha.length < 6) {
+            msgErro.textContent = 'A senha deve ter 6 caracteres.';
+            msgErro.style.display = 'block';
+            return;
+        }
+
+        if (!/^\d+$/.test(matricula)) {
+            msgErro.textContent = 'A matrícula deve ter apenas números!';
+            msgErro.style.display = 'block';
+            return;
         }
 
         const existe = usuarios.find(usuario => usuario.email === email)
 
         if (existe){
-            alert('Este email já está cadastrado!');
-            return
+            msgErro.textContent = 'Este email já está cadastrado!';
+            msgErro.style.display = 'block';
+            return;
         }
 
         const novoUsuario = {
@@ -52,6 +100,21 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('btn-login').addEventListener('click', () => {
         const email = document.getElementById('email-login').value.trim()
         const senha = document.getElementById('senha-login').value.trim()
+        const msgError = document.getElementById('msg-login-error')
+
+        const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!regexEmail.test(email)) {
+            msgError.textContent = "Digite um e-mail válido.";
+            msgError.style.display = "block";
+            return;
+        }
+
+        if (email === '' || senha === ''){
+            msgError.textContent = 'Preencha todos os campos.';
+            msgError.style.display = 'block';
+            return;
+        }
 
         const usuario = usuarios.find(usuario => usuario.email === email && usuario.senha === senha)
 
@@ -65,7 +128,29 @@ document.addEventListener("DOMContentLoaded", () => {
             else if (usuario.tipo === 'orientador') window.location.href = 'orientador.html'
             else if (usuario.tipo == 'coordenador') window.location.href = 'coordenador.html'*/
         } else {
-            alert('Email ou senha incorretos!')
+            msgError.textContent = 'Email ou senha incorretos.';
+            msgError.style.display = 'block';
         }
         })
+
+    // Visualizar senha no input
+    function aplicarToggleSenha(inputId, iconId) {
+        const input = document.getElementById(inputId);
+        const icon = document.getElementById(iconId);
+
+        icon.addEventListener('click', () => {
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('bi-eye-slash');
+                icon.classList.add('bi-eye');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash');
+            }
+        });
+    }
+
+    aplicarToggleSenha("senha-login", "toggle-login-senha");
+    aplicarToggleSenha("senha-cadastro", "toggle-cadastro-senha");
 });

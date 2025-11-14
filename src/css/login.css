@@ -2,13 +2,15 @@
     --font-primary: 'Poppins', sans-serif;
     --font-secondary: 'Roboto', sans-serif;
 
-    --color-bg: #fff;    /* fundo */
-    --color-header: #1C1C1C;    /* header e footer */
-    --color-primary: #5cb85c;  /* hover e destaques */
+    --color-bg: #18786e;    /* fundo */
+    --color-header: #2A2F31;   /* header e footer ou #1c1c1c*/
+    --color-primary: #0fa394;  /* hover e destaques */
+     --color-primary-light: #17c7b5;
     --color-muted: #d9d9d9;     /* Seções */
-    --color-text-light: #fff;  /* texto ou icons branco */
+    --color-text-light: #E0E0E0;  /* texto ou icons branco */
     --color-text-black: #000; /* texto ou icons preto */
     --color-icon: #e5e5e8;   /* icons branco e input */
+    --header-height: 64px; /* altura padrão do header fixo (ajustável) */
 }
 
 *{
@@ -19,7 +21,7 @@
 
 a{
     text-decoration: none;
-    color: var(--color-text-dark);
+    color: var(--color-text-black);
 }
 
 main {
@@ -68,6 +70,7 @@ main {
     align-items: center;
     background-color: var(--color-text-light);
     padding: 55px 0;
+    gap: 5px;
     transition: 1s;
 }
 
@@ -80,9 +83,13 @@ main {
 
 /* Títulos e textos */
 .form-title{
-    color: var(--color-text-dark);
+    color: var(--color-text-black);
     font-size: 3rem;
     font-weight: 400;
+}
+
+.form-text {
+    color: var(--color-primary-light);
 }
 
 .form-title-light{
@@ -133,7 +140,20 @@ main {
 .form-button-light:hover{
     background-color: var(--color-primary);
     border: 2px solid var(--color-text-light);
-    color: var(--color-bg);
+    color: var(--color-text-light);
+}
+
+.msg-error{
+    text-align: center;
+    font-size: 15px;
+    color: #ae0000;
+    background-color: #f3a5a5;
+    border-radius: 12px;
+    display: none;
+    width: 300px;
+    height: 35px;
+    padding: 10px 20px;
+    margin-bottom: 10px;
 }
 
 /* =============================== */
@@ -174,16 +194,29 @@ main {
     opacity: 0;
 }
 
+.password-container {
+    position: relative;
+    width: 100%;
+}
+
+.password-container i {
+    position: absolute;
+    right: 15px;
+    top: 30%;
+    cursor: pointer;
+    font-size: 18px;
+    color: #555;
+}
+
 /* Select principal */
 select {
     width: 100%;
     padding: 12px 30px 12px 16px;
-    appearance: none; /* remove seta padrão */
+    appearance: none;
     border-radius: 12px;
     background-color: #fff;
     color: #333;
-    font-size: 1rem;
-    font-family: 'Poppins', sans-serif;
+    font-size: 0.8rem;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -204,14 +237,14 @@ select {
 
 /* Hover suave */
 select:hover {
-    border-color: #5cb85c;
+    border-color: var(--color-primary);
     box-shadow: 0 0 8px rgba(92, 184, 92, 0.25);
 }
 
 /* Foco com destaque verde */
 select:focus {
     outline: none;
-    border-color: #5cb85c;
+    border-color: var(--color-primary);
     box-shadow: 0 0 0 3px rgba(92, 184, 92, 0.3);
 }
 
@@ -223,7 +256,7 @@ option {
 }
 
 .options li:hover {
-    background-color: #5cb85c;
+    background-color: var(--color-primary);
     color: #fff;
 }
 
@@ -250,8 +283,8 @@ option {
     }
     .form-register{
         position: absolute;
-        background-color: var(--color-primary);
-        color: var(--color-bg);
+        background-color: var(--color-text-light);
+        color: var(--color-header);
         transform: translateX(100%);
     }
     .login-container.move .form-register{
@@ -259,9 +292,9 @@ option {
     }
     /* Botões */
     .form-button{
-        background-color: var(--color-primary);
-        color: var(--color-bg);
-        border: 2px solid var(--color-bg);
+        background-color: var(--color-text-light);
+        color: var(--color-text-black);
+        border: 2px solid var(--color-text-black);
     }
     /* Overlay */
     .overlay-container{
