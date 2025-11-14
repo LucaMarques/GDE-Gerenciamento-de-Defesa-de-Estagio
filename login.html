@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+  <script type="module" crossorigin src="/GDE-Gerenciamento-de-Defesa-de-Estagio/assets/login-QO6PbGv3.js"></script>
+  <link rel="modulepreload" crossorigin href="/GDE-Gerenciamento-de-Defesa-de-Estagio/assets/main-DfM3t_-H.js">
+  <link rel="stylesheet" crossorigin href="/GDE-Gerenciamento-de-Defesa-de-Estagio/assets/main-B4oTAN13.css">
+  <link rel="stylesheet" crossorigin href="/GDE-Gerenciamento-de-Defesa-de-Estagio/assets/login-B7ZmoWTO.css">
+</head>
+<body>
+    <main>
+        <div class="login-container" id="login-container">
+            <div class="form-container">
+                <form id="form-login" class="form form-login">
+                    <h2 class="form-title">Entrar</h2>
+                    <div class="form-input-container">
+                        <div id="msg-login-error" class="msg-error"></div>
+                        <input type="email" id="email-login" class="form-input" placeholder="Email" required>
+                        <div class="password-container">
+                            <input type="password" id="senha-login" class="form-input" placeholder="Senha">
+                            <i id="toggle-login-senha" class="bi bi-eye-slash"></i>
+                        </div>
+                    </div>
+                    <a href="#" class="form-link">Esqueceu a senha?</a>
+                    <button type="button" id="btn-login" class="form-button">Logar</button>
+                    <p class="mobile-text">
+                        Não tem conta?
+                        <a href="#" id="open-register-mobile">Registre-se</a>
+                    </p>
+                </form>
+                <form id="form-cadastro" class="form form-register">
+                    <h2 class="form-title">Criar Conta</h2>
+                    <div class="form-tipo">
+                        <div id="msg-cadastro-error" class="msg-error"></div>
+                         <select class="selectpicker" id="tipo-usuario" required>
+                            <option value="">Selecione o tipo</option>
+                            <option value="aluno">Aluno</option>
+                            <option value="orientador">Orientador</option>
+                            <option value="coordenador">Coordenador</option>
+                        </select>
+                    </div>
+                    <div class="form-input-container">
+                        <input type="text" id="nome-cadastro" class="form-input" placeholder="Nome completo">
+                        <input type="text" id="matricula-cadastro" class="form-input" placeholder="Matricula">
+                        <input type="email" id="email-cadastro" class="form-input" placeholder="Email" required>
+                        <div class="password-container">
+                            <input type="password" id="senha-cadastro" class="form-input" placeholder="Senha">
+                            <i id="toggle-cadastro-senha" class="bi bi-eye-slash"></i>
+                        </div>
+                    </div>
+                    <button type="button" id="btn-cadastro" class="form-button">Cadastrar</button>
+                    <p class="mobile-text">
+                        Já tem conta?
+                        <a href="#" id="open-login-mobile">Login</a>
+                    </p>
+                </form>
+            </div>
+            <div class="overlay-container">
+                <div class="overlay">
+                    <h2 class="form-title form-title-light">Já tem conta?</h2>
+                    <p class="form-text">Para entrar na nossa plataforma faça login com suas informações</p>
+                    <button class="form-button form-button-light" id="open-login">Entrar</button>
+                </div>
+                <div class="overlay">
+                    <h2 class="form-title form-title-light">Olá!</h2>
+                    <p class="form-text">Cadastre-se e comece a usar a nossa plataforma on-line</p>
+                    <button class="form-button form-button-light" id="open-register">Cadastrar</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
