@@ -1,6 +1,4 @@
-/* Seu CSS agora usa as variáveis do base.css
-  (ex: var(--color-header)) 
-*/
+
 #main-content {
   flex-grow: 1;
   padding: 2rem;
@@ -11,14 +9,14 @@
 }
 
 #main-content h2 {
-  /* MUDANÇA: Usa a cor do header definida no base.css */
+  
   color: var(--color-header, #004a91); 
   border-bottom: 2px solid #ddd;
   padding-bottom: 10px;
 }
 
 .btn-toggle-relatorio {
-  /* MUDANÇA: Usa as cores do base.css */
+ 
   background-color: var(--color-header, #004a91);
   color: var(--color-text-light, white);
   border: none;
@@ -33,7 +31,7 @@
 }
 
 .btn-toggle-relatorio:hover {
-  /* MUDANÇA: Usa a cor primária (hover) do base.css */
+
   background-color: var(--color-primary, #5cb85c);
   transform: translateY(-2px);
 }
@@ -55,7 +53,6 @@
 
 .card-defesa h3 {
   margin-top: 0;
-  /* MUDANÇA: Usa a cor do header */
   color: var(--color-header, #003366);
 }
 .card-defesa p {
@@ -63,9 +60,6 @@
   line-height: 1.6;
 }
 
-/* Estes estilos de status estão perfeitos, 
-  pois são específicos da sua página.
-*/
 .card-defesa .status-aberto {
   color: #c9302c; /* Vermelho para pendentes */
   font-weight: bold;
