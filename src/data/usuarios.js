@@ -1,4 +1,4 @@
-[
+export const usuariosBase = [
   {
     "nome": "Administrador",
     "matricula": "0000",

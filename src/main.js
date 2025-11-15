@@ -2,6 +2,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 import './css/base.css'
 import { criaHeader } from "./components/header.js";
 import { criaFooter } from "./components/footer.js";
+import { notificacoesPadrao } from "./data/notificacoes.js"
 
 export function montarLayout(){
     // Cria o header e o footer em todas as páginas
@@ -34,13 +35,10 @@ export function montarLayout(){
     const listaNotificacao = document.getElementById('lista-notificacao');
     const contador = document.getElementById('contador');
 
-    let notificacoes = JSON.parse(localStorage.getItem('notificacoes') || 
-        JSON.stringify([
-            { mensagem: "Sua defesa foi marcada para 25/11 às 14h", lida: false },
-            { mensagem: "Orientador enviou observação no seu TCC", lida: false },
-            { mensagem: "Defesa reagendada para 27/11 às 10h", lida: true }
-        ])
-    );
+    let notificacoes = JSON.parse(localStorage.getItem('notificacoes')) || notificacoesPadrao;
+
+    if (!localStorage.getItem('notificacoes')) {
+    localStorage.setItem('notificacoes', JSON.stringify(notificacoesPadrao));}
 
     function renderNotificacao(){
         listaNotificacao.innerHTML = '';

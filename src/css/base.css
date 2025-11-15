@@ -5,7 +5,7 @@
     --color-bg: #18786e;    /* fundo */
     --color-header: #2A2F31;   /* header e footer ou #1c1c1c*/
     --color-primary: #0fa394;  /* hover e destaques */
-     --color-primary-light: #17c7b5;
+    --color-primary-light: #17c7b5;
     --color-muted: #d9d9d9;     /* Seções */
     --color-text-light: #E0E0E0;  /* texto ou icons branco */
     --color-text-black: #000; /* texto ou icons preto */
@@ -22,7 +22,7 @@
 body{
     font-family: var(--font-primary);
     color: var(--color-text);
-    background-color: var(--color-text-light); 
+    background-color: var(--color-muted); 
     margin: 0;
     min-height: 100vh;
     display: flex;
@@ -285,7 +285,7 @@ body{
 
 .menu-lateral a:hover {
     background: linear-gradient(90deg, #b5b2b2 5%, var(--color-primary) 90%);
-    color: #235a8d;
+    color: var(--color-header);
     transform: translateX(-4px) scale(1.04);
     box-shadow: 0 4px 16px rgba(35,90,141,0.10);
 }
@@ -300,12 +300,12 @@ body{
     margin-right: 0;
     margin-left: 0;
     vertical-align: middle;
-    color: var(--color-text-ligth);
+    color: var(--color-text-light);
     transition: color 0.2s;
 }
 
 .menu-lateral a:hover i {
-    color: var(--color-primary);
+    color: var(--color-header);
 }
 
 /* Botão de fechar (X) */
@@ -342,7 +342,7 @@ body{
 }
 
 .menu-lateral .btn-fechar:hover i {
-    color: var(--color-primary);
+    color: var(--color-header);
 }
 
 .menu-lateral i {
@@ -354,7 +354,7 @@ body{
 }
 
 .menu-lateral a:hover i {
-    color: var(--color-primary);
+    color: var(--color-header);
     z-index: 1000;
 }
 
