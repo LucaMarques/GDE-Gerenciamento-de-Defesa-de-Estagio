@@ -1,4 +1,4 @@
-import usuariosBase from "../data/usuarios.json" 
+import { usuariosBase } from "../data/usuarios.js" 
 
 document.addEventListener("DOMContentLoaded", () => {
     // Animação da tela de login/cadastro
@@ -28,7 +28,6 @@ document.addEventListener("DOMContentLoaded", () => {
         texto = texto.replace(/\s{2,}/g, ' ');
         this.value = texto;
     });
-
     
     nomeInput.addEventListener('blur', function() {
         let nome = this.value.trim();
@@ -88,6 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
             nome, matricula, email, senha, tipo, curso: "", 
             cpf: "", sexo: "", nascimento: "", telefone: "", endereco: ""
         };
+        
         usuarios.push(novoUsuario);
         localStorage.setItem('usuarios', JSON.stringify(usuarios))
         alert('Cadastro realizado com sucesso!')
