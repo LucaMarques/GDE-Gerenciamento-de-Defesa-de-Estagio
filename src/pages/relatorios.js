@@ -1,16 +1,42 @@
+// MUDANÇA: Importa 'montarLayout' (do main.js)
+import { montarLayout } from "../main.js"; 
+// MUDANÇA: Remove 'criaHeader' e 'criaFooter'
+// import { criaHeader } from "../components/header.js";
+// import { criaFooter } from "../components/footer.js";
+
+// Sua importação de dados (lógica principal) permanece:
 import { defesas } from "../data/defesas.js";
-import { criaHeader } from "../components/header.js";
-import { criaFooter } from "../components/footer.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  const meuHeader = criaHeader();
-  document.body.prepend(meuHeader);
+  // MUDANÇA: Adicionada a funcionalidade de verificação de login do dashboard.js
+  const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
+  if (!usuarioLogado) {
+    alert("Você precisa fazer login primeiro!");
+    // Adapte este caminho se a sua página de login for diferente
+    window.location.href = "/login.html"; 
+  }
 
-  const meuFooter = criaFooter();
-  document.body.append(meuFooter);
+  // MUDANÇA: Chama a função global para montar o layout
+  // (Isso vai criar o header e o footer automaticamente)
+  montarLayout();
 
+  // MUDANÇA: Removemos as chamadas manuais de criaHeader/criaFooter
+  // const meuHeader = criaHeader();
+  // document.body.prepend(meuHeader);
+  // const meuFooter = criaFooter();
+  // document.body.append(meuFooter);
+
+  // SUA LÓGICA PRINCIPAL (INTACTA):
+  // Esta função continua igual, pois é a lógica da sua página.
   prepararConteudoInterativo();
 });
+
+/* ==================================================================
+   SUA LÓGICA DE PÁGINA (NÃO FOI ALTERADA)
+   Todas as funções abaixo continuam exatamente como você as criou,
+   pois elas cuidam da funcionalidade específica da sua página.
+  ==================================================================
+*/
 
 function prepararConteudoInterativo() {
   const mainElement = document.getElementById("main-content");
