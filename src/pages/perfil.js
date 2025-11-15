@@ -3,6 +3,7 @@ import { montarLayout } from "../main";
 document.addEventListener('DOMContentLoaded', () => {
   montarLayout();
   const btnAlterar = document.querySelector('.btn-alterar-dados');
+  const btnCancelar = document.querySelector('.btn-cancelar-edicao');
   const camposKeys = [
     'matricula', 'curso', 'email', 'cpf', 'sexo', 'nascimento', 'telefone', 'endereco'
   ];
@@ -45,11 +46,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const tipoUsuario = document.querySelector('.tipo-usuario');
   
   nomePerfil.textContent = usuarioLogado.nome;
-  tipoUsuario.textContent = usuarioLogado.tipo;
+  tipoUsuario.textContent = usuarioLogado.tipo.charAt(0).toUpperCase() + usuarioLogado.tipo.slice(1);
   
 
 
   btnAlterar.addEventListener('click', () => {
+    btnCancelar.style.display = 'inline-block';
+    btnAlterar.style.display = 'none';
     // Buscar os campos atuais toda vez que for editar
     const camposAtuais = document.querySelectorAll('.campo-valor');
     camposAtuais.forEach((campo, idx) => {
@@ -78,17 +81,42 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       campo.replaceWith(input);
     });
-    btnAlterar.style.display = 'none';
     criarBotaoSalvar();
   });
 
-  function criarBotaoSalvar() {
+  btnCancelar.addEventListener('click', () => {
+    // Cancela edição, restaura campos originais e oculta botão
+    btnCancelar.style.display = 'none';
+    btnAlterar.style.display = 'inline-block';
     const header = document.querySelector('.header-info-pessoais');
-    const btnSalvar = document.createElement('button');
+    const btnSalvar = document.querySelector('.btn-salvar-dados');
+    if (btnSalvar) btnSalvar.remove();
+    // Substitui inputs/selects pelos spans com dados do localStorage
+    const infoCampos = document.querySelector('.info-campos');
+    infoCampos.querySelectorAll('input, select').forEach((el, idx) => {
+      const span = document.createElement('span');
+      span.className = 'campo-valor';
+      span.textContent = localStorage.getItem(camposKeys[idx]) || '';
+      el.replaceWith(span);
+    });
+  });
+
+  function criarBotaoSalvar() {
+    const infoCampos = document.querySelector('.info-campos');
+    let btnSalvar = document.querySelector('.btn-salvar-dados');
+    if (btnSalvar) btnSalvar.remove();
+    btnSalvar = document.createElement('button');
     btnSalvar.textContent = 'Salvar';
     btnSalvar.className = 'btn-salvar-dados';
-    btnSalvar.onclick = salvarDados;
-    header.appendChild(btnSalvar);
+    btnSalvar.style.marginTop = '32px';
+    btnSalvar.style.width = '180px';
+    btnSalvar.style.alignSelf = 'center';
+    btnSalvar.onclick = () => {
+      salvarDados();
+      btnCancelar.style.display = 'none';
+      btnAlterar.style.display = 'inline-block';
+    };
+    infoCampos.appendChild(btnSalvar);
   }
 
   function validarCampos(valores) {
