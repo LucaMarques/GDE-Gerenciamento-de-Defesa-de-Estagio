@@ -5,16 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Relatório de Defesas</title>
 
+    <!-- 
+      Links de CSS (Estão corretos e não precisam de mudança)
+      O base.css será carregado primeiro, e o relatorios.css depois.
+    -->
     <link rel="stylesheet" href="/src/css/base.css" />
     <link rel="stylesheet" href="/src/css/relatorios.css" />
+
+    <!-- 
+      Adicionado: Ícones do Bootstrap (o header usa 'bi')
+      Presumi que as outras páginas os carregam. Se não, é necessário.
+    -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   </head>
   <body>
-    <header id="main-header"></header>
+    <!-- 
+      MUDANÇA 1: Trocado de <header id="main-header">
+      para <div id="header"> para ser compatível com montarLayout()
+    -->
+    <div id="header"></div>
 
+    <!-- O seu conteúdo principal permanece igual -->
     <main id="main-content"></main>
 
-    <footer id="main-footer"></footer>
+    <!-- 
+      MUDANÇA 2: Trocado de <footer id="main-footer">
+      para <div id="footer"> para ser compatível com montarLayout()
+    -->
+    <div id="footer"></div>
 
+    <!-- O seu script principal permanece o mesmo -->
     <script type="module" src="/src/pages/relatorios.js"></script>
   </body>
 </html>
