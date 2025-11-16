@@ -52,7 +52,7 @@ function exibirRelatorios() {
   let defesasFiltradas = [];
   let statusParaMensagem = valorStatus;
 
-  // Filtro por Status (Intacto)
+  // Filtro por Status 
   if (valorStatus === "pendentes") {
     defesasFiltradas = defesas.filter((defesa) => {
       return defesa.status === "Em andamento";
@@ -72,12 +72,10 @@ function exibirRelatorios() {
   }
 
   // Filtro por Data
-  if (valorData) { // Se 'valorData' NÃO estiver vazio (ex: '2025-12-05')
+  if (valorData) { // Se 'valorData' NÃO estiver vazio 
     
-    // CORREÇÃO: Usamos .trim() para remover espaços em branco
-    // da data do arquivo .js antes de comparar.
     defesasFiltradas = defesasFiltradas.filter((defesa) => {
-      // .trim() remove espaços como ' 2025-12-05 '
+      // .trim() remove espaços
       return defesa.data.trim() === valorData;
     });
   }
@@ -87,7 +85,6 @@ function exibirRelatorios() {
 
 
 /* FUNÇÃO injetarHtmlDosCards
-  (Sem alteração, está correta)
 */
 function injetarHtmlDosCards(container, defesasFiltradas, statusParaFiltrar) {
   if (defesasFiltradas.length === 0) {

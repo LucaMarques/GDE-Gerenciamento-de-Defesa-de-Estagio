@@ -48,7 +48,7 @@
   cursor: pointer;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   appearance: none;
-  -webkit-appearance: none; /* CORREÇÃO: Esta linha está correta. O "erro" é um aviso do editor (linter), não um erro de CSS. */
+  -webkit-appearance: none; 
   -moz-appearance: none;
   background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
   background-repeat: no-repeat;
@@ -78,7 +78,7 @@
   flex-grow: 1;
   min-width: 250px;
   appearance: none;
-  -webkit-appearance: none; /* CORREÇÃO: Esta linha também está correta. É um aviso, não um erro. */
+  -webkit-appearance: none; 
   -moz-appearance: none;
 }
 
@@ -89,7 +89,7 @@
   width: 100%;
 }
 
-/* Estilos de Card (Intactos) */
+/* Estilos de Card  */
 .card-defesa {
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
