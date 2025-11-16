@@ -20,7 +20,7 @@
 }
 
 .relatorio-container h2 {
-  color: var(--color-header, #004a91);
+  color: var(--color-header, #009174);
   border-bottom: 2px solid #ddd;
   padding-bottom: 10px;
   text-align: center;
@@ -82,6 +82,12 @@
   -moz-appearance: none;
 }
 
+#select-relatorio:focus-visible,
+#input-data:focus-visible {
+  outline: 2px solid var(--color-primary, #5cb85c);
+  outline-offset: 2px;
+}
+
 .container-relatorio-lista {
   padding-top: 1.5rem;
   margin-top: 1.5rem;
@@ -101,17 +107,18 @@
 
 .card-defesa h3 {
   margin-top: 0;
-  color: var(--color-header, #003366);
+  color: var(--color-header, #003866);
 }
 .card-defesa p {
   margin: 0.5rem 0;
   line-height: 1.6;
 }
+
 .card-defesa .status-aberto {
-  color: #c9302c;
+  color: #c9302c; /* Vermelho para pendentes */
   font-weight: bold;
 }
 .card-defesa .status-concluida {
-  color: #4cae4c;
+  color: #4cae4c; /* Verde para concluídos */
   font-weight: bold;
 }
