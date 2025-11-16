@@ -1,40 +1,44 @@
-
-/* MUDANÇA PRINCIPAL:
-  Usamos display: flex para centralizar todo o conteúdo
-  da sua página (título, select e cards).
-*/
 #main-content {
   flex-grow: 1;
   padding: 2rem;
   width: 100%;
-  max-width: 1200px;
-  margin: 20px auto;
   box-sizing: border-box;
 
-  /* Novas propriedades para centralizar: */
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-#main-content h2 {
+/* O "CARD" PRINCIPAL QUE ENVOLVE TUDO  */
+.relatorio-container {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 2rem 2.5rem;
+  width: 100%;
+  max-width: 900px;
+}
+
+.relatorio-container h2 {
   color: var(--color-header, #004a91);
   border-bottom: 2px solid #ddd;
   padding-bottom: 10px;
-  /* Garante que o título ocupe a largura */
-  width: 100%;
   text-align: center;
-  max-width: 800px; /* Alinha com a largura dos cards */
+  margin-bottom: 1.5rem;
 }
 
-/* ESTILOS REMOVIDOS:
-  - .btn-toggle-relatorio
-  - .btn-toggle-relatorio:hover
-*/
+/* A DIV para organizar os controles  */
+.relatorio-controles {
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: space-between; 
+  align-items: center;
+  gap: 1.5rem; 
+  margin-bottom: 1.5rem;
+}
 
-/* NOVOS ESTILOS:
-  Estilizando o <select> para combinar com o tema
-*/
+/* Estilo do <select>  */
 #select-relatorio {
   font-family: var(--font-primary, 'Poppins', sans-serif);
   background-color: var(--color-header, #004a91);
@@ -45,42 +49,53 @@
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  margin-top: 1.5rem;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-
-  /* Aparência (necessário para sobrescrever o padrão do OS) */
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-
-  /* Seta customizada (opcional, mas fica bonito) */
-  background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
   background-repeat: no-repeat;
   background-position: right 15px center;
   background-size: 24px;
-  padding-right: 50px; /* Espaço para a seta */
+  padding-right: 50px;
+  flex-grow: 1; 
+  min-width: 250px; 
 }
 
-/* Cor das opções quando o dropdown é aberto */
 #select-relatorio option {
   background-color: #ffffff;
   color: var(--color-text-black, #000);
 }
 
-/* MUDANÇA NO CONTAINER:
-  Agora ele tem uma largura máxima para ficar centralizado.
+
+/* Estilo para o campo de DATA
 */
+#input-data {
+  font-family: var(--font-primary, 'Poppins', sans-serif);
+  background-color: #f9f9f9;
+  color: var(--color-text-black, #333);
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 11px 20px; /* 1px a menos de padding por causa da borda */
+  font-size: 1rem;
+  font-weight: bold; /* Para combinar com o select */
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  flex-grow: 1;
+  min-width: 250px;
+  -webkit-appearance: none; /* Tira a aparência padrão */
+}
+
+
+/* Container dos resultados  */
 .container-relatorio-lista {
   padding-top: 1.5rem;
   margin-top: 1.5rem;
   border-top: 1px solid #eee;
   width: 100%;
-  max-width: 800px; /* Define a largura dos cards */
 }
 
-/* ESTILOS DOS CARDS (Sem Alteração)
-  Eles continuam funcionando perfeitamente.
-*/
+/* ESTILOS DOS CARDS */
 .card-defesa {
   background-color: #ffffff;
   border: 1px solid #e0e0e0;

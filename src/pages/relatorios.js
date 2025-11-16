@@ -2,67 +2,80 @@ import { montarLayout } from "../main.js";
 import { defesas } from "../data/defesas.js";
 
 document.addEventListener("DOMContentLoaded", () => {
+  // Funções de Login e Layout 
   const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
   if (!usuarioLogado) {
     alert("Você precisa fazer login primeiro!");
     window.location.href = "/login.html";
   }
-
   montarLayout();
 
+  // Lógica da página
   prepararConteudoInterativo();
 });
 
-// MUDANÇA TOTAL AQUI
 function prepararConteudoInterativo() {
   const mainElement = document.getElementById("main-content");
   if (!mainElement) return;
 
-  // 1. Cria o novo HTML com o <select> e um *único* container
+  // Cria o HTML com o campo de seleção e o <input type="date"> 
   const htmlInicial = `
+    <div class="relatorio-container">
         <h2>Relatórios de Defesas</h2>
         
-        <select id="select-relatorio">
-            <option value="">-- Selecione um tipo de relatório --</option>
-            <option value="pendentes">Relatórios Pendentes</option>
-            <option value="concluidos">Histórico (Concluídos)</option>
-            <option value="todos">Todos os Relatórios</option>
-        </select>
+        <div class="relatorio-controles">
+            <select id="select-relatorio">
+                <option value="">-- Selecione um tipo de relatório --</option>
+                <option value="pendentes">Relatórios Pendentes</option>
+                <option value="concluidos">Histórico (Concluídos)</option>
+                <option value="todos">Todos os Relatórios</option>
+            </select>
+
+            <input type="date" id="input-data">
+        </div>
 
         <div id="container-resultados" class="container-relatorio-lista"></div>
+    </div>
     `;
   mainElement.innerHTML = htmlInicial;
 
-  // 2. Adiciona um "escutador" para o evento de MUDANÇA no select
+  // Adiciona os "escutadores" de eventos
+  // Ambo o <select> e o <input> vão chamar a MESMA função
   document
     .getElementById("select-relatorio")
     .addEventListener("change", exibirRelatorios);
+  
+  document
+    .getElementById("input-data")
+    .addEventListener("change", exibirRelatorios);
 }
 
-// NOVA FUNÇÃO: Chamada sempre que o usuário muda a opção do select
-function exibirRelatorios(event) {
-  // 1. Pega o valor da opção selecionada (ex: "pendentes", "concluidos")
-  const valorSelecionado = event.target.value;
+// função filtra por STATUS e por DATA
+function exibirRelatorios() {
+  // 1. Pega o valor dos DOIS controles
+  const valorStatus = document.getElementById("select-relatorio").value;
+  const valorData = document.getElementById("input-data").value;
   const container = document.getElementById("container-resultados");
 
   let defesasFiltradas = [];
-  let statusParaMensagem = valorSelecionado;
+  let statusParaMensagem = valorStatus;
 
-  // 2. Filtra o array 'defesas' com base no valor selecionado
-  if (valorSelecionado === "pendentes") {
+  // Filtrar por Status
+  // o filtro principal e obrigatório
+  if (valorStatus === "pendentes") {
     defesasFiltradas = defesas.filter((defesa) => {
       return defesa.status === "Em andamento";
     });
     statusParaMensagem = "Em andamento";
 
-  } else if (valorSelecionado === "concluidos") {
+  } else if (valorStatus === "concluidos") {
     defesasFiltradas = defesas.filter((defesa) => {
       return defesa.status === "Concluído";
     });
     statusParaMensagem = "Concluído";
 
-  } else if (valorSelecionado === "todos") {
-    defesasFiltradas = defesas; // Pega todos, sem filtro
+  } else if (valorStatus === "todos") {
+    defesasFiltradas = defesas;
     statusParaMensagem = "todos";
     
   } else {
@@ -71,18 +84,20 @@ function exibirRelatorios(event) {
     return; // Para a execução
   }
 
-  // 3. Chama a sua função original para construir os cards!
-  // Ela funciona perfeitamente aqui.
+  // Filtrar por Data
+  // Este filtro é opcional e só é executado se uma data for escolhida
+  if (valorData) { // Se 'valorData' NÃO estiver vazio 
+    defesasFiltradas = defesasFiltradas.filter((defesa) => {
+      // Compara a data da defesa com a data do input
+      return defesa.data === valorData;
+    });
+  }
+
+  // Chama a função original para construir os cards!
   injetarHtmlDosCards(container, defesasFiltradas, statusParaMensagem);
 }
 
 
-/* ==================================================================
-   SUA LÓGICA DE "FÁBRICA DE CARDS" (NÃO FOI ALTERADA)
-   Esta função é a mesma de antes e não precisa de NENHUMA mudança.
-   Ela apenas recebe a lista filtrada e o container, e faz o trabalho.
-  ==================================================================
-*/
 function injetarHtmlDosCards(container, defesasFiltradas, statusParaFiltrar) {
   if (defesasFiltradas.length === 0) {
     const mensagem =
