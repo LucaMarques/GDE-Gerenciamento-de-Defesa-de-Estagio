@@ -2,15 +2,12 @@ import { montarLayout } from "../main.js";
 import { defesas } from "../data/defesas.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Funções de Login e Layout 
   const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
   if (!usuarioLogado) {
     alert("Você precisa fazer login primeiro!");
     window.location.href = "/login.html";
   }
   montarLayout();
-
-  // Lógica da página
   prepararConteudoInterativo();
 });
 
@@ -18,7 +15,6 @@ function prepararConteudoInterativo() {
   const mainElement = document.getElementById("main-content");
   if (!mainElement) return;
 
-  // Cria o HTML com o campo de seleção e o <input type="date"> 
   const htmlInicial = `
     <div class="relatorio-container">
         <h2>Relatórios de Defesas</h2>
@@ -39,8 +35,6 @@ function prepararConteudoInterativo() {
     `;
   mainElement.innerHTML = htmlInicial;
 
-  // Adiciona os "escutadores" de eventos
-  // Ambo o <select> e o <input> vão chamar a MESMA função
   document
     .getElementById("select-relatorio")
     .addEventListener("change", exibirRelatorios);
@@ -50,9 +44,7 @@ function prepararConteudoInterativo() {
     .addEventListener("change", exibirRelatorios);
 }
 
-// função filtra por STATUS e por DATA
 function exibirRelatorios() {
-  // 1. Pega o valor dos DOIS controles
   const valorStatus = document.getElementById("select-relatorio").value;
   const valorData = document.getElementById("input-data").value;
   const container = document.getElementById("container-resultados");
@@ -60,44 +52,43 @@ function exibirRelatorios() {
   let defesasFiltradas = [];
   let statusParaMensagem = valorStatus;
 
-  // Filtrar por Status
-  // o filtro principal e obrigatório
+  // Filtro por Status (Intacto)
   if (valorStatus === "pendentes") {
     defesasFiltradas = defesas.filter((defesa) => {
       return defesa.status === "Em andamento";
     });
     statusParaMensagem = "Em andamento";
-
   } else if (valorStatus === "concluidos") {
     defesasFiltradas = defesas.filter((defesa) => {
       return defesa.status === "Concluído";
     });
     statusParaMensagem = "Concluído";
-
   } else if (valorStatus === "todos") {
     defesasFiltradas = defesas;
     statusParaMensagem = "todos";
-    
   } else {
-    // Se o usuário selecionar a opção "-- Selecione..." (valor "")
-    container.innerHTML = ""; // Limpa o container
-    return; // Para a execução
+    container.innerHTML = "";
+    return;
   }
 
-  // Filtrar por Data
-  // Este filtro é opcional e só é executado se uma data for escolhida
-  if (valorData) { // Se 'valorData' NÃO estiver vazio 
+  // Filtro por Data
+  if (valorData) { // Se 'valorData' NÃO estiver vazio (ex: '2025-12-05')
+    
+    // CORREÇÃO: Usamos .trim() para remover espaços em branco
+    // da data do arquivo .js antes de comparar.
     defesasFiltradas = defesasFiltradas.filter((defesa) => {
-      // Compara a data da defesa com a data do input
-      return defesa.data === valorData;
+      // .trim() remove espaços como ' 2025-12-05 '
+      return defesa.data.trim() === valorData;
     });
   }
 
-  // Chama a função original para construir os cards!
   injetarHtmlDosCards(container, defesasFiltradas, statusParaMensagem);
 }
 
 
+/* FUNÇÃO injetarHtmlDosCards
+  (Sem alteração, está correta)
+*/
 function injetarHtmlDosCards(container, defesasFiltradas, statusParaFiltrar) {
   if (defesasFiltradas.length === 0) {
     const mensagem =

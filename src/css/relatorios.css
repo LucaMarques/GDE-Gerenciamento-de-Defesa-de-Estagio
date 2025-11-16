@@ -9,7 +9,6 @@
   align-items: center;
 }
 
-/* O "CARD" PRINCIPAL QUE ENVOLVE TUDO  */
 .relatorio-container {
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
@@ -28,7 +27,6 @@
   margin-bottom: 1.5rem;
 }
 
-/* A DIV para organizar os controles  */
 .relatorio-controles {
   display: flex;
   flex-wrap: wrap; 
@@ -38,7 +36,6 @@
   margin-bottom: 1.5rem;
 }
 
-/* Estilo do <select>  */
 #select-relatorio {
   font-family: var(--font-primary, 'Poppins', sans-serif);
   background-color: var(--color-header, #004a91);
@@ -51,7 +48,7 @@
   cursor: pointer;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   appearance: none;
-  -webkit-appearance: none;
+  -webkit-appearance: none; /* CORREÇÃO: Esta linha está correta. O "erro" é um aviso do editor (linter), não um erro de CSS. */
   -moz-appearance: none;
   background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
   background-repeat: no-repeat;
@@ -67,27 +64,24 @@
   color: var(--color-text-black, #000);
 }
 
-
-/* Estilo para o campo de DATA
-*/
 #input-data {
   font-family: var(--font-primary, 'Poppins', sans-serif);
   background-color: #f9f9f9;
   color: var(--color-text-black, #333);
   border: 1px solid #ccc;
   border-radius: 8px;
-  padding: 11px 20px; /* 1px a menos de padding por causa da borda */
+  padding: 11px 20px; 
   font-size: 1rem;
-  font-weight: bold; /* Para combinar com o select */
+  font-weight: bold; 
   cursor: pointer;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
   flex-grow: 1;
   min-width: 250px;
-  -webkit-appearance: none; /* Tira a aparência padrão */
+  appearance: none;
+  -webkit-appearance: none; /* CORREÇÃO: Esta linha também está correta. É um aviso, não um erro. */
+  -moz-appearance: none;
 }
 
-
-/* Container dos resultados  */
 .container-relatorio-lista {
   padding-top: 1.5rem;
   margin-top: 1.5rem;
@@ -95,7 +89,7 @@
   width: 100%;
 }
 
-/* ESTILOS DOS CARDS */
+/* Estilos de Card (Intactos) */
 .card-defesa {
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
