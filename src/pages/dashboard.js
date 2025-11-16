@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded'  , () => {
   const opcoesPorUsuario = {
     aluno: [
       { icon: "fa-user", text: "Meus dados", pagina: "perfil.html"},
-      { icon: "fa-plus", text: "Solicitar defesa", pagina: "defesas.html" },
+      { icon: "fa-plus", text: "Solicitar defesa", pagina: "solicitar-defesa.html" },
       { icon: "fa-calendar-days", text: "Agenda de defesas", pagina: "defesas.html?filtro=andamento"  },
       { icon: "fa-file-lines", text: "Histórico", pagina: "defesas.html?filtro=concluido"  }
     ],

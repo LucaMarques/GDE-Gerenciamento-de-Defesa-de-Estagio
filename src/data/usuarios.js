@@ -8,16 +8,16 @@ export const usuariosBase = [
   },
   {
     "nome": "Teste",
-    "matricula": "0000",
+    "matricula": "0001",
     "email": "teste@gmail.com",
-    "senha": "teste",
+    "senha": "1234",
     "tipo": "aluno"
   },
   {
     "nome": "Teste prof",
-    "matricula": "0000",
+    "matricula": "0002",
     "email": "teste2@gmail.com",
     "senha": "1234",
-    "tipo": "coordenador"
+    "tipo": "orientador"
   },
 ]
