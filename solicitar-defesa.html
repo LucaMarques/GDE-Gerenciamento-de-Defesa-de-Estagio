@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitar Defesa</title>
+    <link rel="stylesheet" href="./src/css/solicitar-defesa.css">
+</head>
+<body>
+
+<main class="solicitacao-container">
+    <form class="solicitacao-form" id="form-solicitar-defesa">
+
+        <h2 class="solicitacao-titulo">Solicitar Defesa</h2>
+
+        <!-- Formulários -->
+        <div class="campo-grupo">
+            <label for="tema" class="campo-label">Tema do Trabalho</label>
+            <input type="text" id="tema" class="campo-input" placeholder="Digite o tema" required>
+        </div>
+
+        <div class="campo-grupo">
+            <label for="orientador" class="campo-label">Orientador</label>
+            <select id="orientador" class="campo-select" required>
+                <option value="">Selecione um orientador</option>
+            </select>
+        </div>
+
+        <!-- Botões -->
+        <div class="area-botoes">
+            <button type="button" id="btn-voltar" class="botao voltar">Voltar</button>
+            <button type="submit" class="botao enviar">Solicitar</button>
+        </div>
+
+    </form>
+</main>
+
+<script type="module" src="./src/pages/solicitar-defesa.js"></script>
+</body>
+</html>

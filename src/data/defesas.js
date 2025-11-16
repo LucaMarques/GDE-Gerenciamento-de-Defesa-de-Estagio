@@ -39,5 +39,15 @@ export const defesas = [
         local: 'Sala de Redes',
         tema: 'PWeb'
     },
+        aluno: 'Teste',
+        orientador: 'Teste prof',
+        status: 'Aguardando',
+        data: '2025-15-05T00:00:00-03:00',
+        horario: '16:31',
+        banca: ['Prof. Luiz', 'Prof.Francisco'],
+        local: 'Sala de Redes',
+        tema: 'Banco de dados'
+    },
+
 
 ]
