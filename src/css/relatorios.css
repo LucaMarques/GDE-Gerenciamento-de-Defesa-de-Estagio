@@ -1,4 +1,8 @@
 
+/* MUDANÇA PRINCIPAL:
+  Usamos display: flex para centralizar todo o conteúdo
+  da sua página (título, select e cards).
+*/
 #main-content {
   flex-grow: 1;
   padding: 2rem;
@@ -6,17 +10,33 @@
   max-width: 1200px;
   margin: 20px auto;
   box-sizing: border-box;
+
+  /* Novas propriedades para centralizar: */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #main-content h2 {
-  
-  color: var(--color-header, #004a91); 
+  color: var(--color-header, #004a91);
   border-bottom: 2px solid #ddd;
   padding-bottom: 10px;
+  /* Garante que o título ocupe a largura */
+  width: 100%;
+  text-align: center;
+  max-width: 800px; /* Alinha com a largura dos cards */
 }
 
-.btn-toggle-relatorio {
- 
+/* ESTILOS REMOVIDOS:
+  - .btn-toggle-relatorio
+  - .btn-toggle-relatorio:hover
+*/
+
+/* NOVOS ESTILOS:
+  Estilizando o <select> para combinar com o tema
+*/
+#select-relatorio {
+  font-family: var(--font-primary, 'Poppins', sans-serif);
   background-color: var(--color-header, #004a91);
   color: var(--color-text-light, white);
   border: none;
@@ -25,23 +45,42 @@
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease;
   margin-top: 1.5rem;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+  /* Aparência (necessário para sobrescrever o padrão do OS) */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  /* Seta customizada (opcional, mas fica bonito) */
+  background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 24px;
+  padding-right: 50px; /* Espaço para a seta */
 }
 
-.btn-toggle-relatorio:hover {
-
-  background-color: var(--color-primary, #5cb85c);
-  transform: translateY(-2px);
+/* Cor das opções quando o dropdown é aberto */
+#select-relatorio option {
+  background-color: #ffffff;
+  color: var(--color-text-black, #000);
 }
 
+/* MUDANÇA NO CONTAINER:
+  Agora ele tem uma largura máxima para ficar centralizado.
+*/
 .container-relatorio-lista {
   padding-top: 1.5rem;
   margin-top: 1.5rem;
   border-top: 1px solid #eee;
+  width: 100%;
+  max-width: 800px; /* Define a largura dos cards */
 }
 
+/* ESTILOS DOS CARDS (Sem Alteração)
+  Eles continuam funcionando perfeitamente.
+*/
 .card-defesa {
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
@@ -59,12 +98,11 @@
   margin: 0.5rem 0;
   line-height: 1.6;
 }
-
 .card-defesa .status-aberto {
-  color: #c9302c; /* Vermelho para pendentes */
+  color: #c9302c;
   font-weight: bold;
 }
 .card-defesa .status-concluida {
-  color: #4cae4c; /* Verde para concluídos */
+  color: #4cae4c;
   font-weight: bold;
 }

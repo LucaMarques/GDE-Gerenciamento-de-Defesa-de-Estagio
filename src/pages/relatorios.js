@@ -1,106 +1,88 @@
-import { montarLayout } from "../main.js"; 
+import { montarLayout } from "../main.js";
 import { defesas } from "../data/defesas.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  
   const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
   if (!usuarioLogado) {
     alert("Você precisa fazer login primeiro!");
-  
-    window.location.href = "/login.html"; 
+    window.location.href = "/login.html";
   }
 
   montarLayout();
+
   prepararConteudoInterativo();
 });
 
-
+// MUDANÇA TOTAL AQUI
 function prepararConteudoInterativo() {
   const mainElement = document.getElementById("main-content");
   if (!mainElement) return;
 
+  // 1. Cria o novo HTML com o <select> e um *único* container
   const htmlInicial = `
         <h2>Relatórios de Defesas</h2>
         
-        <button id="btn-pendentes" class="btn-toggle-relatorio">Exibir Relatórios Pendentes</button>
-        <div id="container-pendentes" class="container-relatorio-lista"></div>
-        
-        <button id="btn-concluidos" class="btn-toggle-relatorio">Exibir Histórico (Concluídos)</button>
-        <div id="container-concluidos" class="container-relatorio-lista"></div>
+        <select id="select-relatorio">
+            <option value="">-- Selecione um tipo de relatório --</option>
+            <option value="pendentes">Relatórios Pendentes</option>
+            <option value="concluidos">Histórico (Concluídos)</option>
+            <option value="todos">Todos os Relatórios</option>
+        </select>
 
-        <button id="btn-todos" class="btn-toggle-relatorio">Exibir Todos os Relatórios</button>
-        <div id="container-todos" class="container-relatorio-lista"></div>
+        <div id="container-resultados" class="container-relatorio-lista"></div>
     `;
   mainElement.innerHTML = htmlInicial;
 
+  // 2. Adiciona um "escutador" para o evento de MUDANÇA no select
   document
-    .getElementById("btn-pendentes")
-    .addEventListener("click", alternarPendentes);
-  document
-    .getElementById("btn-concluidos")
-    .addEventListener("click", alternarConcluidos);
-  document.getElementById("btn-todos").addEventListener("click", alternarTodos);
+    .getElementById("select-relatorio")
+    .addEventListener("change", exibirRelatorios);
 }
 
-function alternarPendentes() {
-  const container = document.getElementById("container-pendentes");
-  const botao = document.getElementById("btn-pendentes");
-  const estaAberto = container.innerHTML !== "";
+// NOVA FUNÇÃO: Chamada sempre que o usuário muda a opção do select
+function exibirRelatorios(event) {
+  // 1. Pega o valor da opção selecionada (ex: "pendentes", "concluidos")
+  const valorSelecionado = event.target.value;
+  const container = document.getElementById("container-resultados");
 
-  if (estaAberto) {
-    container.innerHTML = "";
-    botao.textContent = "Exibir Relatórios Pendentes";
-  } else {
-    botao.textContent = "Ocultar Relatórios";
+  let defesasFiltradas = [];
+  let statusParaMensagem = valorSelecionado;
 
-    const defesasFiltradas = defesas.filter((defesa) => {
+  // 2. Filtra o array 'defesas' com base no valor selecionado
+  if (valorSelecionado === "pendentes") {
+    defesasFiltradas = defesas.filter((defesa) => {
       return defesa.status === "Em andamento";
     });
+    statusParaMensagem = "Em andamento";
 
-    injetarHtmlDosCards(container, defesasFiltradas, "Em andamento");
-  }
-}
-
-function alternarConcluidos() {
-  const container = document.getElementById("container-concluidos");
-  const botao = document.getElementById("btn-concluidos");
-  const estaAberto = container.innerHTML !== "";
-
-  if (estaAberto) {
-    container.innerHTML = "";
-    botao.textContent = "Exibir Histórico (Concluídos)";
-  } else {
-    botao.textContent = "Ocultar Histórico";
-
-    const defesasFiltradas = defesas.filter((defesa) => {
+  } else if (valorSelecionado === "concluidos") {
+    defesasFiltradas = defesas.filter((defesa) => {
       return defesa.status === "Concluído";
     });
+    statusParaMensagem = "Concluído";
 
-    injetarHtmlDosCards(container, defesasFiltradas, "Concluído");
-  }
-}
-
-function alternarTodos() {
-  const container = document.getElementById("container-todos");
-  const botao = document.getElementById("btn-todos");
-  const estaAberto = container.innerHTML !== "";
-
-  if (estaAberto) {
-    container.innerHTML = "";
-    botao.textContent = "Exibir Todos os Relatórios";
+  } else if (valorSelecionado === "todos") {
+    defesasFiltradas = defesas; // Pega todos, sem filtro
+    statusParaMensagem = "todos";
+    
   } else {
-    botao.textContent = "Ocultar Todos";
-
-    const defesasFiltradas = defesas;
-
-    injetarHtmlDosCards(container, defesasFiltradas, "todos");
+    // Se o usuário selecionar a opção "-- Selecione..." (valor "")
+    container.innerHTML = ""; // Limpa o container
+    return; // Para a execução
   }
+
+  // 3. Chama a sua função original para construir os cards!
+  // Ela funciona perfeitamente aqui.
+  injetarHtmlDosCards(container, defesasFiltradas, statusParaMensagem);
 }
 
-/**
- cria o HTML usando os novos campos:
- * 'tema', 'aluno', 'orientador', 'data', 'horario', 'local', 'banca'
- */
+
+/* ==================================================================
+   SUA LÓGICA DE "FÁBRICA DE CARDS" (NÃO FOI ALTERADA)
+   Esta função é a mesma de antes e não precisa de NENHUMA mudança.
+   Ela apenas recebe a lista filtrada e o container, e faz o trabalho.
+  ==================================================================
+*/
 function injetarHtmlDosCards(container, defesasFiltradas, statusParaFiltrar) {
   if (defesasFiltradas.length === 0) {
     const mensagem =
@@ -119,7 +101,6 @@ function injetarHtmlDosCards(container, defesasFiltradas, statusParaFiltrar) {
 
       const bancaFormatada = defesa.banca.join(", ");
 
-      // Cria o novo HTML do card
       return `
                 <div class="card-defesa">
                     <h3>${defesa.tema}</h3>
