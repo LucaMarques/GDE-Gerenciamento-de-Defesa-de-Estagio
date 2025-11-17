@@ -1,6 +1,6 @@
 import { montarLayout } from "../main";
 import { usuariosBase } from "../data/usuarios.js";
-import { criarNotificacao } from "../components/notificacao.js"
+import { enviarNotificacao } from "../components/notificacao.js"
 
 document.addEventListener('DOMContentLoaded'  , () => {
     montarLayout();
@@ -56,10 +56,18 @@ document.addEventListener('DOMContentLoaded'  , () => {
         lista.push(novaDefesa);
         localStorage.setItem("defesas", JSON.stringify(lista));
 
-        criarNotificacao(
-            `O aluno ${usuario.nome} solicitou defesa sobre "${tema}".`,
-            orientador
-        );
+        // Enviar notificação para o orientador
+        const mensagemOrientador = `O aluno ${usuario.nome} solicitou defesa sobre "${tema}".`;
+        enviarNotificacao(orientador, mensagemOrientador, "alerta");
+
+        // Enviar notificação para todos os coordenadores
+        const usuariosArmazenados = JSON.parse(localStorage.getItem("usuarios")) || usuariosBase;
+        const coordenadores = usuariosArmazenados.filter(u => u.tipo === "coordenador");
+        
+        coordenadores.forEach(coordenador => {
+            const mensagemCoordenador = `O aluno ${usuario.nome} solicitou defesa sobre "${tema}" com o orientador ${orientador}.`;
+            enviarNotificacao(coordenador.nome, mensagemCoordenador, "info");
+        });
 
         alert("Solicitação enviada com sucesso!");
         window.location.href = "defesas.html";
