@@ -29,7 +29,34 @@ export const defesas = [
         local: 'Sala de Redes',
         tema: 'Banco de dados'
     },
-
-
-
+    {
+        aluno: 'Mariana Farias',
+        orientador: 'Prof.Valéria',
+        status: 'Em andamento',
+        data: '2025-05-15T00:00:00-03:00',
+        horario: '14:00',
+        banca: ['Prof. Luiz', 'Prof.Francisco'],
+        local: 'Sala de Redes',
+        tema: 'PWeb'
+    },
+    {
+        aluno: 'Mariana Farias',
+        orientador: 'Prof.Valéria',
+        status: 'Em andamento',
+        data: '2025-05-15T00:00:00-03:00',
+        horario: '14:00',
+        banca: ['Prof. Luiz', 'Prof.Francisco'],
+        local: 'Sala de Redes',
+        tema: 'PWeb'
+    },
+    {
+        aluno: 'Teste',
+        orientador: 'Teste prof',
+        status: 'Aguardando',
+        data: '2025-12-20T00:00:00-03:00',
+        horario: '16:31',
+        banca: ['Prof. Luiz', 'Prof.Francisco'],
+        local: 'Sala de Redes',
+        tema: 'Banco de dados'
+    },
 ]
