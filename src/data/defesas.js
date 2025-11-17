@@ -32,13 +32,14 @@ export const defesas = [
     {
         aluno: 'Mariana Farias',
         orientador: 'Prof.Valéria',
-        status: 'Concluído',
-        data: '2025-12-05T00:00:00-03:00',
+        status: 'Em andamento',
+        data: '2025-05-15T00:00:00-03:00',
         horario: '14:00',
         banca: ['Prof. Luiz', 'Prof.Francisco'],
         local: 'Sala de Redes',
         tema: 'PWeb'
     },
+    {
         aluno: 'Teste',
         orientador: 'Teste prof',
         status: 'Aguardando',
@@ -48,6 +49,4 @@ export const defesas = [
         local: 'Sala de Redes',
         tema: 'Banco de dados'
     },
-
-
 ]
