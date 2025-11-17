@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded'  , () => {
       { icon: "fa-file-lines", text: "Histórico", pagina: "defesas.html?filtro=concluido"  }
     ],
     orientador: [
-      { icon: "fa-list-check", text: "Avaliar defesas", pagina: "defesas.html"  },
+      { icon: "fa-list-check", text: "Avaliar defesas", pagina: "aceitar-defesas.html"  },
       { icon: "fa-calendar", text: "Minhas defesas", pagina: "defesas.html"  },
       { icon: "fa-chart-line", text: "Relatórios", pagina: "defesas.html"  }
     ],

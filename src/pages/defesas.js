@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let defesasFiltradas = todasDefesas.filter(d => d.aluno === nomeUsuario);
 
     if (filtro == 'concluido') {
-        defesasFiltradas = defesasFiltradas.filter(d => d.status === "Concluído");
+        defesasFiltradas = defesasFiltradas.filter(d => d.status === "Concluído" || d.status === "Recusado");
     }
 
     if (filtro == "andamento") {
