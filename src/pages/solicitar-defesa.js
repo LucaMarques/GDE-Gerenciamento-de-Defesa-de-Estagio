@@ -1,5 +1,6 @@
 import { montarLayout } from "../main";
 import { usuariosBase } from "../data/usuarios.js";
+import { criarNotificacao } from "../components/notificacao.js"
 
 document.addEventListener('DOMContentLoaded'  , () => {
     montarLayout();
@@ -54,6 +55,11 @@ document.addEventListener('DOMContentLoaded'  , () => {
         }
         lista.push(novaDefesa);
         localStorage.setItem("defesas", JSON.stringify(lista));
+
+        criarNotificacao(
+            `O aluno ${usuario.nome} solicitou defesa sobre "${tema}".`,
+            orientador
+        );
 
         alert("Solicitação enviada com sucesso!");
         window.location.href = "defesas.html";

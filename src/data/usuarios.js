@@ -7,6 +7,14 @@ export const usuariosBase = [
     "tipo": "coordenador"
   },
   {
+    "nome": "Mariana Farias",
+    "matricula": "0000",
+    "email": "marianafariasbrito@gmail.com",
+    "senha": "123456",
+    "tipo": "aluno"
+  },
+  {
+
     "nome": "Teste",
     "matricula": "0001",
     "email": "teste@gmail.com",

@@ -212,6 +212,12 @@ body{
     line-height: 1.4;
 }
 
+.notificacao-data {
+    font-size: 12px;
+    color: #888;
+    margin-top: 4px;
+}
+
 .badge {
     position: absolute;
     top: -5px;
@@ -235,7 +241,6 @@ body{
 .menu-notificacao ul::-webkit-scrollbar-thumb:hover {
     background: rgba(92,184,92,0.4);
 }
-
 
 /* Menu lateral moderno */
 .menu-lateral {
