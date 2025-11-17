@@ -108,37 +108,39 @@ export function gerarNotificacoesPorTipo(usuario) {
     return notificacoes;
 }
 
-export function criarNotificacao(mensagem, usuarioAlvo) {
+export function criarNotificacao(mensagem, usuarioAlvo, tipo = "info") {
     const CHAVE = `notificacoes_${usuarioAlvo}`;
     const lista = JSON.parse(localStorage.getItem(CHAVE)) || [];
 
     lista.push({
         mensagem,
         data: new Date().toISOString(),
-        lida: false
+        lida: false,
+        tipo: tipo
     });
 
     localStorage.setItem(CHAVE, JSON.stringify(lista));
+    
+    // Dispara evento customizado para atualizar notificações em tempo real
+    window.dispatchEvent(new CustomEvent('notificacaoAdicionada', { detail: { chave: CHAVE } }));
 }
 
-export function enviarNotificacao(destino, mensagem) {
-    let chave = "";
-
-    if (destino.tipo === "aluno") {
-        chave = `notificacoes_${destino.nome}`;
-    } else if (destino.tipo === "orientador") {
-        chave = `notificacoes_${destino.nome}`;
-    } else if (destino.tipo === "coordenador") {
-        chave = `notificacoes_${destino.nome}`;
-    }
+export function enviarNotificacao(destino, mensagem, tipo = "alerta") {
+    // Aceita objeto {nome, tipo} ou string (nome do usuário)
+    const nomeDestino = typeof destino === 'string' ? destino : destino.nome;
+    const chave = `notificacoes_${nomeDestino}`;
 
     const lista = JSON.parse(localStorage.getItem(chave)) || [];
 
     lista.push({
         mensagem,
         data: new Date().toISOString(),
-        lida: false
+        lida: false,
+        tipo: tipo
     });
 
     localStorage.setItem(chave, JSON.stringify(lista));
+    
+    // Dispara evento customizado para atualizar notificações em tempo real
+    window.dispatchEvent(new CustomEvent('notificacaoAdicionada', { detail: { chave } }));
 }

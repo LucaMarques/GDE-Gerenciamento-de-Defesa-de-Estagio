@@ -46,6 +46,12 @@ body{
     height: var(--header-height);
 }
 
+/* Conteúdo principal cresce para ocupar espaço disponível */
+main, section:first-of-type {
+    flex: 1;
+    padding-top: var(--header-height);
+}
+
 .container-header {
     display: flex;
     justify-content: space-between;
@@ -192,9 +198,133 @@ body{
     border-left: 3px solid transparent;
 }
 
+/* Estilos para tipos de notificações */
+.menu-notificacao ul li.tipo-alerta:not(.lida) {
+    background: linear-gradient(90deg, rgba(255, 193, 7, 0.15), rgba(255, 152, 0, 0.25)) !important;
+    border-left: 4px solid #ffc107 !important;
+    color: #ffe082 !important;
+}
+
+.menu-notificacao ul li.tipo-alerta:not(.lida):hover {
+    background: linear-gradient(90deg, rgba(255, 193, 7, 0.25), rgba(255, 152, 0, 0.35)) !important;
+}
+
+.menu-notificacao ul li.tipo-alerta.lida {
+    background: rgba(255, 193, 7, 0.05) !important;
+    color: #bbb !important;
+    border-left: 4px solid rgba(255, 193, 7, 0.3) !important;
+}
+
+.menu-notificacao ul li.tipo-sucesso:not(.lida) {
+    background: linear-gradient(90deg, rgba(76, 175, 80, 0.15), rgba(56, 142, 60, 0.25)) !important;
+    border-left: 4px solid #4caf50 !important;
+    color: #a5d6a7 !important;
+}
+
+.menu-notificacao ul li.tipo-sucesso:not(.lida):hover {
+    background: linear-gradient(90deg, rgba(76, 175, 80, 0.25), rgba(56, 142, 60, 0.35)) !important;
+}
+
+.menu-notificacao ul li.tipo-sucesso.lida {
+    background: rgba(76, 175, 80, 0.05) !important;
+    color: #bbb !important;
+    border-left: 4px solid rgba(76, 175, 80, 0.3) !important;
+}
+
+.menu-notificacao ul li.tipo-info:not(.lida) {
+    background: linear-gradient(90deg, rgba(33, 150, 243, 0.15), rgba(25, 103, 210, 0.25)) !important;
+    border-left: 4px solid #2196f3 !important;
+    color: #81d4fa !important;
+}
+
+.menu-notificacao ul li.tipo-info:not(.lida):hover {
+    background: linear-gradient(90deg, rgba(33, 150, 243, 0.25), rgba(25, 103, 210, 0.35)) !important;
+}
+
+.menu-notificacao ul li.tipo-info.lida {
+    background: rgba(33, 150, 243, 0.05) !important;
+    color: #bbb !important;
+    border-left: 4px solid rgba(33, 150, 243, 0.3) !important;
+}
+
 .menu-notificacao ul li.lida:hover {
     background: rgba(40,40,40,0.9);
-    transform: translateX(2px);
+}
+
+/* Estilos para conteúdo estruturado da notificação */
+.notificacao-item-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    width: 100%;
+}
+
+.notificacao-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+}
+
+.notificacao-icone {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.notificacao-mensagem {
+    flex: 1;
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+.notificacao-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.8rem;
+    margin-top: 0.4rem;
+}
+
+.notificacao-data {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    white-space: nowrap;
+}
+
+/* Botão de ação rápida */
+.btn-acao-notif {
+    padding: 0.4rem 0.8rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+.btn-acao-notif:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-1px);
+}
+
+.btn-acao-notif:active {
+    transform: translateY(0);
+}
+
+/* Ajuste para notificações lidas */
+.menu-notificacao ul li.lida .btn-acao-notif {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.menu-notificacao ul li.lida .btn-acao-notif:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
 }
 
 .menu-notificacao ul li:last-child {
