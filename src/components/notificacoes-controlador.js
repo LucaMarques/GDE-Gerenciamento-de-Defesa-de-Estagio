@@ -1,6 +1,6 @@
 import { gerarNotificacoesPorTipo, criarNotificacao, enviarNotificacao } from "./notificacao.js";
 
-// Função para calcular horário relativo
+// Função para calcular horário relativo, há 1 dia, semana mes ou ano
 function calcularHorarioRelativo(dataISO) {
     const agora = new Date();
     const data = new Date(dataISO);
@@ -12,55 +12,47 @@ function calcularHorarioRelativo(dataISO) {
     const diffMinutos = Math.floor(diffSegundos / 60);
     const diffHoras = Math.floor(diffMinutos / 60);
     
-    // Menos de 1 minuto
     if (diffSegundos < 60) {
         return 'agora';
     }
     
-    // Menos de 1 hora
     if (diffMinutos < 60) {
         return diffMinutos === 1 ? 'há 1 minuto' : `há ${diffMinutos} minutos`;
     }
     
-    // Comparar datas calendário (dia/mês/ano)
     const agoraData = new Date(agora.getFullYear(), agora.getMonth(), agora.getDate());
     const dataData = new Date(data.getFullYear(), data.getMonth(), data.getDate());
     const diffDiasCalendario = Math.floor((agoraData - dataData) / (1000 * 60 * 60 * 24));
     
-    // Mesma data (menos de 24 horas, mas pode ter horas diferentes)
     if (diffDiasCalendario === 0) {
         const hora = data.toLocaleString('pt-br', { hour: '2-digit', minute: '2-digit' });
         return `hoje às ${hora}`;
     }
     
-    // Dia anterior (ontem)
     if (diffDiasCalendario === 1) {
         const hora = data.toLocaleString('pt-br', { hour: '2-digit', minute: '2-digit' });
         return `ontem às ${hora}`;
     }
     
-    // 2 a 6 dias atrás
     if (diffDiasCalendario < 7) {
         return `há ${diffDiasCalendario} dias`;
     }
-    
-    // Menos de 30 dias
+
     const diffSemanas = Math.floor(diffDiasCalendario / 7);
     if (diffDiasCalendario < 30) {
         return diffSemanas === 1 ? 'há 1 semana' : `há ${diffSemanas} semanas`;
     }
     
-    // Menos de 365 dias
     const diffMeses = Math.floor(diffDiasCalendario / 30);
     if (diffDiasCalendario < 365) {
         return diffMeses === 1 ? 'há 1 mês' : `há ${diffMeses} meses`;
     }
     
-    // Ano passado ou mais
     const diffAnos = Math.floor(diffDiasCalendario / 365);
     return diffAnos === 1 ? 'há 1 ano' : `há ${diffAnos} anos`;
 }
 
+// Renderiza as notificações
 export function iniciarNotificacoes() {
     const btnNotificacao = document.getElementById('btn-notificacao');
     const menuNotificacao = document.getElementById('menu-notificacao');
@@ -71,6 +63,7 @@ export function iniciarNotificacoes() {
 
     if (!usuario) return;
 
+    // Variável chave criada para identificar notificações por usuário
     let CHAVE_NOTIFICACOES = `notificacoes_${usuario.nome}`;
 
     const notificacoesPotenciais = gerarNotificacoesPorTipo(usuario);
@@ -78,33 +71,32 @@ export function iniciarNotificacoes() {
     let notificacoesSalvas = JSON.parse(localStorage.getItem(CHAVE_NOTIFICACOES)) || [];
     notificacoesSalvas = notificacoesSalvas.filter(n => n && n.mensagem);
 
-    // Mesclar notificações: manter as salvas (que vêm de enviarNotificacao)
-    // e adicionar as geradas (que vêm de gerarNotificacoesPorTipo) se não duplicarem
     const mapaSalvas = new Map();
     notificacoesSalvas.forEach(n => mapaSalvas.set(n.mensagem, n));
 
     notificacoesPotenciais.forEach(notificacaoNova => {
-        // Se a notificação gerada não existe nas salvas, adiciona
         if (!mapaSalvas.has(notificacaoNova.mensagem)) {
             notificacoesSalvas.push(notificacaoNova);
             mapaSalvas.set(notificacaoNova.mensagem, notificacaoNova);
         }
     });
 
-    // Ordenar por data (mais recentes primeiro)
+    // Ordena notificações pela data criada
     notificacoesSalvas.sort((a, b) => {
         const dataA = new Date(a.data);
         const dataB = new Date(b.data);
 
-        if (isNaN(dataA)) return 1;  // manda invalid date pro final
+        if (isNaN(dataA)) return 1;  
         if (isNaN(dataB)) return -1;
 
         return dataB - dataA;
     });
 
+    // Salva as notificações no localstorage
     localStorage.setItem(CHAVE_NOTIFICACOES, JSON.stringify(notificacoesSalvas));
     let notificacoes = notificacoesSalvas;
 
+    // Função que organiza o menu das notificações
     function renderNotificacao() {
 
         listaNotificacao.innerHTML = '';
@@ -112,17 +104,19 @@ export function iniciarNotificacoes() {
         notificacoes.forEach((n, index) => {
             const horarioRelativo = calcularHorarioRelativo(n.data);
 
-            // Determinar ícone baseado no tipo
             let icone = 'bi-info-circle';
             if (n.tipo === 'alerta') icone = 'bi-exclamation-triangle';
             else if (n.tipo === 'sucesso') icone = 'bi-check-circle';
 
-            // Determinar ação rápida baseada na mensagem
             let botaoAcao = '';
             if (n.mensagem.includes('solicitou defesa')) {
                 botaoAcao = '<button class="btn-acao-notif" data-acao="ver-defesa" data-indice="' + index + '">Ver defesa</button>';
+            } else if (n.mensagem.includes('foi aceita')){
+                botaoAcao = '<button class="btn-acao-notif" data-acao="ver-status" data-indice="' + index + '">Ver status</button>';
+            } else if (n.mensagem.includes('foi recusada')){
+                botaoAcao = '<button class="btn-acao-notif" data-acao="ver-status" data-indice="' + index + '">Ver status</button>';
             } else if (n.mensagem.includes('está em andamento')) {
-                botaoAcao = '<button class="btn-acao-notif" data-acao="ver-detalhes" data-indice="' + index + '">Detalhes</button>';
+                botaoAcao = '<button class="btn-acao-notif" data-acao="ver-detalhes" data-indice="' + index + '">Ver detalhes</button>';
             } else if (n.mensagem.includes('foi concluída') || n.mensagem.includes('foi concluído')) {
                 botaoAcao = '<button class="btn-acao-notif" data-acao="ver-resultado" data-indice="' + index + '">Ver resultado</button>';
             }
@@ -142,7 +136,7 @@ export function iniciarNotificacoes() {
             `;
             li.classList.add('notificacao-item');
             
-            // Aplicar classe baseada no tipo de notificação
+            // Classe baseada no tipo de notificação
             if (n.tipo === 'alerta') {
                 li.classList.add('tipo-alerta');
             } else if (n.tipo === 'sucesso') {
@@ -153,7 +147,7 @@ export function iniciarNotificacoes() {
             
             if (n.lida) li.classList.add('lida');
 
-            // Marcar como lida ao clicar na notificação (exceto no botão)
+            // Marcar como lida ao clicar na notificação 
             li.addEventListener('click', (e) => {
                 if (e.target.tagName !== 'BUTTON') {
                     notificacoes[index].lida = true;
@@ -173,10 +167,12 @@ export function iniciarNotificacoes() {
                     notificacoes[index].lida = true;
                     localStorage.setItem(CHAVE_NOTIFICACOES, JSON.stringify(notificacoes));
 
-                    // Executar ação
+                    // Redireciona apartir do botão de ação
                     if (acao === 'ver-defesa') {
                         window.location.href = 'defesas.html';
                     } else if (acao === 'ver-detalhes' || acao === 'ver-resultado') {
+                        window.location.href = 'defesas.html';
+                    } else if (acao === 'ver-status') {
                         window.location.href = 'defesas.html';
                     }
                 });
@@ -188,6 +184,7 @@ export function iniciarNotificacoes() {
         atualizarContador();
     }
 
+    // Função para contar as notificações não lidas
     function atualizarContador() {
         const naoLidas = notificacoes.filter(n => !n.lida).length;
         contador.textContent = naoLidas;
@@ -209,7 +206,7 @@ export function iniciarNotificacoes() {
         menuNotificacao.addEventListener("click", (e) => e.stopPropagation());
     }
 
-    // Listener para atualizar notificações quando localStorage for alterado (ex: de outra aba)
+    // Listener para atualizar notificações quando localStorage for alterado
     window.addEventListener('storage', (e) => {
         if (e.key === CHAVE_NOTIFICACOES) {
             notificacoes = JSON.parse(e.newValue) || [];

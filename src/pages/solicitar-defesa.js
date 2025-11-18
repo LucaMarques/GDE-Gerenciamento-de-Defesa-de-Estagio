@@ -56,11 +56,11 @@ document.addEventListener('DOMContentLoaded'  , () => {
         lista.push(novaDefesa);
         localStorage.setItem("defesas", JSON.stringify(lista));
 
-        // Enviar notificação para o orientador
+        // Envia notificação de solicitação para o orientador
         const mensagemOrientador = `O aluno ${usuario.nome} solicitou defesa sobre "${tema}".`;
         enviarNotificacao(orientador, mensagemOrientador, "alerta");
 
-        // Enviar notificação para todos os coordenadores
+        // Envia notificação de solicitação para o coordenador
         const usuariosArmazenados = JSON.parse(localStorage.getItem("usuarios")) || usuariosBase;
         const coordenadores = usuariosArmazenados.filter(u => u.tipo === "coordenador");
         

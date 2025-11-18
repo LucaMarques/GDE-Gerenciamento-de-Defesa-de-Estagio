@@ -1,5 +1,7 @@
 import { defesas } from "../data/defesas.js";
 import { montarLayout } from "../main.js";
+import { enviarNotificacao } from "../components/notificacao.js";
+import { usuariosBase } from "../data/usuarios.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     montarLayout();
@@ -68,6 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Altera os status e salva no Local Storage
 function atualizarStatus(defesa, novoStatus) {
+    const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
     let lista = JSON.parse(localStorage.getItem("defesas"));
 
     if (!Array.isArray(lista)) {
@@ -75,7 +78,7 @@ function atualizarStatus(defesa, novoStatus) {
     }
     let item = lista.find(d => d.aluno === defesa.aluno && d.tema === defesa.tema);
 
-    // Já existe no localStorage (pois podeeria estar apenas no json, nesse caso não iria fazer nada)
+    // Já existe no localStorage (pois poderia estar apenas no json, nesse caso não iria fazer nada)
     if (item) {
         item.status = novoStatus;
     } else {
@@ -87,6 +90,31 @@ function atualizarStatus(defesa, novoStatus) {
     }
 
     localStorage.setItem("defesas", JSON.stringify(lista));
+
+    // Determinar mensagem e tipo de notificação
+    let statusTexto;
+    let tipoNotif;
+    
+    if (novoStatus === "Recusado") {
+        statusTexto = "recusada";
+        tipoNotif = "alerta";
+    } else {
+        statusTexto = "aceita";
+        tipoNotif = "sucesso";
+    }
+
+    // Envia notificação de aceitação para aluno
+    const mensagemAluno = `Sua defesa sobre "${defesa.tema}" foi ${statusTexto} pelo orientador ${usuario.nome}.`;
+    enviarNotificacao(defesa.aluno, mensagemAluno, tipoNotif);
+    
+    // Envia notificação de aceitação para coordenador
+    const usuariosArmazenados = JSON.parse(localStorage.getItem("usuarios")) || usuariosBase;
+    const coordenadores = usuariosArmazenados.filter(u => u.tipo === "coordenador");
+            
+    coordenadores.forEach(coordenador => {
+        const mensagemCoordenador = `A defesa de ${defesa.aluno} sobre "${defesa.tema}" foi ${statusTexto} pelo orientador ${usuario.nome}.`;
+        enviarNotificacao(coordenador.nome, mensagemCoordenador, tipoNotif);
+    });
 
     alert("Status atualizado!");
     location.reload();
