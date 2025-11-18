@@ -1,5 +1,6 @@
 import { defesas } from "../data/defesas.js";
 
+// Função gerando notificações por tipo de usuário quando o aluno solicita defesa
 export function gerarNotificacoesPorTipo(usuario) {
     const notificacoes = [];
 
@@ -126,7 +127,6 @@ export function criarNotificacao(mensagem, usuarioAlvo, tipo = "info") {
 }
 
 export function enviarNotificacao(destino, mensagem, tipo = "alerta") {
-    // Aceita objeto {nome, tipo} ou string (nome do usuário)
     const nomeDestino = typeof destino === 'string' ? destino : destino.nome;
     const chave = `notificacoes_${nomeDestino}`;
 
@@ -141,6 +141,5 @@ export function enviarNotificacao(destino, mensagem, tipo = "alerta") {
 
     localStorage.setItem(chave, JSON.stringify(lista));
     
-    // Dispara evento customizado para atualizar notificações em tempo real
     window.dispatchEvent(new CustomEvent('notificacaoAdicionada', { detail: { chave } }));
 }
