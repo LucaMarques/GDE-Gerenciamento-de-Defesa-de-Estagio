@@ -16,8 +16,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
     if (!usuario){
-        alert("Você precisar estar logado primeiro!");
-        window.location.href="login.html";
+        Swal.fire({
+            title: 'Acesso restrito',
+            text: 'Você precisa estar logado primeiro!',
+            icon: 'warning',
+            confirmButtonText: 'Ir para Login',
+            confirmButtonColor: '#0fa394',
+            allowOutsideClick: false,
+            allowEscapeKey: false
+        }).then(() => {
+            window.location.href = "login.html";
+        });
         return;
     }
 
