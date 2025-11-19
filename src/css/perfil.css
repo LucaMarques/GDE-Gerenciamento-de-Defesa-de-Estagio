@@ -1,3 +1,16 @@
+/* Animação de clique nos botões */
+.btn-alterar-dados,
+.btn-salvar-dados,
+.btn-cancelar-edicao {
+    transition: background 0.2s, box-shadow 0.2s, transform 0.15s, opacity 0.15s;
+}
+
+.btn-alterar-dados:active,
+.btn-salvar-dados:active,
+.btn-cancelar-edicao:active {
+    transform: scale(0.96);
+    opacity: 0.7;
+}
 *{
     margin: 0;
     padding: 0;
@@ -5,7 +18,7 @@
 }
 
 body {
-    background: linear-gradient(135deg, #e9eef6 0%, #c3d0e6 100%);
+    background: var(--color-muted);
     color: #222;
     font-family: 'Segoe UI', 'Arial', sans-serif;
 }
@@ -13,7 +26,7 @@ body {
 .perfil-container {
     background: none;
     padding: 20px;
-    box-shadow: 0 4px 24px 0 rgba(35,90,141,0.08);
+    box-shadow: 0 4px 24px 0 rgba(24,120,110,0.08);
     max-width: 1300px;
     margin: 48px auto;
     border: none;
@@ -36,8 +49,8 @@ body {
 .card {
     background: #fff;
     border-radius: 16px;
-    box-shadow: 0 1px 4px rgba(35,90,141,0.06);
-    border: 1px solid #dbe6f3;
+    box-shadow: 0 1px 4px rgba(24,120,110,0.06);
+    border: 1px solid #b7e3db;
     padding: 48px 36px;
     min-width: 320px;
     max-width: 420px;
@@ -59,17 +72,17 @@ body {
     width: 140px;
     height: 140px;
     border-radius: 32px;
-    box-shadow: 0 2px 12px 2px rgba(35,90,141,0.09);
+    box-shadow: 0 2px 12px 2px rgba(24,120,110,0.09);
     margin: 12px;
-    border: 6px solid #235a8d;
-    box-shadow: 0 2px 16px rgba(35,90,141,0.13);
+    border: 6px solid #18786e;
+    box-shadow: 0 2px 16px rgba(24,120,110,0.13);
     margin-bottom: 22px;
-    background: #e9eef6;
+    background: #e5e5e8;
 }
 
 .nome-perfil {
     font-size: 1.35em;
-    color: #235a8d;
+    color: #18786e;
     margin-bottom: 8px;
     margin-top: 0;
     font-weight: 700;
@@ -168,10 +181,32 @@ body {
 .header-info-pessoais {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 16px;
     width: 100%;
     margin-bottom: 22px;
     margin-top: -10px; 
+/* Botão cancelar edição */
+.btn-cancelar-edicao {
+    display: none;
+    padding: 7px 14px;
+    background: var(--color-primary-light);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: 300px;
+    box-shadow: none;
+    transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+    margin-top: -15px;
+}
+.btn-cancelar-edicao:hover {
+    background: var(--color-primary);
+    color: var(--color-text-light);
+    box-shadow: 0 2px 8px rgba(24,120,110,0.08);
+}
 }
 
 .header-info-pessoais h3 {
@@ -185,26 +220,30 @@ body {
 }
 
 .btn-alterar-dados {
-    background: #235a8d;
+    background: var(--color-primary-light);
     color: #fff;
     border: none;
-    border-radius: 8px;
-    padding: 7px 14px;
+    border-radius: 50px;
+    padding: 8px 16px;
     font-size: 1em;
     font-weight: 550;
     cursor: pointer;
-    transition: background 0.2s;
-    box-shadow: 0 2px 8px rgba(35,90,141,0.08);
+    transition: background 0.2s, box-shadow 0.2s;
+    box-shadow: none;
     margin-bottom: 20px;
     align-self: flex-end;
+    margin-top: -5px;
+    margin-left: 300px;
 }
 
 .btn-alterar-dados:hover {
-    background: #17406a;
+    background: var(--color-primary);
+    color: var(--color-text-light);
+    box-shadow: 0 4px 16px rgba(24,120,110,0.18);
 }
 
 .btn-salvar-dados {
-    background: #235a8d;
+    background: var(--color-primary-light);
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -212,14 +251,16 @@ body {
     font-size: 1em;
     font-weight: 550;
     cursor: pointer;
-    transition: background 0.2s;
-    box-shadow: 0 2px 8px rgba(35,90,141,0.08);
+    transition: background 0.2s, box-shadow 0.2s;
+    box-shadow: none;
     margin-bottom: 20px;
     align-self: flex-end;
 }
 
 .btn-salvar-dados:hover {
-    background: #17406a;
+    background: var(--color-primary);
+    color: var(--color-text-light);
+    box-shadow: 0 4px 16px rgba(24,120,110,0.18);
 }
 
 .linha-campos {
