@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     alert("Você precisa fazer login primeiro!");
     window.location.href = "/login.html";
   }
+  
   montarLayout();
   prepararConteudoInterativo();
 });
@@ -52,7 +53,7 @@ function exibirRelatorios() {
   let defesasFiltradas = [];
   let statusParaMensagem = valorStatus;
 
-  // Filtro por Status 
+  // --- PASSO 1: Filtro por Status ---
   if (valorStatus === "pendentes") {
     defesasFiltradas = defesas.filter((defesa) => {
       return defesa.status === "Em andamento";
@@ -71,21 +72,24 @@ function exibirRelatorios() {
     return;
   }
 
-  // Filtro por Data
-  if (valorData) { // Se 'valorData' NÃO estiver vazio 
-    
+  // --- PASSO 2: Filtro por Data (LÓGICA NOVA E SIMPLES) ---
+  if (valorData) { 
     defesasFiltradas = defesasFiltradas.filter((defesa) => {
-      // .trim() remove espaços
-      return defesa.data.trim() === valorData;
+      
+      // LÓGICA DO .split('T'):
+      // 1. Pega a data do banco (ex: "2025-09-22T00...")
+      // 2. Quebra ela em pedaços onde tem a letra "T"
+      // 3. Pega só a primeira parte [0], que é a data "2025-09-22"
+      const dataDoBancoLimpa = defesa.data.split('T')[0];
+
+      // Agora compara se a data limpa é igual à data do calendário
+      return dataDoBancoLimpa === valorData;
     });
   }
 
   injetarHtmlDosCards(container, defesasFiltradas, statusParaMensagem);
 }
 
-
-/* FUNÇÃO injetarHtmlDosCards
-*/
 function injetarHtmlDosCards(container, defesasFiltradas, statusParaFiltrar) {
   if (defesasFiltradas.length === 0) {
     const mensagem =
@@ -98,6 +102,7 @@ function injetarHtmlDosCards(container, defesasFiltradas, statusParaFiltrar) {
       const classeStatus =
         defesa.status === "Em andamento" ? "status-aberto" : "status-concluida";
 
+      // Formatação visual da data (dia/mês/ano)
       const dataFormatada = new Date(defesa.data).toLocaleDateString("pt-BR", {
         timeZone: "UTC",
       });
