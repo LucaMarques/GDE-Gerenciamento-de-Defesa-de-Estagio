@@ -90,16 +90,9 @@ document.addEventListener("DOMContentLoaded", () => {
         
         usuarios.push(novoUsuario);
         localStorage.setItem('usuarios', JSON.stringify(usuarios))
-        Swal.fire({
-        title: 'Cadastrado!',
-        text: 'Seu cadastro foi realizado com sucesso.',
-        icon: 'success',
-        confirmButtonText: 'Fazer Login',
-        confirmButtonColor: '#0fa394'
-    }).then(() => {
-        document.getElementById('form-cadastro').reset();
-        moveOverlay(); // Troca a tela para o Login automaticamente
-    });
+        alert('Cadastro realizado com sucesso!')
+        document.getElementById('form-cadastro').reset()
+        moveOverlay()
     })
 
 
@@ -128,17 +121,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (usuario){
             localStorage.setItem('usuarioLogado', JSON.stringify(usuario))
             localStorage.setItem("tipoUsuario", usuario.tipo);
-            Swal.fire({
-            title: `Bem-vindo(a), ${usuario.nome}!`,
-            text: 'Login realizado com sucesso.',
-            icon: 'success',
-            timer: 1500, // Fecha sozinho em 1.5s para ser rápido
-            showConfirmButton: false,
-            timerProgressBar: true,
-            willClose: () => {
-                window.location.href = "dashboard.html";
-            }
-        });
+            alert(`Bem-vindo, ${usuario.nome} ! (${usuario.tipo})`)
+
+            window.location.href = "dashboard.html";
             /*if (usuario.tipo === 'aluno') window.location.href = 'aluno.html'
             else if (usuario.tipo === 'orientador') window.location.href = 'orientador.html'
             else if (usuario.tipo == 'coordenador') window.location.href = 'coordenador.html'*/

@@ -4,18 +4,8 @@ import { defesas } from "../data/defesas.js";
 document.addEventListener("DOMContentLoaded", () => {
   const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
   if (!usuarioLogado) {
-    Swal.fire({
-        title: 'Acesso restrito',
-        text: 'Você precisa fazer login para acessar os relatórios.',
-        icon: 'warning',
-        confirmButtonText: 'Ir para Login',
-        confirmButtonColor: '#0fa394',
-        allowOutsideClick: false,
-        allowEscapeKey: false
-    }).then(() => {
-        window.location.href = "login.html";
-    });
-    return;
+    alert("Você precisa fazer login primeiro!");
+    window.location.href = "/login.html";
   }
   
   montarLayout();
@@ -82,11 +72,17 @@ function exibirRelatorios() {
     return;
   }
 
-  // Filtro por Data 
+  // Filtro por Data (LÓGICA NOVA E SIMPLES) ---
   if (valorData) { 
     defesasFiltradas = defesasFiltradas.filter((defesa) => {
+      
+      // LÓGICA DO .split('T'):
+      // 1. Pega a data do banco (ex: "2025-09-22T00...")
+      // 2. Quebra ela em pedaços onde tem a letra "T"
+      // 3. Pega só a primeira parte [0], que é a data "2025-09-22"
       const dataDoBancoLimpa = defesa.data.split('T')[0];
 
+      // Agora compara se a data limpa é igual à data do calendário
       return dataDoBancoLimpa === valorData;
     });
   }
@@ -106,8 +102,7 @@ function injetarHtmlDosCards(container, defesasFiltradas, statusParaFiltrar) {
       const classeStatus =
         defesa.status === "Em andamento" ? "status-aberto" : "status-concluida";
 
-      // Formatação visual da data (dia/mês/ano), new Data transforma o texto simples
-      //para um objeto data, para assim conseguir ultilizar .toLocaleDateString
+      // Formatação visual da data (dia/mês/ano)
       const dataFormatada = new Date(defesa.data).toLocaleDateString("pt-BR", {
         timeZone: "UTC",
       });
