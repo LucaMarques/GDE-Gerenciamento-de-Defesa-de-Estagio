@@ -11,7 +11,10 @@ export default defineConfig({
         defesas: resolve(__dirname, 'defesas.html'),
         login: resolve(__dirname, 'login.html'),
         perfil: resolve(__dirname, 'perfil.html'),
-        dashboard: resolve(__dirname, 'dashboard.html')
+        dashboard: resolve(__dirname, 'dashboard.html'),
+        aceitardefesas: resolve(__dirname, 'aceitar-defesas.html'),
+        solicitardefesas: resolve(__dirname, 'solicitar-defesa.html'),
+        relatorios: resolve(__dirname, 'relatorios.html')
       }
     }
   },

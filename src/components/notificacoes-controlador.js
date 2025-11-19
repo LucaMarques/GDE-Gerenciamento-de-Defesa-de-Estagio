@@ -52,7 +52,7 @@ function calcularHorarioRelativo(dataISO) {
     return diffAnos === 1 ? 'há 1 ano' : `há ${diffAnos} anos`;
 }
 
-// Renderiza as notificações
+// Função que organiza o menu das notificações
 export function iniciarNotificacoes() {
     const btnNotificacao = document.getElementById('btn-notificacao');
     const menuNotificacao = document.getElementById('menu-notificacao');
@@ -96,7 +96,7 @@ export function iniciarNotificacoes() {
     localStorage.setItem(CHAVE_NOTIFICACOES, JSON.stringify(notificacoesSalvas));
     let notificacoes = notificacoesSalvas;
 
-    // Função que organiza o menu das notificações
+    // Renderiza as notificações
     function renderNotificacao() {
 
         listaNotificacao.innerHTML = '';
@@ -163,11 +163,9 @@ export function iniciarNotificacoes() {
                     e.stopPropagation();
                     const acao = botao.dataset.acao;
                     
-                    // Marcar como lida
                     notificacoes[index].lida = true;
                     localStorage.setItem(CHAVE_NOTIFICACOES, JSON.stringify(notificacoes));
 
-                    // Redireciona apartir do botão de ação
                     if (acao === 'ver-defesa') {
                         window.location.href = 'defesas.html';
                     } else if (acao === 'ver-detalhes' || acao === 'ver-resultado') {

@@ -10,7 +10,7 @@ export function gerarNotificacoesPorTipo(usuario) {
         const minhasDefesas = defesas.filter(d => d.aluno === usuario.nome);
 
         minhasDefesas.forEach(def => {
-            if (def.status === "Em andamento" || def.status === "Aguardando") {
+            if (def.status === "Em andamento") {
                 notificacoes.push({
                     mensagem: `Sua defesa sobre "${def.tema}" está ${def.status.toLowerCase()} para ${def.data !== "0000-00-00" ? new Date(def.data).toLocaleDateString("pt-BR") : "a definir"} às ${def.horario}.`,
                     lida: false,
@@ -19,9 +19,9 @@ export function gerarNotificacoesPorTipo(usuario) {
                 });
             }
 
-            if (def.status === "Em andamento") {
+            if (def.status === "Aguardando") {
                 notificacoes.push({
-                    mensagem: `Sua defesa sobre "${def.tema}" está em andamento.`,
+                    mensagem: `Sua defesa sobre "${def.tema}" está aguardando aprovação do orientador.`,
                     lida: false,
                     tipo: "alerta",
                     data: new Date().toISOString()
@@ -122,7 +122,7 @@ export function criarNotificacao(mensagem, usuarioAlvo, tipo = "info") {
 
     localStorage.setItem(CHAVE, JSON.stringify(lista));
     
-    // Dispara evento customizado para atualizar notificações em tempo real
+    // Dispara evento para atualizar notificações em tempo real
     window.dispatchEvent(new CustomEvent('notificacaoAdicionada', { detail: { chave: CHAVE } }));
 }
 
