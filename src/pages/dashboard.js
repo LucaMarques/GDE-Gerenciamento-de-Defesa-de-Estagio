@@ -6,18 +6,8 @@ document.addEventListener('DOMContentLoaded'  , () => {
   // Verificando o tipo de usuario
   const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
   if (!usuarioLogado) {
-    Swal.fire({
-        title: 'Acesso restrito',
-        text: 'Você precisa fazer login primeiro!',
-        icon: 'warning',
-        confirmButtonText: 'Ir para Login',
-        confirmButtonColor: '#0fa394',
-        allowOutsideClick: false, // Impede fechar clicando fora
-        allowEscapeKey: false     // Impede fechar com ESC
-    }).then(() => {
-        window.location.href = "login.html";
-    });
-    return;
+    alert("Você precisa fazer login primeiro!");
+    window.location.href = "login.html";
   }
 
   const tipoUsuario = usuarioLogado.tipo; 
@@ -40,7 +30,7 @@ document.addEventListener('DOMContentLoaded'  , () => {
     ],
     orientador: [
       { icon: "fa-list-check", text: "Avaliar defesas", pagina: "aceitar-defesas.html"  },
-      { icon: "fa-calendar", text: "Adicionar Aluno", pagina: "defesas.html"  },
+      { icon: "fa-calendar", text: "Minhas defesas", pagina: "defesas.html"  },
       { icon: "fa-chart-line", text: "Relatórios", pagina: "relatorios.html"  }
     ],
     coordenador: [
