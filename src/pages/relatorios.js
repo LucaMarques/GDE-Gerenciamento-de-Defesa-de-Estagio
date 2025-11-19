@@ -1,106 +1,95 @@
-import { montarLayout } from "../main.js"; 
+import { montarLayout } from "../main.js";
 import { defesas } from "../data/defesas.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  
   const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
   if (!usuarioLogado) {
     alert("Você precisa fazer login primeiro!");
-  
-    window.location.href = "/login.html"; 
+    window.location.href = "/login.html";
   }
-
+  
   montarLayout();
   prepararConteudoInterativo();
 });
-
 
 function prepararConteudoInterativo() {
   const mainElement = document.getElementById("main-content");
   if (!mainElement) return;
 
   const htmlInicial = `
+    <div class="relatorio-container">
         <h2>Relatórios de Defesas</h2>
         
-        <button id="btn-pendentes" class="btn-toggle-relatorio">Exibir Relatórios Pendentes</button>
-        <div id="container-pendentes" class="container-relatorio-lista"></div>
-        
-        <button id="btn-concluidos" class="btn-toggle-relatorio">Exibir Histórico (Concluídos)</button>
-        <div id="container-concluidos" class="container-relatorio-lista"></div>
+        <div class="relatorio-controles">
+            <select id="select-relatorio">
+                <option value="">-- Selecione um tipo de relatório --</option>
+                <option value="pendentes">Relatórios Pendentes</option>
+                <option value="concluidos">Histórico (Concluídos)</option>
+                <option value="todos">Todos os Relatórios</option>
+            </select>
 
-        <button id="btn-todos" class="btn-toggle-relatorio">Exibir Todos os Relatórios</button>
-        <div id="container-todos" class="container-relatorio-lista"></div>
+            <input type="date" id="input-data">
+        </div>
+
+        <div id="container-resultados" class="container-relatorio-lista"></div>
+    </div>
     `;
   mainElement.innerHTML = htmlInicial;
 
   document
-    .getElementById("btn-pendentes")
-    .addEventListener("click", alternarPendentes);
+    .getElementById("select-relatorio")
+    .addEventListener("change", exibirRelatorios);
+  
   document
-    .getElementById("btn-concluidos")
-    .addEventListener("click", alternarConcluidos);
-  document.getElementById("btn-todos").addEventListener("click", alternarTodos);
+    .getElementById("input-data")
+    .addEventListener("change", exibirRelatorios);
 }
 
-function alternarPendentes() {
-  const container = document.getElementById("container-pendentes");
-  const botao = document.getElementById("btn-pendentes");
-  const estaAberto = container.innerHTML !== "";
+function exibirRelatorios() {
+  const valorStatus = document.getElementById("select-relatorio").value;
+  const valorData = document.getElementById("input-data").value;
+  const container = document.getElementById("container-resultados");
 
-  if (estaAberto) {
-    container.innerHTML = "";
-    botao.textContent = "Exibir Relatórios Pendentes";
-  } else {
-    botao.textContent = "Ocultar Relatórios";
+  let defesasFiltradas = [];
+  let statusParaMensagem = valorStatus;
 
-    const defesasFiltradas = defesas.filter((defesa) => {
+  // Filtro por Status ---
+  if (valorStatus === "pendentes") {
+    defesasFiltradas = defesas.filter((defesa) => {
       return defesa.status === "Em andamento";
     });
-
-    injetarHtmlDosCards(container, defesasFiltradas, "Em andamento");
-  }
-}
-
-function alternarConcluidos() {
-  const container = document.getElementById("container-concluidos");
-  const botao = document.getElementById("btn-concluidos");
-  const estaAberto = container.innerHTML !== "";
-
-  if (estaAberto) {
-    container.innerHTML = "";
-    botao.textContent = "Exibir Histórico (Concluídos)";
-  } else {
-    botao.textContent = "Ocultar Histórico";
-
-    const defesasFiltradas = defesas.filter((defesa) => {
+    statusParaMensagem = "Em andamento";
+  } else if (valorStatus === "concluidos") {
+    defesasFiltradas = defesas.filter((defesa) => {
       return defesa.status === "Concluído";
     });
-
-    injetarHtmlDosCards(container, defesasFiltradas, "Concluído");
-  }
-}
-
-function alternarTodos() {
-  const container = document.getElementById("container-todos");
-  const botao = document.getElementById("btn-todos");
-  const estaAberto = container.innerHTML !== "";
-
-  if (estaAberto) {
-    container.innerHTML = "";
-    botao.textContent = "Exibir Todos os Relatórios";
+    statusParaMensagem = "Concluído";
+  } else if (valorStatus === "todos") {
+    defesasFiltradas = defesas;
+    statusParaMensagem = "todos";
   } else {
-    botao.textContent = "Ocultar Todos";
-
-    const defesasFiltradas = defesas;
-
-    injetarHtmlDosCards(container, defesasFiltradas, "todos");
+    container.innerHTML = "";
+    return;
   }
+
+  // Filtro por Data (LÓGICA NOVA E SIMPLES) ---
+  if (valorData) { 
+    defesasFiltradas = defesasFiltradas.filter((defesa) => {
+      
+      // LÓGICA DO .split('T'):
+      // 1. Pega a data do banco (ex: "2025-09-22T00...")
+      // 2. Quebra ela em pedaços onde tem a letra "T"
+      // 3. Pega só a primeira parte [0], que é a data "2025-09-22"
+      const dataDoBancoLimpa = defesa.data.split('T')[0];
+
+      // Agora compara se a data limpa é igual à data do calendário
+      return dataDoBancoLimpa === valorData;
+    });
+  }
+
+  injetarHtmlDosCards(container, defesasFiltradas, statusParaMensagem);
 }
 
-/**
- cria o HTML usando os novos campos:
- * 'tema', 'aluno', 'orientador', 'data', 'horario', 'local', 'banca'
- */
 function injetarHtmlDosCards(container, defesasFiltradas, statusParaFiltrar) {
   if (defesasFiltradas.length === 0) {
     const mensagem =
@@ -113,13 +102,13 @@ function injetarHtmlDosCards(container, defesasFiltradas, statusParaFiltrar) {
       const classeStatus =
         defesa.status === "Em andamento" ? "status-aberto" : "status-concluida";
 
+      // Formatação visual da data (dia/mês/ano)
       const dataFormatada = new Date(defesa.data).toLocaleDateString("pt-BR", {
         timeZone: "UTC",
       });
 
       const bancaFormatada = defesa.banca.join(", ");
 
-      // Cria o novo HTML do card
       return `
                 <div class="card-defesa">
                     <h3>${defesa.tema}</h3>

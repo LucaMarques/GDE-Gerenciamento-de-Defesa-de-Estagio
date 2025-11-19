@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded'  , () => {
     orientador: [
       { icon: "fa-list-check", text: "Avaliar defesas", pagina: "aceitar-defesas.html"  },
       { icon: "fa-calendar", text: "Minhas defesas", pagina: "defesas.html"  },
-      { icon: "fa-chart-line", text: "Relatórios", pagina: "defesas.html"  }
+      { icon: "fa-chart-line", text: "Relatórios", pagina: "relatorios.html"  }
     ],
     coordenador: [
       { icon: "fa-users-gear", text: "Gerenciar usuários", pagina: "defesas.html"  },
