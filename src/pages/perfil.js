@@ -112,6 +112,12 @@ document.addEventListener('DOMContentLoaded', () => {
     btnSalvar.style.width = '180px';
     btnSalvar.style.alignSelf = 'center';
     btnSalvar.onclick = () => {
+      const inputs = document.querySelectorAll('.input-edicao');
+      const valores = Array.from(inputs).map(input => input.value);
+      if (!validarCampos(valores)) {
+        // Se houver erro, mantém modo edição e botões
+        return;
+      }
       salvarDados();
       btnCancelar.style.display = 'none';
       btnAlterar.style.display = 'inline-block';
