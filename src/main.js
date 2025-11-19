@@ -38,15 +38,29 @@ export function montarLayout(){
         btnLogout.addEventListener("click", (evento) =>{
             evento.preventDefault();
 
-            const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
-            if (usuario) {
-                localStorage.removeItem(`notificacoes_${usuario.nome}`);
-            }
+            Swal.fire({
+                title: 'Sair do sistema?',
+                text: "Você terá que fazer login novamente.",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#0fa394',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sim, sair',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
+                    if (usuario) {
+                        // Opcional: limpar notificações específicas se desejar
+                        localStorage.removeItem(`notificacoes_${usuario.nome}`);
+                    }
 
-            localStorage.removeItem('usuarioLogado');
-            localStorage.removeItem('tipoUsuario');
-            sessionStorage.clear();
-            window.location.href = './login.html';
+                    localStorage.removeItem('usuarioLogado');
+                    localStorage.removeItem('tipoUsuario');
+                    sessionStorage.clear();
+                    window.location.href = './login.html';
+                }
+            });
         });
     }
 };
