@@ -53,7 +53,7 @@ function exibirRelatorios() {
   let defesasFiltradas = [];
   let statusParaMensagem = valorStatus;
 
-  // --- PASSO 1: Filtro por Status ---
+  // Filtro por Status ---
   if (valorStatus === "pendentes") {
     defesasFiltradas = defesas.filter((defesa) => {
       return defesa.status === "Em andamento";
@@ -72,7 +72,7 @@ function exibirRelatorios() {
     return;
   }
 
-  // --- PASSO 2: Filtro por Data (LÓGICA NOVA E SIMPLES) ---
+  // Filtro por Data (LÓGICA NOVA E SIMPLES) ---
   if (valorData) { 
     defesasFiltradas = defesasFiltradas.filter((defesa) => {
       
