@@ -25,8 +25,17 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('endereco', usuarioLogado.endereco || '');
   } 
   else {
-    alert("Você não está logado. Faça login!");
-    window.location.href = "login.html";
+    Swal.fire({
+        title: 'Acesso restrito',
+        text: 'Você precisa fazer login para acessar seu perfil.',
+        icon: 'warning',
+        confirmButtonColor: '#0fa394',
+        allowOutsideClick: false,
+        confirmButtonText: 'Ir para Login'
+    }).then(() => {
+        window.location.href = "login.html";
+    });
+    return;
   }
 
   // tira os dados fixos do html
@@ -126,29 +135,39 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function validarCampos(valores) {
+    // Função auxiliar para mostrar erro
+    const mostrarErro = (msg) => {
+        Swal.fire({
+            title: 'Campo Inválido',
+            text: msg,
+            icon: 'error',
+            confirmButtonColor: '#0fa394'
+        });
+    };
+
     // Matrícula: só números, até 12 dígitos
     if (!/^\d{1,12}$/.test(valores[0])) {
-      alert('Matrícula deve conter até 12 números.');
+      mostrarErro('Matrícula deve conter até 12 números.');
       return false;
     }
     // Data de nascimento: formato DD/MM/AAAA
     if (!/^\d{2}\/\d{2}\/\d{4}$/.test(valores[5])) {
-      alert('Data de nascimento deve estar no formato DD/MM/AAAA.');
+      mostrarErro('Data de nascimento deve estar no formato DD/MM/AAAA.');
       return false;
     }
     // Telefone: só números, 10 ou 11 dígitos
     if (!/^\d{10,11}$/.test(valores[6].replace(/\D/g, ''))) {
-      alert('Telefone deve conter apenas números (10 ou 11 dígitos).');
+      mostrarErro('Telefone deve conter apenas números (10 ou 11 dígitos).');
       return false;
     }
     // Endereço: mínimo 5 caracteres
     if (valores[7].trim().length < 5) {
-      alert('Endereço deve ter pelo menos 5 caracteres.');
+      mostrarErro('Endereço deve ter pelo menos 5 caracteres.');
       return false;
     }
     // Sexo: só aceita Masculino ou Feminino
     if (valores[4] !== 'Masculino' && valores[4] !== 'Feminino') {
-      alert('Selecione o sexo: Masculino ou Feminino.');
+      mostrarErro('Selecione o sexo: Masculino ou Feminino.');
       return false;
     }
     return true;
@@ -199,5 +218,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelector('.btn-salvar-dados').remove();
     btnAlterar.style.display = 'inline-block';
+    
+    Swal.fire({
+        title: 'Dados Salvos!',
+        text: 'Suas informações foram atualizadas.',
+        icon: 'success',
+        timer: 1500,
+        showConfirmButton: false,
+        position: 'center'
+    });
   }
 });

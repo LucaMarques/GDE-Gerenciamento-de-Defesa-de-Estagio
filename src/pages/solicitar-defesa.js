@@ -69,7 +69,19 @@ document.addEventListener('DOMContentLoaded'  , () => {
             enviarNotificacao(coordenador.nome, mensagemCoordenador, "info");
         });
 
-        alert("Solicitação enviada com sucesso!");
-        window.location.href = "defesas.html";
+        Swal.fire({
+            title: 'Sucesso!',
+            text: 'Solicitação enviada com sucesso!',
+            icon: 'success',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#0fa394',
+            background: '#fff',
+            color: '#000'
+        }).then((result) => {
+            // Redireciona apenas quando o usuário clica no botão
+            if (result.isConfirmed) {
+                window.location.href = "defesas.html";
+            }
+        });
     });
 });

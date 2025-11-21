@@ -4,8 +4,18 @@ import { defesas } from "../data/defesas.js";
 document.addEventListener("DOMContentLoaded", () => {
   const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
   if (!usuarioLogado) {
-    alert("Você precisa fazer login primeiro!");
-    window.location.href = "/login.html";
+    Swal.fire({
+        title: 'Acesso restrito',
+        text: 'Você precisa fazer login para acessar os relatórios.',
+        icon: 'warning',
+        confirmButtonText: 'Ir para Login',
+        confirmButtonColor: '#0fa394',
+        allowOutsideClick: false,
+        allowEscapeKey: false
+    }).then(() => {
+        window.location.href = "login.html";
+    });
+    return;
   }
   
   montarLayout();
