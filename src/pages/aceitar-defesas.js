@@ -8,8 +8,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
     if (!usuario || usuario.tipo !== "orientador") {
-        alert("Acesso permitido apenas para orientadores.");
-        window.location.href = "login.html";
+        Swal.fire({
+            title: 'Acesso Negado',
+            text: 'Acesso permitido apenas para orientadores.',
+            icon: 'error',
+            confirmButtonColor: '#0fa394',
+            confirmButtonText: 'Ir para Login'
+        }).then(() => {
+            window.location.href = "login.html";
+        });
         return;
     }
 
@@ -116,6 +123,13 @@ function atualizarStatus(defesa, novoStatus) {
         enviarNotificacao(coordenador.nome, mensagemCoordenador, tipoNotif);
     });
 
-    alert("Status atualizado!");
-    location.reload();
+    Swal.fire({
+        title: 'Atualizado!',
+        text: 'O status da defesa foi alterado com sucesso.',
+        icon: 'success',
+        confirmButtonColor: '#0fa394',
+        confirmButtonText: 'OK'
+    }).then(() => {
+        location.reload();
+    });
 }
