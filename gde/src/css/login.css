@@ -5,7 +5,7 @@
     --color-bg: #18786e;    /* fundo */
     --color-header: #2A2F31;   /* header e footer ou #1c1c1c*/
     --color-primary: #0fa394;  /* hover e destaques */
-     --color-primary-light: #17c7b5;
+    --color-primary-light: #17c7b5;
     --color-muted: #d9d9d9;     /* Seções */
     --color-text-light: #E0E0E0;  /* texto ou icons branco */
     --color-text-black: #000; /* texto ou icons preto */
@@ -158,7 +158,7 @@ main {
     background-color: transparent;
     font-size: 1rem;
     font-weight: 800;
-    color: var(--primary-color);
+    color: var(--color-primary);
     cursor: pointer;
     transition: .7s;
 }
