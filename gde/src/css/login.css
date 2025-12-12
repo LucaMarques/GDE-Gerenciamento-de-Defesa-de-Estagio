@@ -25,10 +25,11 @@ a{
 }
 
 main {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    background: var(--color-muted);
 }
 
 .login-container{
@@ -110,6 +111,7 @@ main {
     border-style: none;
     background-color: var(--color-icon);
     border-radius: 12px;
+    color: var(--color-text-black)
 }
 
 /* Estilização moderna para o campo de seleção de perfil na página de cadastro */

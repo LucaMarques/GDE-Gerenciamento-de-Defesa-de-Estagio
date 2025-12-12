@@ -4,7 +4,6 @@ import "../css/base.css"
 import "../css/login.css"
 import Header from '@/components/header';
 import Footer from '@/components/footer';
-import MenuLateral from "@/components/MenuLateral";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
