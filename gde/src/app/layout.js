@@ -4,6 +4,7 @@ import "../css/base.css"
 import "../css/login.css"
 import Header from '@/components/header';
 import Footer from '@/components/footer';
+import { AuthProvider } from "@/contexts/AuthContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,9 +25,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="pt-br">
       <body >
+        <AuthProvider>
           <Header />
           {children}
           <Footer />
+        </AuthProvider>
       </body>
     </html>
   );

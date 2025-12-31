@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import CampoSenha from "@/components/login/CampoSenha";
 import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabaseClient"
+import CampoSenha from "@/components/login/CampoSenha";
 
 export default function LoginForm({ abrirCadastro }) {
     const [email, setEmail] = useState("");
@@ -10,12 +11,18 @@ export default function LoginForm({ abrirCadastro }) {
     const [erro, setErro] = useState("");
     const router = useRouter();
 
-    const handleLogin = () => {
-        if (email === "user@domain.com" && senha === "senha123") {
-            alert(`Bem-vindo, Usuário!`);
-            router.push("/dashboard");
+    const handleLogin = async () => {
+        setErro('');
+
+        const { data, error } = await supabase.auth.signInWithPassword({
+            email,
+            password: senha,
+        });
+
+        if (error) {
+            setErro("Email ou senha incorretos!");            
         } else {
-            setErro("Email ou senha incorretos!");
+            router.push("/dashboard");
         }
     };
 
@@ -25,33 +32,18 @@ export default function LoginForm({ abrirCadastro }) {
 
             <div className="form-input-container">
                 {erro && <div className="msg-error">{erro}</div>}
-                <input
-                    type="email"
-                    className="form-input"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
+                <input type="email" className="form-input" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
 
-                <CampoSenha
-                    id="senha-login"
-                    placeholder="Senha"
-                    value={senha}
-                    onChange={(e) => setSenha(e.target.value)}
-                />
+                <CampoSenha id="senha-login" placeholder="Senha" value={senha}onChange={(e) => setSenha(e.target.value)} />
             </div>
 
             <a className="form-link">Esqueceu a senha?</a>
 
-            <button type="button" onClick={handleLogin} className="form-button">
-                Logar
-            </button>
+            <button type="button" onClick={handleLogin} className="form-button">Logar</button>
 
             <p className="mobile-text">
                 Não tem conta?{" "}
-                <a href="#" onClick={abrirCadastro}>
-                    Registre-se
-                </a>
+                <a href="#" onClick={abrirCadastro}>Registre-se</a>
             </p>
         </form>
     );

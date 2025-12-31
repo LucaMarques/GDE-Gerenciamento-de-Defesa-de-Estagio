@@ -1,9 +1,20 @@
 "use client";
 
 import { useState } from "react";
+import { supabase } from "@/lib/supabaseClient";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/contexts/AuthContext";
 
-export default function MenuLateral(){
+export default function MenuLateral({}){
     const [aberto, setAberto] = useState(false);
+    const router = useRouter();
+    const { logout } = useAuth()
+
+    const handleLogout = async () => {
+        await logout();
+        router.push('/')
+    }
+
     return (
         <>
             <a className="btn-menu" onClick={() => setAberto(true)}>
@@ -27,7 +38,7 @@ export default function MenuLateral(){
                     <i className="bi bi-calendar-fill"></i> Defesas
                 </a>
 
-                <a href="/login" className="logout-link">
+                <a onClick={handleLogout} className="logout-link">
                     <i className="bi bi-box-arrow-right"></i> Logout
                 </a>
             </nav>

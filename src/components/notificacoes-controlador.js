@@ -122,7 +122,7 @@ export function iniciarNotificacoes() {
             }
 
             const li = document.createElement('li');
-            li.innerHTML = `
+            li.innerHTML = ` sjssnksdsknd
                 <div class="notificacao-item-content">
                     <div class="notificacao-header">
                         <i class="bi ${icone} notificacao-icone"></i>

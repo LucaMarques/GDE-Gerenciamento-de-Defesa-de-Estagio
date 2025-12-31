@@ -1,18 +1,25 @@
+"use client"
+
+import { useAuth } from '@/contexts/AuthContext';
 import MenuLateral from '@/components/MenuLateral';
 import MenuNotificacao from '@/components/MenuNotificacao';
 
 export default function Header() {
+  const { user, loading } = useAuth();
+
+  const usuarioLogado = !loading && user;
+
   return (
     <header className="cabecalho">
       <div className="container-header">
-        <MenuLateral />
+        {usuarioLogado && <MenuLateral />}
 
-        <a href="/" className="header-logo">
+        <a href="/" className={`header-logo ${!usuarioLogado ? "logo-centralizada" : ""}`}>
           <img src="./logo.png" alt="Logo GDE" />
         </a>
 
         <div className="botoes">
-          <MenuNotificacao />
+          {usuarioLogado && <MenuNotificacao />}
         </div>
       </div>
     </header>

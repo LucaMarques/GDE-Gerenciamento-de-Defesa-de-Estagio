@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { supabase } from "@/lib/supabaseClient"
 import CampoSenha from "@/components/login/CampoSenha";
 
 export default function RegistroForm({ abrirLogin }) {
@@ -8,13 +9,50 @@ export default function RegistroForm({ abrirLogin }) {
   const [matricula, setMatricula] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [erro, setErro] = useState("");
+  const [tipo, setTipo] = useState("");
 
-  const handleCadastro = () => {
-    if (nome && matricula && email && senha) {
-      alert("Cadastro realizado com sucesso!");
-    } else {
-      alert("Preencha todos os campos.");
+  const handleCadastro = async () => {
+    setErro('');
+    if (!nome || !matricula || !email || !senha || !tipo) {
+      setErro("Preencha todos os campos");
+      return;
     }
+
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password: senha,
+    });
+    
+    if (error) {
+      setErro(error.message);
+      return;
+    }
+
+    const user = data.user;
+
+    if (!data.user) {
+      alert("Cadastro realizado! Verifique seu email para confirmar a conta.");
+      abrirLogin();
+      return;
+    }
+
+    const { error: profileError } = await supabase
+      .from('profiles')
+      .insert({
+        user_id: data.user.id,
+        nome,
+        matricula,
+        tipo,
+      });
+
+    if (profileError) {
+      setErro("Erro ao criar perfil");
+      return;
+    }
+
+    alert("Cadastro realizado com sucesso!");
+    abrirLogin();
   };
 
   return (
@@ -22,7 +60,7 @@ export default function RegistroForm({ abrirLogin }) {
       <h2 className="form-title">Criar Conta</h2>
 
       <div className="form-tipo">
-        <select className="selectpicker">
+        <select className="selectpicker" value={tipo} onChange={(e) => setTipo(e.target.value)}>
           <option value="">Selecione o tipo</option>
           <option value="aluno">Aluno</option>
           <option value="orientador">Orientador</option>
@@ -31,38 +69,16 @@ export default function RegistroForm({ abrirLogin }) {
       </div>
 
       <div className="form-input-container">
-        <input
-          type="text"
-          className="form-input"
-          placeholder="Nome completo"
-          value={nome}
-          onChange={(e) => setNome(e.target.value)}
-        />
-        <input
-          type="text"
-          className="form-input"
-          placeholder="Matricula"
-          value={matricula}
-          onChange={(e) => setMatricula(e.target.value)}
-        />
-        <input
-          type="email"
-          className="form-input"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <CampoSenha
-          id="senha-cadastro"
-          placeholder="Senha"
-          value={senha}
-          onChange={(e) => setSenha(e.target.value)}
-        />
+        <input type="text" className="form-input" placeholder="Nome completo" value={nome} onChange={(e) => setNome(e.target.value)} />
+
+        <input type="text" className="form-input" placeholder="Matricula" value={matricula} onChange={(e) => setMatricula(e.target.value)}/>
+
+        <input type="email" className="form-input" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+
+        <CampoSenha id="senha-cadastro" placeholder="Senha" value={senha} onChange={(e) => setSenha(e.target.value)} />
       </div>
 
-      <button type="button" onClick={handleCadastro} className="form-button">
-        Cadastrar
-      </button>
+      <button type="button" onClick={handleCadastro} className="form-button">Cadastrar</button>
 
       <p className="mobile-text">
         Já tem conta?{" "}
