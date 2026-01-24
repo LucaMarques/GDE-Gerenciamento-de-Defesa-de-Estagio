@@ -317,6 +317,13 @@ main, section:first-of-type {
     cursor: pointer;
 }
 
+.sem-notificacao{
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+    opacity: 0.5;
+}
+
 .menu-notificacao ul li.lida .btn-acao-notif:hover {
     background: rgba(255, 255, 255, 0.15);
     border-color: rgba(255, 255, 255, 0.3);
