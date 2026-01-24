@@ -20,24 +20,36 @@ export default function LoginForm({ abrirCadastro }) {
         });
 
         if (error) {
-            setErro("Email ou senha incorretos!");            
+            if (error.message.includes('Email not confirmed')){
+                console.log("Confirme seu email antes de fazer login.");
+            } else{
+                setErro(error.message); 
+            }
         } else {
             router.push("/dashboard");
         }
     };
 
+    const handleResetSenha = async () => {
+        if (!email) return setErro("Informe o email para resetar a senha");
+
+        const { data, error } = await supabase.auth.resetPasswordForEmail(email);
+        if (error) setErro(error.message);
+        else alert("Email de redefinição enviado!");
+    };
+
     return (
-        <form className="form form-login">
+        <form className="form form-login" onSubmit={(e) => e.preventDefault()}>
             <h2 className="form-title">Entrar</h2>
 
             <div className="form-input-container">
                 {erro && <div className="msg-error">{erro}</div>}
                 <input type="email" className="form-input" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
 
-                <CampoSenha id="senha-login" placeholder="Senha" value={senha}onChange={(e) => setSenha(e.target.value)} />
+                <CampoSenha id="senha-login" placeholder="Senha" value={senha} onChange={(e) => setSenha(e.target.value)} />
             </div>
 
-            <a className="form-link">Esqueceu a senha?</a>
+            <a className="form-link" onClick={handleResetSenha}>Esqueceu a senha?</a>
 
             <button type="button" onClick={handleLogin} className="form-button">Logar</button>
 

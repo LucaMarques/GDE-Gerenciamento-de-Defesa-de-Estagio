@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabaseClient"
 import CampoSenha from "@/components/login/CampoSenha";
 
@@ -11,6 +11,7 @@ export default function RegistroForm({ abrirLogin }) {
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState("");
   const [tipo, setTipo] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleCadastro = async () => {
     setErro('');
@@ -19,43 +20,45 @@ export default function RegistroForm({ abrirLogin }) {
       return;
     }
 
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password: senha,
-    });
-    
-    if (error) {
-      setErro(error.message);
-      return;
-    }
+    setLoading(true);
 
-    const user = data.user;
-
-    if (!data.user) {
-      alert("Cadastro realizado! Verifique seu email para confirmar a conta.");
-      abrirLogin();
-      return;
-    }
-
-    const { error: profileError } = await supabase
-      .from('profiles')
-      .insert({
-        user_id: data.user.id,
-        nome,
-        matricula,
-        tipo,
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password: senha,
+        options: {
+          data: {
+            nome_completo: nome,
+            tipo_usuario: tipo,
+            matricula
+          }
+        }
       });
+      
+      if (error) {
+        setErro(error.message);
+        setLoading(false);
+        return;
+      }
 
-    if (profileError) {
-      setErro("Erro ao criar perfil");
-      return;
+      if (!data.user){
+        alert("Cadastro realizado! Verifique seu email para confirmar a conta.");
+        abrirLogin();
+        setLoading(false);
+        return;
+      }
+      alert("Cadastro realizado com sucesso!");
+      abrirLogin();
+    }catch (err) {
+      console.error(err);
+      setErro("Erro inesperado. Tente novamente mais tarde.");
+    }finally{
+      setLoading(false);
     }
-
-    alert("Cadastro realizado com sucesso!");
-    abrirLogin();
   };
 
   return (
+    
     <form className="form form-register">
       <h2 className="form-title">Criar Conta</h2>
 

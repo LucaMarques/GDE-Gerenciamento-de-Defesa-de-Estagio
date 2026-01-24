@@ -57,9 +57,9 @@ export default function MenuNotification() {
     async function buscarNotificacoes() {
       const { data, error } = await supabase
         .from('notificacoes')
-        .select('id, texto, lida, tipo, created_at')
-        .eq('user_id', userId)
-        .order('created_at', { ascending: false });
+        .select('id, mensagem, lida, tipo, criada_em')
+        .eq('usuario_id', userId)
+        .order('criada_em', { ascending: false });
       
       if (!error) setNotificacao(data);
     }
@@ -73,7 +73,7 @@ export default function MenuNotification() {
           event: '*',
           schema:'public',
           table: 'notificacoes',
-          filter: `user_id=eq.${userId}`,
+          filter: `usuario_id=eq.${userId}`,
         },
         () => {
           buscarNotificacoes();
@@ -119,11 +119,11 @@ export default function MenuNotification() {
                   <div className="notificacao-item-content">
                     <div className="notificacao-header">
                       <i className={`bi ${iconePorTipo(n.tipo)} notificacao-icone`}></i>
-                      <span className="notificacao-mensagem">{n.texto}</span>
+                      <span className="notificacao-mensagem">{n.mensagem}</span>
                     </div>
 
                     <div className="notificacao-footer">
-                      <span className="notificacao-data">{tempoRelativo(n.created_at)}</span>
+                      <span className="notificacao-data">{tempoRelativo(n.criada_em)}</span>
                       {!n.lida && (
                         <button className="btn-acao-notif" onClick={(e) => {
                             e.stopPropagation();
