@@ -19,12 +19,7 @@ export default function HomePage() {
                 <RegistroForm abrirLogin={() => setModo("login")} />
             </div>
 
-            <Overlay 
-                modo={modo}
-                abrirCadastro={() => setModo("register")}
-                abrirLogin={() => setModo("login")}
-            />
-
+            <Overlay  modo={modo} abrirCadastro={() => setModo("register")} abrirLogin={() => setModo("login")} />
             </div>
         </main>
         </>

@@ -13,10 +13,37 @@ export default function RegistroForm({ abrirLogin }) {
   const [tipo, setTipo] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const senhaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
+  const nomeRegex = /^[A-Za-zÀ-ÿ]+ [A-Za-zÀ-ÿ]+$/;
+
+  const handleNomeChange = (e) =>{
+    let valor = e.target.value;
+
+    valor = valor.replace(/[0-9]/g, '');
+    valor = valor.replace(/\s{2,}/g, '');
+    setNome(valor);
+  }
+
   const handleCadastro = async () => {
     setErro('');
     if (!nome || !matricula || !email || !senha || !tipo) {
       setErro("Preencha todos os campos");
+      return;
+    }
+
+    if (!nomeRegex.test(nome)) {
+      setErro("Informe nome e sobrenome (apenas um espaço).");
+      return;
+    }
+
+    if (!emailRegex.test(email)) {
+      setErro("Formato de email inválido")
+      return;
+    }
+
+    if (!senhaRegex.test(senha)) {
+      setErro("Senha tem que ter pelo menos 6 caracteres")
       return;
     }
 
@@ -62,6 +89,8 @@ export default function RegistroForm({ abrirLogin }) {
     <form className="form form-register">
       <h2 className="form-title">Criar Conta</h2>
 
+      {erro && (<p className="msg-error">{erro}</p>)}
+
       <div className="form-tipo">
         <select className="selectpicker" value={tipo} onChange={(e) => setTipo(e.target.value)}>
           <option value="">Selecione o tipo</option>
@@ -72,10 +101,12 @@ export default function RegistroForm({ abrirLogin }) {
       </div>
 
       <div className="form-input-container">
-        <input type="text" className="form-input" placeholder="Nome completo" value={nome} onChange={(e) => setNome(e.target.value)} />
-
+        <input type="text" className="form-input" placeholder="Nome completo" value={nome} onChange={handleNomeChange} onBlur={() => {const formatado = nome
+          .trim()
+          .replace(/\s+/g, ' ')
+          .replace(/\b\w/g, l => l.toUpperCase());
+          setNome(formatado); }} />
         <input type="text" className="form-input" placeholder="Matricula" value={matricula} onChange={(e) => setMatricula(e.target.value)}/>
-
         <input type="email" className="form-input" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
 
         <CampoSenha id="senha-cadastro" placeholder="Senha" value={senha} onChange={(e) => setSenha(e.target.value)} />

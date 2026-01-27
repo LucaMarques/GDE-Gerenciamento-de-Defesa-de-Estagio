@@ -9,37 +9,63 @@ export default function LoginForm({ abrirCadastro }) {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
     const [erro, setErro] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     const router = useRouter();
 
-    const handleLogin = async () => {
+    const handleLogin = async (e) => {
+        e.preventDefault();
         setErro('');
 
-        const { data, error } = await supabase.auth.signInWithPassword({
+        if (!email || !senha){
+            setErro('Preencha todos os campos')
+            return;
+        }
+
+        if (!emailRegex.test(email)){
+            setErro('Email em formato inválido')
+            return;
+        }
+
+        setLoading(true);
+
+        const { error } = await supabase.auth.signInWithPassword({
             email,
             password: senha,
         });
 
         if (error) {
             if (error.message.includes('Email not confirmed')){
-                console.log("Confirme seu email antes de fazer login.");
-            } else{
-                setErro(error.message); 
+                console.log('Confirme seu email antes de fazer login.');
+            } else if (error.message.includes('Invalid login credentials')){
+                setErro('Email ou senha incorretos'); 
+            } else {
+                setErro('Erro ao fazer login');
             }
-        } else {
-            router.push("/dashboard");
+            return;
         }
+        router.push("/dashboard")
     };
 
     const handleResetSenha = async () => {
-        if (!email) return setErro("Informe o email para resetar a senha");
+        if (!email) {
+            setErro("Informe seu email para redefinir a senha");
+            return;
+        }
 
-        const { data, error } = await supabase.auth.resetPasswordForEmail(email);
-        if (error) setErro(error.message);
-        else alert("Email de redefinição enviado!");
+        const { error } = await supabase.auth.resetPasswordForEmail(email);
+
+        if (error) {
+            setErro("Erro ao enviar email de redefinição");
+        } else {
+            alert("Email de redefinição enviado!");
+        }
     };
 
     return (
-        <form className="form form-login" onSubmit={(e) => e.preventDefault()}>
+        <form className="form form-login" onSubmit={handleLogin}>
             <h2 className="form-title">Entrar</h2>
 
             <div className="form-input-container">
@@ -51,7 +77,7 @@ export default function LoginForm({ abrirCadastro }) {
 
             <a className="form-link" onClick={handleResetSenha}>Esqueceu a senha?</a>
 
-            <button type="button" onClick={handleLogin} className="form-button">Logar</button>
+            <button type="submit" className="form-button">Logar</button>
 
             <p className="mobile-text">
                 Não tem conta?{" "}
