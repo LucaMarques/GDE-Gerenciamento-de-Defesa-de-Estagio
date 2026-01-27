@@ -1,10 +1,12 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import "../css/base.css"
-import "../css/login.css"
-import Header from '@/components/header';
-import Footer from '@/components/footer';
+import "../css/base.css";
+import "../css/login.css";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { ModalProvider } from "@/contexts/ModalContext";
+import Modal from "@/components/Modal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,12 +26,15 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="pt-br">
-      <body >
+      <body>
         <AuthProvider>
-          <Header />
-          {children}
-          <Footer />
-        </AuthProvider> 
+          <ModalProvider>
+            <Header />
+            <Modal />
+            {children}
+            <Footer />
+          </ModalProvider>
+        </AuthProvider>
       </body>
     </html>
   );
