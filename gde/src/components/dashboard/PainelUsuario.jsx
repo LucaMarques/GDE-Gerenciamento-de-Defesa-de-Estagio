@@ -8,28 +8,27 @@ import CardGrid from "./CardGrid";
 
 export default function PainelUsuario() {
 
-  const { user, loading } = useAuth();
+  const { user, perfil, loading } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
 
     if (!loading && !user) {
-
       alert("Acesso restrito! Você precisa fazer login primeiro.");
-
       router.push("/");
-
     }
 
   }, [user, loading, router]);
 
-  if (loading || !user) return null;
+  if (loading || !user || !perfil) return null;
 
-  const tipoUsuario = user.tipo;
-  const nome = user.nome;
+  const tipoUsuario = perfil.tipo_usuario;
+  const nome = perfil.nome_completo;
 
   const nomeTipo =
     tipoUsuario.charAt(0).toUpperCase() + tipoUsuario.slice(1);
+
+  console.log(perfil);
 
   return (
     <main className="painel">

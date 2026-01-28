@@ -1,53 +1,85 @@
 html, body {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
+  margin: 0;
+  padding: 0;
+  background: #e5e5e5;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-.dashboard-container {
+/* Container principal */
+
+.painel {
+  min-height: 100vh;
+  padding: 40px 20px;
   text-align: center;
-  padding: 2rem;
-  margin: 20px;
 }
 
-.dashboard-container h2{
-  margin-bottom: 30px;
+/* Título */
+
+#tituloUsuario {
+  font-size: 32px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 10px;
 }
 
-.cards {
+/* Bem vindo */
+
+#nomeUsuario {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 40px;
+}
+
+/* Grid de cards */
+
+.cardsContainer {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); 
-  gap: 2rem;
-  justify-content: center;
-  align-items: center;
-  max-width: 800px;
-  margin: 2rem auto;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
-@media (max-width: 768px) {
-  .cards {
-    grid-template-columns: 1fr;
-  }
-}
-
+/* Card individual */
 
 .card {
-  background: #e6e6e6;
-  border-radius: 12px;
-  padding: 1.5rem;
-  transition: 0.3s;
+  background: #f2f2f2;
+  border-radius: 14px;
+  padding: 30px 20px;
   cursor: pointer;
+  transition: 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-
 .card:hover {
-  background: #d3d3d3;
+  background: #dedede;
   transform: translateY(-3px);
 }
 
+/* Ícone */
+
 .card i {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
+  font-size: 28px;
+  margin-bottom: 12px;
   color: #333;
+}
+
+/* Texto */
+
+.card p {
+  margin: 0;
+  font-size: 16px;
+  color: #222;
+  font-weight: 500;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+  .cardsContainer {
+    grid-template-columns: 1fr;
+  }
 }

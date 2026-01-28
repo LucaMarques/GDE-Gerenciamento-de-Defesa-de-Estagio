@@ -21,7 +21,7 @@ export function AuthProvider({ children }) {
             const { data: perfilData, error } = await supabase
             .from("profiles")
             .select("*")
-            .eq("user_id", sessionUser.id)
+            .eq("id", sessionUser.id)
             .single();
 
             if (!error) {
@@ -43,7 +43,7 @@ export function AuthProvider({ children }) {
                 const { data: perfilData } = await supabase
                     .from("profiles")
                     .select("*")
-                    .eq("user_id", sessionUser.id)
+                    .eq("id", sessionUser.id)
                     .single();
 
                     setPerfil(perfilData);
