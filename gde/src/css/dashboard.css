@@ -1,85 +1,122 @@
 html, body {
   margin: 0;
   padding: 0;
-  background: #e5e5e5;
+  background: #e0e0e0;
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Container principal */
-
 .painel {
   min-height: 100vh;
-  padding: 40px 20px;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 60px;
 }
 
 /* Título */
 
 #tituloUsuario {
-  font-size: 32px;
-  font-weight: 600;
-  color: #222;
-  margin-bottom: 10px;
+  font-size: 34px;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 6px;
 }
 
 /* Bem vindo */
 
 #nomeUsuario {
-  font-size: 18px;
-  color: #555;
-  margin-bottom: 40px;
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 50px;
 }
 
-/* Grid de cards */
+/* Grid dos cards */
 
 .cardsContainer {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 25px;
-  max-width: 500px;
-  margin: 0 auto;
+  gap: 3%;
+  width: 60%;
+  margin: 40px auto;
 }
 
-/* Card individual */
+/* Cards */
 
 .card {
+  width: 100%;
+  height: 160px; /* base */
   background: #f2f2f2;
   border-radius: 14px;
-  padding: 30px 20px;
-  cursor: pointer;
-  transition: 0.2s ease;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
 }
 
 .card:hover {
-  background: #dedede;
-  transform: translateY(-3px);
+  transform: translateY(-4px);
+  background: #e6e6e6;
 }
 
-/* Ícone */
+/* Ícones */
 
 .card i {
-  font-size: 28px;
+  font-size: 3vw;   /* cresce conforme tela */
   margin-bottom: 12px;
   color: #333;
 }
 
 /* Texto */
 
+
 .card p {
-  margin: 0;
-  font-size: 16px;
-  color: #222;
+  font-size: 1.3vw;
   font-weight: 500;
+  color: #000;
+}
+
+/* Telas grandes */
+
+@media (min-width: 1400px) {
+  .cardsContainer {
+    width: 40%;
+  }
+  .card i {
+    font-size: 40px;
+  }
+
+  .card p {
+    font-size: 18px;
+  }
+}
+
+/* Tablet */
+
+@media (max-width: 900px) {
+  .cardsContainer {
+    width: 70%;
+  }
 }
 
 /* Mobile */
 
-@media (max-width: 600px) {
+@media (max-width: 500px) {
   .cardsContainer {
     grid-template-columns: 1fr;
+    width: 85%;
+  }
+  .card {
+    height: 140px;
+  }
+
+  .card i {
+    font-size: 34px;
+  }
+
+  .card p {
+    font-size: 16px;
   }
 }
