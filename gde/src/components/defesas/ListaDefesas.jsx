@@ -63,9 +63,9 @@ export default function ListaDefesas({ lista, setLista, usuariosBase }) {
 
   if (lista.length === 0) {
     return (
-      <p style={{ textAlign: "center", fontSize: "18px" }}>
+      <div className="lista-defesas-vazia">
         Nenhuma solicitação pendente.
-      </p>
+      </div>
     );
   }
 

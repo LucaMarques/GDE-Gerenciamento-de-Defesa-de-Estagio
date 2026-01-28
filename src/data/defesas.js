@@ -11,8 +11,8 @@ export const defesas = [
     },
     {
         aluno: 'Pedro',
-        orientador: 'Prof.Diego',
-        status: 'Em andamento',
+        orientador: 'Teste Teste',
+        status: 'Aguardando',
         data: '2025-08-12T00:00:00-03:00',
         horario: '14:00',
         banca: ['Prof. Luiz', 'Prof.Francisco'],
@@ -21,8 +21,8 @@ export const defesas = [
     },
     {
         aluno: 'Andrew Sander',
-        orientador: 'Prof.Diego',
-        status: 'Concluído',
+        orientador: 'Teste Teste',
+        status: 'Aguardando',
         data: '2025-12-05T00:00:00-03:00',
         horario: '14:00',
         banca: ['Prof. Luiz', 'Prof.Francisco'],
@@ -368,6 +368,46 @@ export const defesas = [
     banca: ['Prof. Francisco', 'Prof. Marina'],
     local: 'Sala de Redes',
     tema: 'Banco de dados'
+},
+{
+    id: 1,
+    aluno: "João Silva",
+    orientador: "Carlos Mendes",
+    titulo: "Sistema de Gestão Escolar",
+    data: "2026-03-10",
+    status: "Aguardando"
+},
+{
+    id: 2,
+    aluno: "Maria Oliveira",
+    orientador: "Carlos Mendes",
+    titulo: "Aplicativo de Controle Financeiro",
+    data: "2026-03-15",
+    status: "Aguardando"
+},
+{
+    id: 3,
+    aluno: "Pedro Santos",
+    orientador: "Ana Paula",
+    titulo: "Plataforma de Cursos Online",
+    data: "2026-03-18",
+    status: "Aprovada"
+},
+{
+    id: 4,
+    aluno: "Lucas Ferreira",
+    orientador: "Carlos Mendes",
+    titulo: "Sistema de Agendamento Médico",
+    data: "2026-04-01",
+    status: "Aguardando"
+},
+{
+    id: 5,
+    aluno: "Beatriz Costa",
+    orientador: "Ana Paula",
+    titulo: "Marketplace de Serviços",
+    data: "2026-04-05",
+    status: "Rejeitada"
 }
 
 ]
