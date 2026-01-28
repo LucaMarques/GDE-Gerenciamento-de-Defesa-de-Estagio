@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient"
+import Link from "next/link"
 import CampoSenha from "@/components/login/CampoSenha";
 
 export default function LoginForm({ abrirCadastro }) {
@@ -16,7 +17,7 @@ export default function LoginForm({ abrirCadastro }) {
     const router = useRouter();
 
     const handleLogin = async (e) => {
-        e.preventDefault('');
+        e.preventDefault();
         setErro('');
 
         if (!email || !senha){
@@ -57,7 +58,9 @@ export default function LoginForm({ abrirCadastro }) {
             return;
         }
 
-        const { error } = await supabase.auth.resetPasswordForEmail(email);
+        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+            redirectTo: "http://localhost:3000/reset-senha",
+        });
 
         if (error) {
             setErro("Erro ao enviar email de redefinição");
@@ -81,7 +84,7 @@ export default function LoginForm({ abrirCadastro }) {
                 }} />
             </div>
 
-            <a className="form-link" onClick={handleResetSenha}>Esqueceu a senha?</a>
+            <button type="button" className="form-link" onClick={handleResetSenha}>Esqueceu a senha?</button>
 
             <button type="submit" className="form-button" disabled={loading}>{loading ? 'Entrando...' : 'Logar'}</button>
 

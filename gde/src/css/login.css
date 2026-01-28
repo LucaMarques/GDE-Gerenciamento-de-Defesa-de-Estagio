@@ -151,7 +151,7 @@ main {
 }
 
 /* Botões */
-.form-button{
+.form-button {
     width: 140px;
     height: 40px;
     border-style: none;
@@ -192,6 +192,164 @@ main {
     padding: 10px 10px;
     margin-bottom: 10px;
 }
+
+.form-link {
+    color: var(--color-text-black);
+    cursor: pointer;
+    position: relative;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.form-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-primary);
+    transition: width 0.3s ease;
+}
+
+.form-link:hover {
+    color: var(--color-primary);
+}
+
+.form-link:hover::after {
+    width: 100%;
+}
+
+/* RESET SENHA */
+.reset-container {
+    animation: fadeUp 0.6s ease;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Card */
+.reset-page {
+    height: 480px;
+    width: 420px;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    background-color: var(--color-text-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Form */
+.reset-form {
+    width: 100%;
+    height: 100%;
+    padding: 50px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Título */
+.reset-title {
+    color: var(--color-text-black);
+    font-size: 2.4rem;
+    font-weight: 500;
+}
+
+/* Texto */
+.reset-text {
+    color: #6fa9a2; /* menos saturado */
+    font-size: 0.95rem;
+    text-align: center;
+    max-width: 300px;
+    line-height: 1.4;
+}
+
+/* Inputs */
+.reset-input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.reset-input {
+    width: 300px;
+    height: 44px;
+    padding: 10px 18px;
+    border-radius: 12px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    color: var(--color-text-black);
+    font-family: var(--font-primary);
+    font-size: 14px;
+    transition: border 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.reset-input:focus {
+    outline: none;
+    border-color: var(--color-text-black);
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12);
+}
+
+/* Mensagem */
+.reset-msg {
+    width: 300px;
+    height: 36px;
+    border-radius: 12px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reset-msg.error {
+    color: #8f0000;
+    background-color: #f6b0b0;
+}
+
+.reset-msg.success {
+    color: #0a6b3f;
+    background-color: #b9f1d4;
+}
+
+/* Botão */
+.reset-button {
+    width: 300px;
+    height: 44px;
+    border-radius: 14px;
+    border: none;
+    background-color: var(--color-primary);
+    color: var(--color-text-black);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.reset-button:hover:not(:disabled) {
+    background-color: var(--color-primary-light);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+}
+
+.reset-button:disabled {
+    background-color: #cfeeea;
+    color: #5f5f5f;
+    cursor: not-allowed;
+}
+
 
 /* =============================== */
 /* =========== OVERLAY ============ */
@@ -239,7 +397,7 @@ main {
 .password-container i {
     position: absolute;
     right: 15px;
-    top: 30%;
+    top: 20%;
     cursor: pointer;
     font-size: 18px;
     color: #555;

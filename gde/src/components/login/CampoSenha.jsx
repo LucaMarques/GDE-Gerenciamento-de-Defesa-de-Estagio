@@ -11,20 +11,8 @@ export default function CampoSenha({ id, placeholder, value, onChange }) {
 
   return (
     <div className="password-container">
-      <input
-        id={id}
-        type={mostrar ? "text" : "password"}
-        className="form-input"
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-      />
-
-      <i
-        className={`bi ${mostrar ? "bi-eye" : "bi-eye-slash"}`}
-        onClick={toggleSenha}
-        style={{ cursor: "pointer" }}
-      ></i>
+      <input id={id} type={mostrar ? "text" : "password"} className="form-input" placeholder={placeholder} value={value} onChange={onChange}/>
+      <i className={`bi ${mostrar ? "bi-eye" : "bi-eye-slash"}`} onClick={toggleSenha} style={{ cursor: "pointer" }}></i>
     </div>
   );
 }

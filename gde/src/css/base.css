@@ -19,7 +19,7 @@
     box-sizing: border-box;
 }
 
-body{
+body {
     font-family: var(--font-primary);
     color: var(--color-text-light);
     background-color: var(--color-muted); 
