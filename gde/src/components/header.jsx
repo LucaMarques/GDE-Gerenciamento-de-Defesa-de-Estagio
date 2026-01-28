@@ -14,7 +14,7 @@ export default function Header() {
       <div className="container-header">
         {usuarioLogado && <MenuLateral />}
 
-        <a href="/" className={`header-logo ${!usuarioLogado ? "logo-centralizada" : ""}`}>
+        <a href={usuarioLogado ? "/dashboard" : "/"} className={`header-logo ${!usuarioLogado ? "logo-centralizada" : ""}`}>
           <img src="./logo.png" alt="Logo GDE" />
         </a>
 
