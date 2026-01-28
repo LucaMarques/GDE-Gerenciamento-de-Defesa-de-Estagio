@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState, useRef } from "react";
 import { supabase } from "@/lib/supabaseClient";
 
 const AuthContext = createContext({});
@@ -10,6 +10,7 @@ export function AuthProvider({ children }) {
     const [perfil, setPerfil] = useState(null);
     const [loading, setLoading] = useState(true);
     const [defesas, setDefesas] = useState([]);
+    const logoutRef = useRef(false); // É um referencial para se esta sendo feito logout, basicamente uma flag para nao usar outro state. Assim evita erros como o do dashboard
 
     const carregarDefesas = async (perfilData) => {
         if (!perfilData) {
@@ -92,8 +93,15 @@ export function AuthProvider({ children }) {
         };
     }, []);
 
+    useEffect(() => {
+        if (user) {
+            logoutRef.current = false;
+        }
+    }, [user]);
+
     const logout = async () => {
         try {
+            logoutRef.current = true;
             await supabase.auth.signOut();
             setUser(null);
             setPerfil(null);
@@ -107,7 +115,7 @@ export function AuthProvider({ children }) {
     };
 
     return (
-        <AuthContext.Provider value={{ user, perfil, defesas, setDefesas, loading, logout }}>
+        <AuthContext.Provider value={{ user, perfil, defesas, setDefesas, loading, logout, logoutRef }}>
             {children}
         </AuthContext.Provider>
     );

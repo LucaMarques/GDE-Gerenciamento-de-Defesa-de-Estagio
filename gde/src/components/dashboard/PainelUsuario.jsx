@@ -5,16 +5,22 @@ import { useRouter } from "next/navigation";
 
 import { useAuth } from "@/contexts/AuthContext";
 import CardGrid from "./CardGrid";
+import { useModal } from "@/contexts/ModalContext";
 
 export default function PainelUsuario() {
 
-  const { user, perfil, loading } = useAuth();
+  const { user, perfil, loading, logoutRef } = useAuth();
   const router = useRouter();
+  const { mostrarModal } = useModal();
 
   useEffect(() => {
 
-    if (!loading && !user) {
-      /*alert("Acesso restrito! Você precisa fazer login primeiro.");*/
+    if (!loading && !user && !logoutRef.current) {
+      mostrarModal({
+                titulo: "Acesso negado!",
+                mensagem: "Você precisa fazer login primeiro!",
+                tipo: "warning"
+            });
       router.push("/");
     }
 
