@@ -17,18 +17,14 @@ export default function CardDefesa({ defesa, atualizarStatus }) {
             <div className="card-botoes">
                 <button
                     className="botao aceitar"
-                    onClick={() =>
-                        atualizarStatus(defesa, "Em andamento")
-                    }
+                    onClick={() => atualizarStatus(defesa, "Em andamento")}
                 >
                     Aceitar
                 </button>
 
                 <button
                     className="botao recusar"
-                    onClick={() =>
-                        atualizarStatus(defesa, "Recusado")
-                    }
+                    onClick={() => atualizarStatus(defesa, "Recusado")}
                 >
                     Recusar
                 </button>

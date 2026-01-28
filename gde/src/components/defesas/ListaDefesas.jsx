@@ -8,6 +8,10 @@ import { supabase } from "@/lib/supabaseClient";
 export default function ListaDefesas() {
     const { defesas, setDefesas, perfil } = useAuth();
 
+    const defesasAguardando = defesas?.filter(
+        (defesa) => defesa.status === "Aguardando"
+    );
+
     const atualizarStatus = async (defesa, novoStatus) => {
         const { error } = await supabase
             .from("defesas")
@@ -23,8 +27,7 @@ export default function ListaDefesas() {
         // Atualiza o estado global (context)
         setDefesas((prev) =>
             prev.map((d) =>
-                d.id === defesa.id ? { ...d, status: novoStatus } : d
-            )
+                d.id === defesa.id ? { ...d, status: novoStatus } : d)
         );
 
         /*
@@ -43,7 +46,7 @@ export default function ListaDefesas() {
         alert("Status atualizado com sucesso.");
     };
 
-    if (!defesas || defesas.length === 0) {
+    if (!defesasAguardando || defesasAguardando.length === 0) {
         return (
             <div className="lista-defesas-vazia">
                 Nenhuma solicitação pendente.
@@ -53,7 +56,7 @@ export default function ListaDefesas() {
 
     return (
         <div className="lista-defesas">
-            {defesas.map((defesa) => (
+            {defesasAguardando.map((defesa) => (
                 <CardDefesa
                     key={defesa.id}
                     defesa={defesa}
