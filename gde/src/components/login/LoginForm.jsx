@@ -16,7 +16,7 @@ export default function LoginForm({ abrirCadastro }) {
     const router = useRouter();
 
     const handleLogin = async (e) => {
-        e.preventDefault();
+        e.preventDefault('');
         setErro('');
 
         if (!email || !senha){
@@ -44,8 +44,10 @@ export default function LoginForm({ abrirCadastro }) {
             } else {
                 setErro('Erro ao fazer login');
             }
+            setLoading(false);
             return;
         }
+        setLoading(false);
         router.push("/dashboard")
     };
 
@@ -72,12 +74,16 @@ export default function LoginForm({ abrirCadastro }) {
                 {erro && <div className="msg-error">{erro}</div>}
                 <input type="email" className="form-input" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
 
-                <CampoSenha id="senha-login" placeholder="Senha" value={senha} onChange={(e) => setSenha(e.target.value)} />
+                <CampoSenha id="senha-login" placeholder="Senha" value={senha} onChange={(e) => setSenha(e.target.value)} onKeyDown={(e) => {
+                    if (e.key === 'Enter'){
+                        handleLogin(e);
+                    }
+                }} />
             </div>
 
             <a className="form-link" onClick={handleResetSenha}>Esqueceu a senha?</a>
 
-            <button type="submit" className="form-button">Logar</button>
+            <button type="submit" className="form-button" disabled={loading}>{loading ? 'Entrando...' : 'Logar'}</button>
 
             <p className="mobile-text">
                 Não tem conta?{" "}

@@ -12,7 +12,7 @@ export default function MenuLateral({}){
 
     const handleLogout = async () => {
         await logout();
-        router.push('/')
+        router.replace('/')
     }
 
     return (
@@ -38,7 +38,7 @@ export default function MenuLateral({}){
                     <i className="bi bi-calendar-fill"></i> Defesas
                 </a>
 
-                <a onClick={handleLogout} className="logout-link">
+                <a onClick={handleLogout} className="logout-link cursor-pointer">
                     <i className="bi bi-box-arrow-right"></i> Logout
                 </a>
             </nav>

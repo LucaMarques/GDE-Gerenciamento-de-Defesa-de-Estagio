@@ -11,27 +11,50 @@ export function AuthProvider({ children }) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const carregarUsuario = async () => {
-        const { data: { user } } = await supabase.auth.getUser();
+        const carregarSessao = async () => {
+        const { data } = await supabase.auth.getSession();
+        const sessionUser = data.session?.user ?? null;
 
-        if (user) {
-            setUser(user);
+        setUser(sessionUser);
 
+        if (sessionUser) {
             const { data: perfilData, error } = await supabase
             .from("profiles")
             .select("*")
-            .eq("user_id", user.id)
+            .eq("user_id", sessionUser.id)
             .single();
 
             if (!error) {
-            setPerfil(perfilData);
+                setPerfil(perfilData);
             }
         }
 
         setLoading(false);
     };
 
-        carregarUsuario();
+        carregarSessao();
+
+        const { data: listener } = supabase.auth.onAuthStateChange(
+            async (_event, session) => {
+            const sessionUser = session?.user ?? null;
+            setUser(sessionUser);
+
+            if (sessionUser) {
+                const { data: perfilData } = await supabase
+                    .from("profiles")
+                    .select("*")
+                    .eq("user_id", sessionUser.id)
+                    .single();
+
+                    setPerfil(perfilData);
+            } else {
+                 setPerfil(null);
+                }
+            }
+        );
+        return () => {
+            listener.subscription.unsubscribe();
+        };
     }, []);
 
     const logout = async () => {

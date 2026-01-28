@@ -25,9 +25,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="pt-br">
       <body >
+        <AuthProvider>
           <Header />
           {children}
           <Footer />
+        </AuthProvider> 
       </body>
     </html>
   );

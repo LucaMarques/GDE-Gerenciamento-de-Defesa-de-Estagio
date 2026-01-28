@@ -14,7 +14,7 @@ export default function RegistroForm({ abrirLogin }) {
   const [loading, setLoading] = useState(false);
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const senhaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
+  const senhaRegex = /^.{6,}$/;
   const nomeRegex = /^[A-Za-zÀ-ÿ]+ [A-Za-zÀ-ÿ]+$/;
 
   const handleNomeChange = (e) =>{
@@ -25,15 +25,17 @@ export default function RegistroForm({ abrirLogin }) {
     setNome(valor);
   }
 
-  const handleCadastro = async () => {
+  const handleCadastro = async (e) => {
+    e.preventDefault();
     setErro('');
+  
     if (!nome || !matricula || !email || !senha || !tipo) {
       setErro("Preencha todos os campos");
       return;
     }
 
     if (!nomeRegex.test(nome)) {
-      setErro("Informe nome e sobrenome (apenas um espaço).");
+      setErro("Informe nome e sobrenome");
       return;
     }
 
@@ -43,7 +45,7 @@ export default function RegistroForm({ abrirLogin }) {
     }
 
     if (!senhaRegex.test(senha)) {
-      setErro("Senha tem que ter pelo menos 6 caracteres")
+      setErro("Senha tem que ter 6 caracteres")
       return;
     }
 
@@ -86,10 +88,10 @@ export default function RegistroForm({ abrirLogin }) {
 
   return (
     
-    <form className="form form-register">
+    <form className="form form-register" onSubmit={handleCadastro}>
       <h2 className="form-title">Criar Conta</h2>
 
-      {erro && (<p className="msg-error">{erro}</p>)}
+      {erro && (<div className="msg-error">{erro}</div>)}
 
       <div className="form-tipo">
         <select className="selectpicker" value={tipo} onChange={(e) => setTipo(e.target.value)}>
@@ -109,10 +111,14 @@ export default function RegistroForm({ abrirLogin }) {
         <input type="text" className="form-input" placeholder="Matricula" value={matricula} onChange={(e) => setMatricula(e.target.value)}/>
         <input type="email" className="form-input" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
 
-        <CampoSenha id="senha-cadastro" placeholder="Senha" value={senha} onChange={(e) => setSenha(e.target.value)} />
+        <CampoSenha id="senha-cadastro" placeholder="Senha" value={senha} onChange={(e) => setSenha(e.target.value)} onKeyDown={(e) => {
+                    if (e.key === 'Enter'){
+                        handleCadastro(e);
+                    }
+        }}/>
       </div>
 
-      <button type="button" onClick={handleCadastro} className="form-button">Cadastrar</button>
+      <button type="submit" disabled={loading} className="form-button">{loading ? 'Cadastrando...' : 'Cadastrar'}</button>
 
       <p className="mobile-text">
         Já tem conta?{" "}
