@@ -3,10 +3,12 @@
 import CardDefesa from "./CardDefesa";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/lib/supabaseClient";
+import { useModal } from "@/contexts/ModalContext";
 // import { enviarNotificacao } from "@/components/notificacao";
 
 export default function ListaDefesas() {
     const { defesas, setDefesas, perfil } = useAuth();
+    const { mostrarModal } = useModal();
 
     const defesasAguardando = defesas?.filter(
         (defesa) => defesa.status === "Aguardando"
@@ -19,8 +21,12 @@ export default function ListaDefesas() {
             .eq("id", defesa.id);
 
         if (error) {
+            mostrarModal({
+                titulo: "Erro!",
+                mensagem: "Falha ao atualizar o status",
+                tipo: "error"
+            });
             console.error("Erro ao atualizar status:", error);
-            alert("Erro ao atualizar o status.");
             return;
         }
 
@@ -31,11 +37,6 @@ export default function ListaDefesas() {
         );
 
         /*
-        let statusTexto =
-            novoStatus === "Recusado" ? "recusada" : "aceita";
-        let tipoNotif =
-            novoStatus === "Recusado" ? "alerta" : "sucesso";
-
         enviarNotificacao(
             defesa.aluno_id,
             `Sua defesa sobre "${defesa.tema}" foi ${statusTexto}.`,
@@ -43,7 +44,12 @@ export default function ListaDefesas() {
         );
         */
 
-        alert("Status atualizado com sucesso.");
+        mostrarModal({
+                titulo: "Sucesso!",
+                mensagem: "Status atualizado",
+                tipo: "Sucess"
+            });
+
     };
 
     if (!defesasAguardando || defesasAguardando.length === 0) {

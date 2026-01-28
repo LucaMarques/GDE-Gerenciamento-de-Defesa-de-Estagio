@@ -2,11 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-
 import { useAuth } from "@/contexts/AuthContext";
-
-import { defesas } from "@/data/defesas";
-import { usuariosBase } from "@/data/usuarios";
 
 import ListaDefesas from "@/components/defesas/ListaDefesas";
 
@@ -15,7 +11,7 @@ import "@/css/aceitar-defesas.css";
 export default function AceitarDefesas() {
 
   const router = useRouter();
-  const { user, perfil, loading } = useAuth();
+  const { user, perfil, loading, logoutRef, defesas } = useAuth();
 
   const [lista, setLista] = useState([]);
 
@@ -23,33 +19,26 @@ export default function AceitarDefesas() {
 
     if (loading) return;
 
-    if (!user || !perfil) {
-      alert("Você precisa estar logado.");
+    if (!loading && !user && !logoutRef.current) {
+      mostrarModal({
+                titulo: "Acesso negado!",
+                mensagem: "Você precisa fazer login primeiro!",
+                tipo: "warning"
+            });
       router.push("/");
-      return;
     }
 
     if (perfil.tipo_usuario !== "orientador") {
-      alert("Acesso permitido apenas para orientadores.");
+      mostrarModal({
+                titulo: "Acesso negado!",
+                mensagem: "Acesso permitido apenas para orientadores.",
+                tipo: "warning"
+            });
       router.push("/dashboard");
       return;
     }
 
-    const nomeOrientador = perfil.nome_completo;
-
-    // usando mock por enquanto
-    let defesasLocal = JSON.parse(localStorage.getItem("defesas"));
-    if (!Array.isArray(defesasLocal)) defesasLocal = [];
-
-    const todasDefesas = [...defesas, ...defesasLocal];
-
-    const recebidas = todasDefesas.filter(
-      d =>
-        d.orientador === nomeOrientador &&
-        d.status === "Aguardando"
-    );
-
-    setLista(recebidas);
+    setLista(defesas);
 
   }, [user, perfil, loading, router]);
 
@@ -66,7 +55,6 @@ export default function AceitarDefesas() {
         <ListaDefesas
         lista={lista}
         setLista={setLista}
-        usuariosBase={usuariosBase}
         />
       </div>
     </main>
