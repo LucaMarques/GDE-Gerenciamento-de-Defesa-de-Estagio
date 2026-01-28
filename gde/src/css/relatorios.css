@@ -1,9 +1,8 @@
-#main-content {
+.main-wrapper {
   flex-grow: 1;
   padding: 2rem;
   width: 100%;
   box-sizing: border-box;
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,63 +28,70 @@
 
 .relatorio-controles {
   display: flex;
-  flex-wrap: wrap; 
-  justify-content: space-between; 
+  flex-direction: row;
   align-items: center;
-  gap: 1.5rem; 
-  margin-bottom: 1.5rem;
+  gap: 1rem;
+  width: 100%;
 }
 
-#select-relatorio {
-  font-family: var(--font-primary, 'Poppins', sans-serif);
+.select-relatorio {
+  /* Proporção: 4 partes de 5 (80%) */
+  flex: 4;
+  min-width: 200px;
+
+  font-family: var(--font-primary, "Poppins", sans-serif);
   background-color: var(--color-header, #004a91);
-  color: var(--color-text-light, white);
+  color: white;
   border: none;
   border-radius: 8px;
-  padding: 12px 20px;
-  font-size: 1rem;
-  font-weight: bold;
+  padding: 14px 20px; /* Aumentei o padding vertical */
+
+  /* Melhoria de Visibilidade */
+  font-size: 1.15rem; /* Fonte maior */
+  font-weight: 700; /* Mais negrito */
   cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+
+  /* Estilo da seta branca */
   appearance: none;
-  -webkit-appearance: none; 
-  -moz-appearance: none;
   background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
   background-repeat: no-repeat;
   background-position: right 15px center;
   background-size: 24px;
-  padding-right: 50px;
-  flex-grow: 1; 
-  min-width: 250px; 
 }
 
-#select-relatorio option {
+.select-relatorio option {
   background-color: #ffffff;
-  color: var(--color-text-black, #000);
+  color: #000;
 }
 
-#input-data {
-  font-family: var(--font-primary, 'Poppins', sans-serif);
-  background-color: #f9f9f9;
-  color: var(--color-text-black, #333);
-  border: 1px solid #ccc;
+.input-data {
+  /* Proporção: 1 parte de 5 (20%) */
+  flex: 1;
+  min-width: 160px;
+
+  /* Melhoria de Contraste e Cor */
+  background-color: #ffffff; /* Fundo branco puro para destacar */
+  border: 2px solid #666; /* Borda mais escura e grossa */
+  color: #000; /* Texto preto puro */
+
   border-radius: 8px;
-  padding: 11px 20px; 
-  font-size: 1rem;
-  font-weight: bold; 
+  padding: 12px 15px;
+  font-size: 1.1rem; /* Fonte maior para ler a data melhor */
+  font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-  flex-grow: 1;
-  min-width: 250px;
-  appearance: none;
-  -webkit-appearance: none; 
-  -moz-appearance: none;
 }
 
-#select-relatorio:focus-visible,
-#input-data:focus-visible {
-  outline: 2px solid var(--color-primary, #5cb85c);
+.select-relatorio:focus-visible,
+.input-data:focus-visible {
+  outline: 2px solid #5cb85c;
   outline-offset: 2px;
+}
+
+.input-data:focus {
+  border-color: #004a91;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 74, 145, 0.2);
 }
 
 .container-relatorio-lista {
@@ -95,7 +101,6 @@
   width: 100%;
 }
 
-/* Estilos de Card  */
 .card-defesa {
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
@@ -107,18 +112,247 @@
 
 .card-defesa h3 {
   margin-top: 0;
-  color: var(--color-header, #003866);
+  color: #222;
+  font-weight: 700;
 }
+
 .card-defesa p {
   margin: 0.5rem 0;
   line-height: 1.6;
+  color: #444;
 }
 
-.card-defesa .status-aberto {
-  color: #c9302c; /* Vermelho para pendentes */
+.card-defesa p strong {
+  color: #000;
+  font-weight: 600;
+}
+
+/* Cores específicas para o Status */
+.status-pendente {
+  color: #d9534f; /* Vermelho */
   font-weight: bold;
 }
-.card-defesa .status-concluida {
-  color: #4cae4c; /* Verde para concluídos */
+
+.status-concluido {
+  color: #28a745; /* Verde */
   font-weight: bold;
+}
+
+/* Novo contêiner para os resultados */
+.relatorio-resultados-card {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 2rem 2.5rem;
+  width: 100%;
+  max-width: 900px;
+  margin-top: 2rem; /* Espaço entre o card de cima e o de baixo */
+}
+
+/* Ajuste opcional para remover a borda superior dentro do CardContainer, 
+   já que agora ele está em um novo card próprio */
+.container-relatorio-lista {
+  width: 100%;
+  /* Removi o padding-top e border-top aqui para ficar mais limpo no novo card */
+}
+@media (max-width: 768px) {
+  .relatorio-controles {
+    flex-direction: column; /* Empilha no celular */
+  }
+
+  .select-relatorio,
+  .input-data {
+    width: 100%;
+    flex: none; /* Desativa a proporção no celular */
+  }
+  .header-resultados {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .btn-gerar-estatistica {
+    width: 100%; /* No celular, o botão ocupa a largura toda */
+    justify-content: center;
+  }
+  .layout-lado-a-lado {
+    flex-direction: column;
+    align-items: center;
+  }
+  .card-estatisticas-container,
+  .card-resultados-coluna {
+    width: 100%;
+    flex: none;
+  }
+}
+
+/* Adicione estas regras ao seu relatorios.css */
+
+.btn-adicionar-defesa {
+  margin-top: 1.5rem; /* Espaço abaixo dos seletores */
+  width: 100%;
+  background-color: #28a745; /* Verde para destacar a ação de adicionar */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-adicionar-defesa:hover {
+  background-color: #2a9d2a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.btn-adicionar-defesa:active {
+  transform: translateY(0);
+}
+
+.titulo-resultados {
+  margin-bottom: 0 !important;
+  padding-bottom: 0.5rem;
+}
+.header-resultados {
+  display: flex;
+  justify-content: space-between; /* Empurra o título para a esquerda e o botão para a direita */
+  align-items: center; /* Alinha verticalmente no centro */
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap; /* Garante que em telas pequenas o botão pule para baixo se necessário */
+  gap: 1rem;
+}
+
+.btn-gerar-estatistica {
+  background-color: #797979;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-gerar-estatistica:hover {
+  background-color: #302f2f;
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-gerar-estatistica:active {
+  transform: scale(0.98);
+}
+
+.btn-gerar-estatistica {
+  width: 100%;
+  background-color: #302f2f;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  transition:
+    background-color 0.2s,
+    transform 0.1s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-gerar-estatistica:hover {
+  background-color: #302f2f;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-gerar-estatistica:active {
+  transform: scale(0.99);
+}
+
+.layout-lado-a-lado {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1300px; /* Aumentamos para caber os dois lado a lado */
+  margin-top: 2rem;
+  align-items: flex-start;
+}
+
+/* CARD 3 (Esquerda - 70%) */
+.card-estatisticas-container {
+  flex: 7;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  min-height: 400px;
+}
+
+/* CARD 2 (Direita - 30%) */
+.card-resultados-coluna {
+  flex: 3;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  /* Ajuste para os cards internos não ficarem muito grandes na coluna estreita */
+}
+
+/* Garantir que os cards de defesa fiquem bem na coluna de 30% */
+.card-resultados-coluna .card-defesa {
+  padding: 1rem;
+  font-size: 0.9rem;
+}
+
+/* 1. Padronizando as cores dos títulos principais para preto (#000) */
+
+.relatorio-container h2,
+.card-estatisticas-container h2,
+.titulo-resultados {
+  color: #000 !important; /* Força o preto puro para consistência */
+  font-weight: 700;
+}
+
+/* 2. Estilização Contextual: Diminuir o h3 do Card 2 quando ele estiver na coluna de 30% */
+
+.card-resultados-coluna .card-defesa h3 {
+  font-size: 1.1rem; /* Fonte menor para não quebrar o layout na coluna estreita */
+  margin-bottom: 0.4rem;
+  line-height: 1.2;
+}
+
+/* Aproveitando para diminuir um pouco o espaçamento interno dos cards na coluna 30% */
+.card-resultados-coluna .card-defesa {
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.card-resultados-coluna .card-defesa p {
+  font-size: 0.85rem; /* Textos menores para caber melhor */
+  margin: 0.3rem 0;
+}
+
+/* 3. Garantindo que o título de Estatísticas Gerais também siga o padrão */
+.card-estatisticas-container h2 {
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 10px;
+  margin-bottom: 1.5rem;
 }
