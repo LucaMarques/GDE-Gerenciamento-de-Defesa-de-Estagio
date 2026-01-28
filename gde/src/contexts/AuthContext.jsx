@@ -1,4 +1,9 @@
-"use client";
+ark them as resolved with
+hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+hint: You can instead skip this commit: run "git rebase --skip".
+hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
+hint: Disable this message with "git config set advice.mergeConflict false"
+Could not apply 8bd3a98... # Mudancas no aceitar login puxando os dados pelo supabase, context puxa defesas de acordo com o usuario logado"use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
@@ -9,49 +14,84 @@ export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
     const [perfil, setPerfil] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [defesas, setDefesas] = useState([]);
+
+    const carregarDefesas = async (perfilData) => {
+        if (!perfilData) {
+            setDefesas([]);
+            return;
+        }
+
+        let query = supabase
+            .from("defesas")
+            .select("*, aluno:profiles!defesas_aluno_id_fkey ( id, nome_completo ), orientador:profiles!defesas_orientador_id_fkey (id, nome_completo)");
+
+        if (perfilData.tipo_usuario === "aluno") {
+            query = query.eq("aluno_id", perfilData.id);
+        }
+
+        if (perfilData.tipo_usuario === "orientador") {
+            query = query.eq("orientador_id", perfilData.id);
+        }
+
+        const response = await query;
+        console.log(response)
+        if (response.error) {
+            //console.error("Erro ao buscar defesas:", response.error);
+            console.log("ERRO SUPABASE:", response.error);
+            setDefesas([]);
+            return;
+        }
+
+        setDefesas(response.data || []);
+    };
 
     useEffect(() => {
         const carregarSessao = async () => {
-        const { data } = await supabase.auth.getSession();
-        const sessionUser = data.session?.user ?? null;
+            const { data } = await supabase.auth.getSession();
+            const sessionUser = data.session?.user ?? null;
 
-        setUser(sessionUser);
-
-        if (sessionUser) {
-            const { data: perfilData, error } = await supabase
-            .from("profiles")
-            .select("*")
-            .eq("id", sessionUser.id)
-            .single();
-
-            if (!error) {
-                setPerfil(perfilData);
-            }
-        }
-
-        setLoading(false);
-    };
-
-        carregarSessao();
-
-        const { data: listener } = supabase.auth.onAuthStateChange(
-            async (_event, session) => {
-            const sessionUser = session?.user ?? null;
             setUser(sessionUser);
 
             if (sessionUser) {
-                const { data: perfilData } = await supabase
+                const { data: perfilData, error } = await supabase
                     .from("profiles")
                     .select("*")
                     .eq("id", sessionUser.id)
                     .single();
 
+                if (!error) {
                     setPerfil(perfilData);
-            } else {
-                 setPerfil(null);
+                    await carregarDefesas(perfilData);
+                }
+            }
+
+            setLoading(false);
+        };
+
+        carregarSessao();
+
+        const { data: listener } = supabase.auth.onAuthStateChange(
+            async (_event, session) => {
+                const sessionUser = session?.user ?? null;
+                setUser(sessionUser);
+
+                if (sessionUser) {
+                    const { data: perfilData } = await supabase
+                        .from("profiles")
+                        .select("*")
+                        .eq("id", sessionUser.id)
+                        .single();
+
+                    setPerfil(perfilData);
+                    await carregarDefesas(perfilData);
+                } else {
+                    setPerfil(null);
+                    setDefesas([]);
                 }
             }
         );
+
         return () => {
             listener.subscription.unsubscribe();
         };
@@ -62,15 +102,19 @@ export function AuthProvider({ children }) {
             await supabase.auth.signOut();
             setUser(null);
             setPerfil(null);
+            setDefesas([]);
         } catch (error) {
             console.error("Erro ao fazer logout:", error);
             setUser(null);
             setPerfil(null);
+            setDefesas([]);
         }
     };
 
     return (
-        <AuthContext.Provider value={{user, perfil, loading, logout}}>{children}</AuthContext.Provider>
+        <AuthContext.Provider value={{ user, perfil, defesas, setDefesas, loading, logout }}>
+            {children}
+        </AuthContext.Provider>
     );
 }
 

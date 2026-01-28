@@ -1,83 +1,66 @@
 "use client";
 
 import CardDefesa from "./CardDefesa";
-//import { enviarNotificacao } from "@/components/notificacao";
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/lib/supabaseClient";
+// import { enviarNotificacao } from "@/components/notificacao";
 
-export default function ListaDefesas({ lista, setLista, usuariosBase }) {
+export default function ListaDefesas() {
+    const { defesas, setDefesas, perfil } = useAuth();
 
-  const atualizarStatus = (defesa, novoStatus) => {
+    const atualizarStatus = async (defesa, novoStatus) => {
+        const { error } = await supabase
+            .from("defesas")
+            .update({ status: novoStatus })
+            .eq("id", defesa.id);
 
-    const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
+        if (error) {
+            console.error("Erro ao atualizar status:", error);
+            alert("Erro ao atualizar o status.");
+            return;
+        }
 
-    let listaLocal = JSON.parse(localStorage.getItem("defesas"));
-    if (!Array.isArray(listaLocal)) listaLocal = [];
+        // Atualiza o estado global (context)
+        setDefesas((prev) =>
+            prev.map((d) =>
+                d.id === defesa.id ? { ...d, status: novoStatus } : d
+            )
+        );
 
-    const item = listaLocal.find(
-      d => d.aluno === defesa.aluno && d.tema === defesa.tema
-    );
+        /*
+        let statusTexto =
+            novoStatus === "Recusado" ? "recusada" : "aceita";
+        let tipoNotif =
+            novoStatus === "Recusado" ? "alerta" : "sucesso";
 
-    if (item) {
-      item.status = novoStatus;
-    } else {
-      listaLocal.push({
-        ...defesa,
-        status: novoStatus
-      });
+        enviarNotificacao(
+            defesa.aluno_id,
+            `Sua defesa sobre "${defesa.tema}" foi ${statusTexto}.`,
+            tipoNotif
+        );
+        */
+
+        alert("Status atualizado com sucesso.");
+    };
+
+    if (!defesas || defesas.length === 0) {
+        return (
+            <div className="lista-defesas-vazia">
+                Nenhuma solicitação pendente.
+            </div>
+        );
     }
 
-    localStorage.setItem("defesas", JSON.stringify(listaLocal));
-
-    let statusTexto;
-    let tipoNotif;
-
-    if (novoStatus === "Recusado") {
-      statusTexto = "recusada";
-      tipoNotif = "alerta";
-    } else {
-      statusTexto = "aceita";
-      tipoNotif = "sucesso";
-    }
-
-    const mensagemAluno = `Sua defesa sobre "${defesa.tema}" foi ${statusTexto}.`;
-    enviarNotificacao(defesa.aluno, mensagemAluno, tipoNotif);
-
-    const usuariosArmazenados = JSON.parse(localStorage.getItem("usuarios")) || usuariosBase;
-
-    const coordenadores = usuariosArmazenados.filter(
-      u => u.tipo === "coordenador"
-    );
-
-    coordenadores.forEach(c => {
-      const msg = `A defesa de ${defesa.aluno} foi ${statusTexto}.`;
-      enviarNotificacao(c.nome, msg, tipoNotif);
-    });
-
-    alert("Status atualizado com sucesso.");
-
-    setLista(prev =>
-      prev.filter(
-        d => !(d.aluno === defesa.aluno && d.tema === defesa.tema)
-      )
-    );
-  };
-
-  if (lista.length === 0) {
     return (
-      <div className="lista-defesas-vazia">
-        Nenhuma solicitação pendente.
-      </div>
+        <div className="lista-defesas">
+            {defesas.map((defesa) => (
+                <CardDefesa
+                    key={defesa.id}
+                    defesa={defesa}
+                    atualizarStatus={atualizarStatus}
+                    perfil={perfil}
+                />
+            ))}
+        </div>
     );
-  }
-
-  return (
-    <div className="lista-defesas">
-      {lista.map((defesa, index) => (
-        <CardDefesa 
-          key={index}
-          defesa={defesa}
-          atualizarStatus={atualizarStatus}
-        />
-      ))}
-    </div>
-  );
 }

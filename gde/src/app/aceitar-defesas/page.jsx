@@ -57,17 +57,18 @@ export default function AceitarDefesas() {
 
   return (
     <main className="solicitacoes-container">
-
-      <h2 className="solicitacoes-titulo">
+      <div>
+        <h2 className="solicitacoes-titulo">
         Solicitações Recebidas
       </h2>
-
-      <ListaDefesas
+      </div>
+      <div>
+        <ListaDefesas
         lista={lista}
         setLista={setLista}
         usuariosBase={usuariosBase}
-      />
-
+        />
+      </div>
     </main>
   );
 }
