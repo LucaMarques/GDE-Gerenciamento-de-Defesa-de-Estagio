@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import CampoSenha from '@/components/login/CampoSenha';
+import { useRouter } from 'next/navigation';
 
 export default function ResetSenha(){
     const [senha, setSenha] = useState('');
@@ -12,13 +13,15 @@ export default function ResetSenha(){
     const [loading, setLoading] = useState(false);
     const [autenticado, setAutenticado] = useState(false);
 
+    const router = useRouter();
+
     useEffect(() => {
         const verificarSessao = async () => {
             const { data: { session } } = await supabase.auth.getSession();
             if (session) {
                 setAutenticado(true);
             } else {
-                setMsg('Sessão expirada. Por favor, solicite um novo link de redefinição de senha.');
+                setMsg('Sessão expirada. Solicite um novo link de redefinição de senha.');
                 setTipo('error');
             }
         };
@@ -63,9 +66,12 @@ export default function ResetSenha(){
                 return;
             } else {
                 setMsg('Senha redefinida com sucesso!');
-                setTipo('sucess');
-                setSenha('');
-                setConfirmar('');
+                setTipo('success');
+                setTimeout(async () => {
+                    await supabase.auth.signOut();
+                    router.push('/login');
+                }, 2500);
+
             }
         } catch (err) {
             setLoading(false);
@@ -84,14 +90,10 @@ export default function ResetSenha(){
                     
                     <div className="reset-input-container">
                         <input type="password" className="reset-input" placeholder="Nova senha" value={senha} onChange={(e) => setSenha(e.target.value)} ></input>
-                        <input type="password" className="reset-input" placeholder="Confirmar senha" value={confirmar} onChange={(e) => setConfirmar(e.target.value)} onKeyDown={(e) => {
-                            if (e.key === 'Enter'){
-                                handleReset(e);
-                            }
-                        }} ></input>
+                        <input type="password" className="reset-input" placeholder="Confirmar senha" value={confirmar} onChange={(e) => setConfirmar(e.target.value)} ></input>
                     </div>
                     <div className="reset-actions">
-                        <button type="submit" className="reset-button" disabled={loading || !senha || !confirmar || !autenticado}>{loading ? 'Redefinindo...' : 'Redefinir Senha'}</button>
+                        <button type="submit" className="reset-button" disabled={loading || !autenticado}>{loading ? 'Redefinindo...' : 'Redefinir Senha'}</button>
                     </div>
                 </form>
             </div>
