@@ -1,6 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/contexts/AuthContext";
+
 import LoginForm from "@/components/login/LoginForm"
 import RegistroForm from "@/components/login/RegistroForm"
 import Overlay from "@/components/login/Overlay"
@@ -8,6 +11,21 @@ import CanvasBackground from "@/components/login/CanvasBackground"
 
 export default function HomePage() {
     const [modo, setModo] = useState("login");
+
+    const { user, loading } = useAuth();
+    const router = useRouter();
+
+    // Estando logado vai para dashboard direto
+    useEffect(() => {
+
+        if (!loading && user) {
+        router.push("/dashboard");
+        }
+
+    }, [user, loading, router]);
+
+    if (loading) return null; //evita erro
+
     return (
         <>
         <CanvasBackground />
