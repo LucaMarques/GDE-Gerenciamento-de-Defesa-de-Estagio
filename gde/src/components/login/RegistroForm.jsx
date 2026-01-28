@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabaseClient"
+import { useModal } from "@/contexts/ModalContext";
 import CampoSenha from "@/components/login/CampoSenha";
 
 export default function RegistroForm({ abrirLogin }) {
@@ -12,6 +13,8 @@ export default function RegistroForm({ abrirLogin }) {
   const [erro, setErro] = useState("");
   const [tipo, setTipo] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const { mostrarModal } = useModal();
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const senhaRegex = /^.{6,}$/;
@@ -30,22 +33,38 @@ export default function RegistroForm({ abrirLogin }) {
     setErro('');
   
     if (!nome || !matricula || !email || !senha || !tipo) {
-      setErro("Preencha todos os campos");
+      mostrarModal({
+        titulo: "Campos Obrigatórios ❌",
+        mensagem: "Preencha todos os campos para continuar.",
+        tipo: "warning",
+      });
       return;
     }
 
     if (!nomeRegex.test(nome)) {
-      setErro("Informe nome e sobrenome");
+      mostrarModal({
+        titulo: "Nome Inválido ❌",
+        mensagem: "Informe seu nome completo (nome e sobrenome).",
+        tipo: "warning",
+      });
       return;
     }
 
     if (!emailRegex.test(email)) {
-      setErro("Formato de email inválido")
+      mostrarModal({
+        titulo: "Email Inválido ❌",
+        mensagem: "Formato de email inválido. Verifique e tente novamente.",
+        tipo: "warning",
+      });
       return;
     }
 
     if (!senhaRegex.test(senha)) {
-      setErro("Senha tem que ter 6 caracteres")
+      mostrarModal({
+        titulo: "Senha Fraca ❌",
+        mensagem: "A senha deve ter no mínimo 6 caracteres.",
+        tipo: "warning",
+      });
       return;
     }
 
@@ -65,22 +84,43 @@ export default function RegistroForm({ abrirLogin }) {
       });
       
       if (error) {
-        setErro(error.message);
+        mostrarModal({
+          titulo: "Erro no Cadastro ❌",
+          mensagem: error.message,
+          tipo: "error",
+        });
         setLoading(false);
         return;
       }
 
       if (!data.user){
-        alert("Cadastro realizado! Verifique seu email para confirmar a conta.");
-        abrirLogin();
+        mostrarModal({
+          titulo: "Cadastro Realizado! 🎉",
+          mensagem: "Verifique seu email para confirmar a conta. Após confirmação, você poderá fazer login.",
+          tipo: "success",
+          aoConfirmar: () => {
+            abrirLogin();
+          }
+        });
         setLoading(false);
         return;
       }
-      alert("Cadastro realizado com sucesso!");
-      abrirLogin();
+
+      mostrarModal({
+        titulo: "Cadastro Concluído! 🎉",
+        mensagem: "Sua conta foi criada com sucesso! Verifique seu email para ativar a conta.",
+        tipo: "success",
+        aoConfirmar: () => {
+          abrirLogin();
+        }
+      });
     }catch (err) {
       console.error(err);
-      setErro("Erro inesperado. Tente novamente mais tarde.");
+      mostrarModal({
+        titulo: "Erro Inesperado ❌",
+        mensagem: "Erro inesperado. Tente novamente mais tarde.",
+        tipo: "error",
+      });
     }finally{
       setLoading(false);
     }
@@ -118,7 +158,7 @@ export default function RegistroForm({ abrirLogin }) {
         }}/>
       </div>
 
-      <button type="submit" disabled={loading} className="form-button">{loading ? 'Cadastrando...' : 'Cadastrar'}</button>
+      <button type="submit" disabled={loading} className="form-button primary">{loading ? 'Cadastrando...' : 'Cadastrar'}</button>
 
       <p className="mobile-text">
         Já tem conta?{" "}

@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabaseClient';
-import CampoSenha from '@/components/login/CampoSenha';
 import { useRouter } from 'next/navigation';
+import { useModal } from '@/contexts/ModalContext';
+import CampoSenha from '@/components/login/CampoSenha';
 
 export default function ResetSenha(){
     const [senha, setSenha] = useState('');
@@ -14,6 +15,7 @@ export default function ResetSenha(){
     const [autenticado, setAutenticado] = useState(false);
 
     const router = useRouter();
+    const { mostrarModal } = useModal();
 
     useEffect(() => {
         const verificarSessao = async () => {
@@ -34,20 +36,29 @@ export default function ResetSenha(){
         setMsg('');
 
         if (!autenticado) {
-            setMsg('Sessão não verificada. Por favor, recarregue a página.');
-            setTipo('error');
+            mostrarModal({
+                titulo: "Sessão Inválida",
+                mensagem: "Sua sessão expirou. Por favor, solicite um novo link de redefinição de senha.",
+                tipo: "error",
+            });
             return;
         }
 
         if (senha !== confirmar){
-            setMsg('As senhas não coincidem');
-            setTipo('error');
+            mostrarModal({
+                titulo: "Senhas Não Coincidem",
+                mensagem: "As senhas digitadas não são iguais. Verifique e tente novamente.",
+                tipo: "warning",
+            });
             return;
         }
 
         if (senha.length < 6){
-            setMsg('A senha deve ter pelo menos 6 caracteres');
-            setTipo('error');
+            mostrarModal({
+                titulo: "Senha Fraca ❌",
+                mensagem: "A senha deve ter pelo menos 6 caracteres.",
+                tipo: "warning",
+            });
             return;
         }
 
@@ -61,22 +72,30 @@ export default function ResetSenha(){
             setLoading(false);
 
             if (error){
-                setMsg(`Erro ao redefinir senha: ${error.message}`);
-                setTipo('error');
+                mostrarModal({
+                    titulo: "Erro ao Redefinir ❌",
+                    mensagem: `${error.message}`,
+                    tipo: "error",
+                });
                 return;
             } else {
-                setMsg('Senha redefinida com sucesso!');
-                setTipo('success');
-                setTimeout(async () => {
-                    await supabase.auth.signOut();
-                    router.push('/login');
-                }, 2500);
-
+                mostrarModal({
+                    titulo: "Senha redifinida",
+                    mensagem: "Sua senha foi redefinida com sucesso! Você será redirecionado para o login.",
+                    tipo: "success",
+                    aoConfirmar: async () => {
+                        await supabase.auth.signOut();
+                        router.push('/login');
+                    }
+                });
             }
         } catch (err) {
             setLoading(false);
-            setMsg(`Erro: ${err.message}`);
-            setTipo('error');
+            mostrarModal({
+                titulo: "Erro Inesperado ❌",
+                mensagem: err.message,
+                tipo: "error",
+            });
         }
     };
 
@@ -89,8 +108,8 @@ export default function ResetSenha(){
                     {msg && <div className={`reset-msg ${tipo}`}>{msg}</div>}
                     
                     <div className="reset-input-container">
-                        <input type="password" className="reset-input" placeholder="Nova senha" value={senha} onChange={(e) => setSenha(e.target.value)} ></input>
-                        <input type="password" className="reset-input" placeholder="Confirmar senha" value={confirmar} onChange={(e) => setConfirmar(e.target.value)} ></input>
+                        <CampoSenha type="password" className="reset-input" placeholder="Nova senha" value={senha} onChange={(e) => setSenha(e.target.value)} />
+                        <CampoSenha type="password" className="reset-input" placeholder="Confirmar senha" value={confirmar} onChange={(e) => setConfirmar(e.target.value)} />
                     </div>
                     <div className="reset-actions">
                         <button type="submit" className="reset-button" disabled={loading || !autenticado}>{loading ? 'Redefinindo...' : 'Redefinir Senha'}</button>

@@ -1,7 +1,7 @@
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import './css/base.css'
-import { criaHeader } from "./components/header.js";
-import { criaFooter } from "./components/footer.js";
+import { criaHeader } from "./components/Header.jsx";
+import { criaFooter } from "./components/Footer.jsx";
 import { iniciarNotificacoes } from "./components/notificacoes-controlador.js"
 
 export function montarLayout(){

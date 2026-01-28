@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient"
-import Link from "next/link"
+import { useModal } from "@/contexts/ModalContext";
 import CampoSenha from "@/components/login/CampoSenha";
 
 export default function LoginForm({ abrirCadastro }) {
@@ -15,6 +15,7 @@ export default function LoginForm({ abrirCadastro }) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     const router = useRouter();
+    const { mostrarModal } = useModal();
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -30,42 +31,69 @@ export default function LoginForm({ abrirCadastro }) {
             return;
         }
 
-        setLoading(true);
+        try {
+            setLoading(true);
 
-        const { error } = await supabase.auth.signInWithPassword({
-            email,
-            password: senha,
-        });
+            const { error } = await supabase.auth.signInWithPassword({
+                email,
+                password: senha,
+            });
 
-        if (error) {
-            if (error.message.includes('Email not confirmed')){
-                console.log('Confirme seu email antes de fazer login.');
-            } else if (error.message.includes('Invalid login credentials')){
-                setErro('Email ou senha incorretos'); 
-            } else {
-                setErro('Erro ao fazer login');
+            if (error) {
+                if (error.message.includes('Email not confirmed')){
+                    console.log('Confirme seu email antes de fazer login.');
+                } else if (error.message.includes('Invalid login credentials')){
+                    setErro('Email ou senha incorretos'); 
+                } else {
+                    setErro('Erro ao fazer login');
+                }
+                return;
             }
+            mostrarModal({
+                titulo: "Login realizado com sucesso",
+                mensagem: "Você será redirecionado para o sistema.",
+                tipo: "success",
+                aoConfirmar: () => {
+                    router.replace("/dashboard");
+                }
+            });
+        } catch (err) {
+            setErro('Erro inesperado ao fazer login');
+        } finally {
             setLoading(false);
-            return;
         }
-        setLoading(false);
-        router.push("/dashboard")
-    };
+    }; 
 
     const handleResetSenha = async () => {
         if (!email) {
-            setErro("Informe seu email para redefinir a senha");
+            mostrarModal({
+                titulo: "Email Obrigatório ❌",
+                mensagem: "Informe seu email para redefinir a senha.",
+                tipo: "warning",
+            });
             return;
         }
+
+        setLoading(true);
 
         const { error } = await supabase.auth.resetPasswordForEmail(email, {
             redirectTo: "http://localhost:3000/reset-senha",
         });
 
+        setLoading(false);
+
         if (error) {
-            setErro("Erro ao enviar email de redefinição");
+            mostrarModal({
+                titulo: "Erro ao Enviar Email ❌",
+                mensagem: "Não conseguimos enviar o email de redefinição. Verifique o email e tente novamente.",
+                tipo: "error",
+            });
         } else {
-            alert("Email de redefinição enviado!");
+            mostrarModal({
+                titulo: "Email Enviado! 📧",
+                mensagem: `Um link de redefinição foi enviado para ${email}. Verifique sua caixa de entrada e spam.`,
+                tipo: "success",
+            });
         }
     };
 
@@ -86,7 +114,7 @@ export default function LoginForm({ abrirCadastro }) {
 
             <button type="button" className="form-link" onClick={handleResetSenha}>Esqueceu a senha?</button>
 
-            <button type="submit" className="form-button" disabled={loading}>{loading ? 'Entrando...' : 'Logar'}</button>
+            <button type="submit" className="form-button primary" disabled={loading}>{loading ? 'Entrando...' : 'Logar'}</button>
 
             <p className="mobile-text">
                 Não tem conta?{" "}

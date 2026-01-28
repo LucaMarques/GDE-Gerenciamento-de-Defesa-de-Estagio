@@ -14,7 +14,7 @@ export default function PainelUsuario() {
   useEffect(() => {
 
     if (!loading && !user) {
-      alert("Acesso restrito! Você precisa fazer login primeiro.");
+      /*alert("Acesso restrito! Você precisa fazer login primeiro.");*/
       router.push("/");
     }
 

@@ -85,12 +85,14 @@ main {
 /* Títulos e textos */
 .form-title{
     color: var(--color-text-black);
-    font-size: 3rem;
-    font-weight: 400;
+    font-size: 2.4rem;
+    font-weight: 600;
 }
 
 .form-text {
     color: var(--color-primary-light);
+    font-size: 0.95rem;
+    opacity: 0.85;
 }
 
 .form-title-light{
@@ -98,20 +100,21 @@ main {
 }
 
 /* Inputs */
-.form-input-container{
+.form-input-container {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.form-input{
-    width: 300px;
-    height: 40px;
-    padding: 10px 20px;
-    border-style: none;
-    background-color: var(--color-icon);
-    border-radius: 12px;
-    color: var(--color-text-black)
+.form-input.error,
+.reset-input.error {
+    border: 2px solid #ae0000;
+    background-color: #fff5f5;
+}
+
+.form-input.success,
+.reset-input.success {
+    border: 2px solid #0fa394;
 }
 
 /* Estilização moderna para o campo de seleção de perfil na página de cadastro */
@@ -129,9 +132,7 @@ main {
     border: none;
     border-radius: 12px;
     background-color: var(--color-icon);
-    color: var(--color-text-black);
     font-size: 1rem;
-    font-family: var(--font-primary);
     box-shadow: 0 2px 6px rgba(0,0,0,0.07);
     transition: border-color 0.3s, box-shadow 0.3s;
     appearance: none;
@@ -157,12 +158,21 @@ main {
     border-style: none;
     border-radius: 50px;
     border: 2px solid var(--color-text-black);
-    background-color: transparent;
     font-size: 1rem;
     font-weight: 800;
     color: var(--color-primary);
     cursor: pointer;
     transition: .7s;
+}
+
+.form-button.primary {
+    background-color: var(--color-primary);
+    color: #fff;
+    border: none;
+}
+
+.form-button.primary:hover {
+    background-color: var(--color-primary-light);
 }
 
 .form-button:hover{
@@ -199,6 +209,10 @@ main {
     position: relative;
     text-decoration: none;
     transition: color 0.3s ease;
+}
+
+.form-link:active {
+    transform: scale(0.97);
 }
 
 .form-link::after {
@@ -263,12 +277,12 @@ main {
 .reset-title {
     color: var(--color-text-black);
     font-size: 2.4rem;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 /* Texto */
 .reset-text {
-    color: #6fa9a2; /* menos saturado */
+    color: #61a9a1; /* menos saturado */
     font-size: 0.95rem;
     text-align: center;
     max-width: 300px;
@@ -276,12 +290,13 @@ main {
 }
 
 /* Inputs */
-.reset-input-container {
+.reset-input-container{
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
 
+.form-input,
 .reset-input {
     width: 300px;
     height: 44px;
@@ -295,7 +310,8 @@ main {
     transition: border 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
-.reset-input:focus {
+.reset-input:focus,
+.form-input:focus {
     outline: none;
     border-color: var(--color-text-black);
     background-color: #fff;
@@ -316,13 +332,13 @@ main {
 }
 
 .reset-msg.error {
-    color: #8f0000;
-    background-color: #f6b0b0;
+    color: #ae0000;
+    background-color: #f3a5a5;
 }
 
 .reset-msg.success {
-    color: #0a6b3f;
-    background-color: #b9f1d4;
+    color: #e6f8ef;
+    background-color: #0a6b3f;
 }
 
 /* Botão */
@@ -338,6 +354,12 @@ main {
     letter-spacing: 0.3px;
     cursor: pointer;
     transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    color: var(--color-text-light)
+}
+
+.reset-button.loading {
+    pointer-events: none;
+    opacity: 0.8;
 }
 
 .reset-button:hover:not(:disabled) {
@@ -411,18 +433,17 @@ select {
     padding: 12px 30px 12px 16px;
     appearance: none;
     border-radius: 12px;
+
     background-color: #fff;
     color: #333;
+
     font-size: 0.8rem;
     font-weight: 500;
+
     cursor: pointer;
-    transition: all 0.3s ease;
-    
-    /* Ícone de seta customizado */
-    background-image: url("data:image/svg+xml,%3Csvg fill='%235cb85c' height='24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 9l5 5 5-5z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    background-size: 18px;
+    transition: border 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+
+    border: 1px solid #ddd; /* 👈 ESSENCIAL */
 }
 
 /* seta customizada */
@@ -434,18 +455,17 @@ select {
 
 /* Hover suave */
 select:hover {
-    border-color: var(--color-primary);
-    box-shadow: 0 0 8px rgba(92, 184, 92, 0.25);
+    border-color: var(--color-text-black);
 }
 
-/* Foco com destaque verde */
+
 select:focus {
     outline: none;
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(92, 184, 92, 0.3);
+    border: 2px solid var(--color-text-black);
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12);
 }
 
-/* Opções internas */
 option {
     background-color: #fff;
     color: #333;
@@ -457,9 +477,9 @@ option {
     color: #fff;
 }
 
-/* Textos para Mobile (Inicialmente ocultos) */
 .mobile-text{
     display: none;
+    color: var(--color-text-black);
 }
 
 /* =============================== */

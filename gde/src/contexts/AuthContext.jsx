@@ -58,9 +58,15 @@ export function AuthProvider({ children }) {
     }, []);
 
     const logout = async () => {
-        await supabase.auth.signOut();
-        setUser(null);
-        setPerfil(null);
+        try {
+            await supabase.auth.signOut();
+            setUser(null);
+            setPerfil(null);
+        } catch (error) {
+            console.error("Erro ao fazer logout:", error);
+            setUser(null);
+            setPerfil(null);
+        }
     };
 
     return (
