@@ -3,7 +3,9 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { usuariosBase } from "@/data/usuarios";
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/lib/supabaseClient";
+
 import FormSolicitarDefesa from "@/components/defesas/FormSolicitarDefesa";
 
 import "@/css/solicitar-defesa.css";
@@ -11,25 +13,45 @@ import "@/css/solicitar-defesa.css";
 export default function SolicitarDefesa() {
 
   const router = useRouter();
+  const { user, perfil, loading } = useAuth();
+
   const [orientadores, setOrientadores] = useState([]);
 
   useEffect(() => {
 
-    const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
+    if (loading) return;
 
-    if (!usuario || usuario.tipo !== "aluno") {
-      alert("Acesso permitido apenas para alunos.");
-      router.push("/login");
+    // Proteção de rota
+    if (!user || !perfil) {
+      alert("Você precisa estar logado.");
+      router.push("/");
       return;
     }
 
-    const professores = usuariosBase.filter(
-      u => u.tipo === "orientador"
-    );
+    if (perfil.tipo_usuario !== "aluno") {
+      alert("Acesso permitido apenas para alunos.");
+      router.push("/dashboard");
+      return;
+    }
 
-    setOrientadores(professores);
+    buscarOrientadores();
 
-  }, [router]);
+  }, [loading, user, perfil, router]);
+
+  const buscarOrientadores = async () => {
+
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("id, nome_completo")
+      .eq("tipo_usuario", "orientador");
+
+    if (!error) {
+      setOrientadores(data);
+    } else {
+      console.error(error);
+      alert("Erro ao carregar orientadores");
+    }
+  };
 
   return (
     <main className="solicitacao-container">

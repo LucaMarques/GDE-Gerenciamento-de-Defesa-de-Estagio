@@ -1,25 +1,42 @@
 html, body {
     height: 100%;
     margin: 0;
+}
+
+body {
     display: flex;
     flex-direction: column;
 }
 
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5vh 0; 
+}
+
 .solicitacao-container {
-    max-width: 950px;
-    margin: 40px auto;
-    padding: 40px;
+    width: 40%;
+    max-width: 520px;
+    min-width: 320px;
+    height: 60vh;
+    max-height: 520px;
+    min-height: 420px;
+    margin: auto;
+    padding: 5%;
     background: #fff; 
-    border-radius: 10px;
+    border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    padding-top: 40px;   
-    padding-bottom: 130px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .solicitacao-titulo {
     text-align: center;
     margin-bottom: 25px;
-    font-size: 30px;
+    font-size: clamp(22px, 2.2vw, 32px);
     font-weight: 600;
     color: #000000; 
 }
@@ -93,4 +110,12 @@ html, body {
 
 .botao.enviar:hover {
     background: #17c7b5;
+}
+
+@media (max-width: 768px) {
+    .solicitacao-container {
+        width: 85%;
+        aspect-ratio: auto;
+        padding: 8%;
+    }
 }
