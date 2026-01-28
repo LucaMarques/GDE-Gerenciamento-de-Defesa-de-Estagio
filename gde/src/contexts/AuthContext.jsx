@@ -1,10 +1,3 @@
-ark them as resolved with
-hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
-hint: You can instead skip this commit: run "git rebase --skip".
-hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
-hint: Disable this message with "git config set advice.mergeConflict false"
-Could not apply 8bd3a98... # Mudancas no aceitar login puxando os dados pelo supabase, context puxa defesas de acordo com o usuario logado"use client";
-
 import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 
