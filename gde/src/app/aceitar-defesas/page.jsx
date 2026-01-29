@@ -45,7 +45,8 @@ export default function AceitarDefesas() {
 
   }, [user, perfil, loading, router]);
 
-  if (loading || !user || !perfil) return null;
+  if (loading || !user || !perfil ) return null;
+
 
   return (
     <main className="solicitacoes-container">
