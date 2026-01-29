@@ -86,7 +86,7 @@ export default function EstatisticasContainer({
 
       <div className="estatisticas-grid">
         <div className="estatistica-item">
-          <span>Total Selecionado ({statusSelecionado})</span>
+          <span>Total ({statusSelecionado})</span>
           <strong>{totalNoUniverso}</strong>
         </div>
         <div className="estatistica-item periodo-destaque">

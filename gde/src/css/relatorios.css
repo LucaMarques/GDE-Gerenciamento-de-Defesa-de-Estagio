@@ -1,3 +1,6 @@
+/* ==========================================================================
+   1. LAYOUT GERAL E WRAPPERS
+   ========================================================================== */
 .main-wrapper {
   flex-grow: 1;
   padding: 2rem;
@@ -8,7 +11,9 @@
   align-items: center;
 }
 
-.relatorio-container {
+/* Base para os Cartões (1 e 2) */
+.relatorio-container,
+.relatorio-resultados-card {
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
   border-radius: 12px;
@@ -18,14 +23,23 @@
   max-width: 900px;
 }
 
-.relatorio-container h2 {
-  color: var(--color-header, #009174);
+.relatorio-resultados-card {
+  margin-top: 2rem;
+}
+
+.relatorio-container h2,
+.card-estatisticas-container h2,
+.titulo-resultados {
+  color: #000 !important;
+  font-weight: 700;
   border-bottom: 2px solid #ddd;
   padding-bottom: 10px;
-  text-align: center;
   margin-bottom: 1.5rem;
 }
 
+/* ==========================================================================
+   2. CONTROLES DE SELEÇÃO (CARD 1)
+   ========================================================================== */
 .relatorio-controles {
   display: flex;
   flex-direction: row;
@@ -37,20 +51,16 @@
 .select-relatorio {
   flex: 4;
   min-width: 200px;
-
   font-family: var(--font-primary, "Poppins", sans-serif);
-  background-color: var(--color-header, #004a91);
-  color: white;
+  background-color: #302f2f !important;
+  color: white !important;
   border: none;
   border-radius: 8px;
   padding: 14px 20px;
-
-  /* Melhoria de Visibilidade */
-  font-size: 1.15rem; /* Fonte maior */
-  font-weight: 700; /* Mais negrito */
+  font-size: 1.15rem;
+  font-weight: 700;
   cursor: pointer;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-
   appearance: none;
   background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
   background-repeat: no-repeat;
@@ -60,113 +70,200 @@
 
 .select-relatorio option {
   background-color: #ffffff;
-  color: #000;
+  color: #333;
 }
 
 .input-data {
   flex: 1;
   min-width: 160px;
-
-  background-color: #ffffff; /* Fundo branco puro para destacar */
-  border: 2px solid #666; /* Borda mais escura e grossa */
+  background-color: #ffffff;
+  border: 2px solid #666;
   color: #000;
-
   border-radius: 8px;
   padding: 12px 15px;
-  font-size: 1.1rem; /* Fonte maior para ler a data melhor */
+  font-size: 1.1rem;
   font-weight: 600;
-  cursor: pointer;
 }
 
-.select-relatorio:focus-visible,
-.input-data:focus-visible {
-  outline: 2px solid #5cb85c;
-  outline-offset: 2px;
-}
-
-.input-data:focus {
-  border-color: #004a91;
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(0, 74, 145, 0.2);
-}
-
-.container-relatorio-lista {
-  padding-top: 1.5rem;
+.btn-adicionar-defesa {
   margin-top: 1.5rem;
-  border-top: 1px solid #eee;
   width: 100%;
+  background-color: #18786e;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* ==========================================================================
+   3. LAYOUT LADO A LADO (CARDS 2 E 3)
+   ========================================================================== */
+.layout-lado-a-lado {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1350px;
+  margin-top: 2rem;
+  align-items: flex-start;
+}
+
+/* CARD 3 - ESTATÍSTICAS (70%) */
+.card-estatisticas-container {
+  flex: 7;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  min-height: 400px;
+}
+
+/* CARD 2 - RESULTADOS EM COLUNA (30%) */
+.card-resultados-coluna {
+  flex: 3;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* ==========================================================================
+   4. COMPONENTES DE ESTATÍSTICAS (DENTRO DO CARD 3)
+   ========================================================================== */
+.header-estatisticas {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.filtro-periodo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  background: #302f2f;
+  padding: 10px 20px;
+  border-radius: 30px;
+  color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.input-data-small {
+  border: 1px solid #555;
+  background-color: #ffffff;
+  color: #333;
+  border-radius: 5px;
+  padding: 4px 8px;
+  font-weight: 700;
+}
+
+.btn-limpar-filtro {
+  background: #d9534f;
+  color: white;
+  border-radius: 15px;
+  padding: 4px 12px;
+  font-size: 0.75rem;
+  border: none;
+}
+
+.estatisticas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.estatistica-item {
+  background: #f1f3f5; /* Um cinza um pouco mais sólido que o #f8f9fa */
+  padding: 1.5rem;
+  border-radius: 10px;
+  border: 1px solid #dee2e6;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.estatistica-item strong {
+  font-size: 2.2rem;
+  display: block;
+  margin-top: 5px;
+  color: #383737;
+}
+.estatistica-item span {
+  font-size: 0.95rem;
+  color: #4c4b4b;
+  margin-bottom: 0.6rem;
+  font-weight: 600;
+  display: block;
+}
+
+.estatistica-item.periodo-destaque strong {
+  color: #004a91;
+}
+.estatistica-item.porcentagem strong {
+  color: #5cb85c;
+}
+
+/* ==========================================================================
+   5. LISTA DE RESULTADOS E CARDS DE DEFESA
+   ========================================================================== */
+.container-relatorio-lista {
+  width: 100%;
+}
+
+.btn-gerar-estatistica {
+  width: 100%;
+  background-color: #302f2f;
+  color: white;
+  border-radius: 8px;
+  padding: 12px;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  border: none;
 }
 
 .card-defesa {
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
   border-radius: 10px;
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
+  padding: 1.2rem;
+  margin-bottom: 1rem;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .card-defesa h3 {
-  margin-top: 0;
+  font-size: 1.1rem;
   color: #222;
-  font-weight: 700;
+  margin-bottom: 5px;
+  border: none;
+  font-weight: bold;
 }
-
 .card-defesa p {
-  margin: 0.5rem 0;
-  line-height: 1.6;
+  font-size: 0.9rem;
+  margin: 4px 0;
   color: #444;
 }
 
-.card-defesa p strong {
-  color: #000;
-  font-weight: 600;
-}
-
-/* Cores específicas para o Status */
 .status-pendente {
-  color: #d9534f; /* Vermelho */
+  color: #d9534f;
   font-weight: bold;
 }
-
 .status-concluido {
-  color: #28a745; /* Verde */
+  color: #28a745;
   font-weight: bold;
 }
 
-.relatorio-resultados-card {
-  background-color: #ffffff;
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  padding: 2rem 2.5rem;
-  width: 100%;
-  max-width: 900px;
-  margin-top: 2rem;
-}
-
-.container-relatorio-lista {
-  width: 100%;
-}
-@media (max-width: 768px) {
-  .relatorio-controles {
-    flex-direction: column; /* Empilha no celular */
-  }
-
-  .select-relatorio,
-  .input-data {
-    width: 100%;
-    flex: none; /* Desativa a proporção no celular */
-  }
-  .header-resultados {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .btn-gerar-estatistica {
-    width: 100%; /* No celular, o botão ocupa a largura toda */
-    justify-content: center;
-  }
+/* ==========================================================================
+   6. RESPONSIVIDADE
+   ========================================================================== */
+@media (max-width: 1100px) {
   .layout-lado-a-lado {
     flex-direction: column;
     align-items: center;
@@ -178,386 +275,12 @@
   }
 }
 
-.btn-adicionar-defesa {
-  margin-top: 1.5rem; /* Espaço abaixo dos seletores */
-  width: 100%;
-  background-color: #18786e; /*#28a745 Verde para destacar a ação de adicionar*/
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 14px;
-  font-size: 1.1rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.btn-adicionar-defesa:hover {
-  background-color: #18786e;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-}
-
-.btn-adicionar-defesa:active {
-  transform: translateY(0);
-}
-
-.titulo-resultados {
-  margin-bottom: 0 !important;
-  padding-bottom: 0.5rem;
-}
-.header-resultados {
-  display: flex;
-  justify-content: space-between; /* Empurra o título para a esquerda e o botão para a direita */
-  align-items: center; /* Alinha verticalmente no centro */
-  margin-bottom: 1.5rem;
-  flex-wrap: wrap; /* Garante que em telas pequenas o botão pule para baixo se necessário */
-  gap: 1rem;
-}
-
-.btn-gerar-estatistica {
-  background-color: #797979;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 18px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.btn-gerar-estatistica:hover {
-  background-color: #302f2f;
-  transform: scale(1.02);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-.btn-gerar-estatistica:active {
-  transform: scale(0.98);
-}
-
-.btn-gerar-estatistica {
-  width: 100%;
-  background-color: #302f2f;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 12px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  margin-bottom: 1.5rem;
-  transition:
-    background-color 0.2s,
-    transform 0.1s;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-
-.btn-gerar-estatistica:hover {
-  background-color: #302f2f;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.btn-gerar-estatistica:active {
-  transform: scale(0.99);
-}
-.layout-lado-a-lado {
-  display: flex;
-  flex-direction: row;
-  gap: 2rem;
-  width: 100%;
-  max-width: 1300px; /* Aumentamos para caber os dois lado a lado */
-  margin-top: 2rem;
-  align-items: flex-start;
-}
-
-/* CARD 3 (Esquerda - 70%) */
-.card-estatisticas-container {
-  flex: 7;
-  background-color: #ffffff;
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  min-height: 400px;
-}
-
-.card-resultados-coluna {
-  flex: 3;
-  background-color: #ffffff;
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-.card-resultados-coluna .card-defesa {
-  padding: 1rem;
-  font-size: 0.9rem;
-}
-
-.relatorio-container h2,
-.card-estatisticas-container h2,
-.titulo-resultados {
-  color: #000 !important;
-  font-weight: 700;
-}
-
-.card-resultados-coluna .card-defesa h3 {
-  font-size: 1.1rem;
-  margin-bottom: 0.4rem;
-  line-height: 1.2;
-}
-
-.card-resultados-coluna .card-defesa {
-  padding: 1rem;
-  margin-bottom: 1rem;
-}
-
-.card-resultados-coluna .card-defesa p {
-  font-size: 0.85rem;
-  margin: 0.3rem 0;
-}
-
-.card-estatisticas-container h2 {
-  border-bottom: 2px solid #ddd;
-  padding-bottom: 10px;
-  margin-bottom: 1.5rem;
-}
-
-.select-relatorio {
-  flex: 4;
-  min-width: 200px;
-  font-family: var(--font-primary, "Poppins", sans-serif);
-  background-color: #302f2f !important;
-  color: white !important;
-
-  border: none;
-  border-radius: 8px;
-  padding: 14px 20px;
-  font-size: 1.15rem;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-  appearance: none;
-
-  background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
-  background-repeat: no-repeat;
-  background-position: right 15px center;
-  background-size: 24px;
-  transition: background-color 0.3s ease;
-}
-
-.select-relatorio:focus,
-.select-relatorio:active {
-  background-color: #302f2f !important;
-  color: white !important;
-  outline: 2px solid #5cafb8; /* Borda verde de destaque */
-}
-
-.select-relatorio option {
-  background-color: #ffffff;
-  color: #333;
-  font-weight: 500;
-}
-
-.grafico-container {
-  margin-top: 2rem;
-  background: #fff;
-  padding: 1rem;
-  border-radius: 12px;
-  /* O ResponsiveContainer do Recharts vai preencher este espaço */
-}
-
-.recharts-legend-item-text {
-  font-family: "Poppins", sans-serif !important;
-  font-weight: 500;
-  color: #444 !important;
-}
-
-.estatisticas-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-}
-
-.estatistica-item {
-  background: #f8f9fa;
-  padding: 1.5rem;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: 1px solid #eee;
-}
-
-.estatistica-item span {
-  font-size: 0.9rem;
-  color: #666;
-  margin-bottom: 0.5rem;
-}
-
-.estatistica-item strong {
-  font-size: 2rem;
-  color: #302f2f;
-}
-
-/* Destaque por cores */
-.estatistica-item.pendente strong {
-  color: #d9534f;
-}
-.estatistica-item.concluida strong {
-  color: #28a745;
-}
-
-.placeholder-grafico {
-  width: 100%;
-  height: 200px;
-  background: #f0f0f0;
-  border: 2px dashed #ccc;
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #999;
-}
-
-.header-estatisticas {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 2px solid #ddd;
-  padding-bottom: 15px;
-  margin-bottom: 1.5rem;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.header-estatisticas h2 {
-  margin-bottom: 0 !important;
-  border-bottom: none !important;
-  padding-bottom: 0 !important;
-}
-
-.filtro-periodo-container {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  background: #f0f2f5;
-  padding: 8px 15px;
-  border-radius: 30px;
-  font-size: 0.85rem;
-  font-weight: 600;
-}
-
-.input-data-small {
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 4px 8px;
-  font-family: inherit;
-  font-size: 0.85rem;
-  cursor: pointer;
-}
-
-.btn-limpar-filtro {
-  background: none;
-  border: none;
-  color: #d9534f;
-  text-decoration: underline;
-  cursor: pointer;
-  font-size: 0.8rem;
-  padding: 0 5px;
-}
-
-.btn-limpar-filtro:hover {
-  color: #c9302c;
-}
-
-@media (max-width: 1100px) {
-  .header-estatisticas {
+@media (max-width: 768px) {
+  .relatorio-controles {
     flex-direction: column;
-    align-items: flex-start;
   }
-}
-.estatistica-item.periodo-destaque strong {
-  color: #004a91; /* Cor para combinar com o gráfico */
-}
-
-.estatistica-item.porcentagem strong {
-  color: #5cb85c; /* Verde para indicar a proporção */
-}
-
-/* Deixe o gráfico mais limpo para essa comparação */
-.recharts-pie-label-text {
-  font-size: 12px;
-  font-weight: bold;
-}
-/* CONTAINER DE FILTRO ESCURECIDO */
-.filtro-periodo-container {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  background: #302f2f; /* Mesmo tom escuro dos botões/seletores */
-  padding: 10px 20px;
-  border-radius: 30px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #ffffff; /* Texto branco para alto contraste */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Garante que o texto "Filtrar período:" e "até" fiquem brancos */
-.filtro-periodo-container span {
-  color: #ffffff;
-}
-
-/* CAMPOS DE DATA (INPUTS) */
-.input-data-small {
-  border: 1px solid #555;
-  background-color: #ffffff; /* Mantemos o fundo do input branco para facilitar a leitura da data */
-  color: #333;
-  border-radius: 5px;
-  padding: 4px 8px;
-  font-family: inherit;
-  font-size: 0.85rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: border-color 0.2s;
-}
-
-.input-data-small:focus {
-  border-color: #5cafb8; /* Cor de destaque ao clicar */
-  outline: none;
-}
-
-/* BOTÃO DE LIMPAR */
-.btn-limpar-filtro {
-  background: #d9534f;
-  border: none;
-  color: white;
-  text-decoration: none; /* Removemos o sublinhado para parecer um mini-botão */
-  cursor: pointer;
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 15px;
-  transition: background 0.2s;
-}
-
-.btn-limpar-filtro:hover {
-  background: #c9302c;
-  color: white;
+  .select-relatorio,
+  .input-data {
+    width: 100%;
+  }
 }
