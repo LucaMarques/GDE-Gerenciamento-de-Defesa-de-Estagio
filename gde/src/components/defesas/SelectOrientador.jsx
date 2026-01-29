@@ -10,9 +10,9 @@ export default function SelectOrientador({ orientadores, value, onChange }) {
     >
       <option value="">Selecione um orientador</option>
 
-      {orientadores.map((p, index) => (
-        <option key={index} value={p.nome}>
-          {p.nome}
+      {orientadores.map((p) => (
+        <option key={p.id} value={p.id}>
+          {p.nome_completo}
         </option>
       ))}
     </select>
