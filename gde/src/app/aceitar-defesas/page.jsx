@@ -12,7 +12,6 @@ export default function AceitarDefesas() {
 
   const router = useRouter();
   const { user, perfil, loading, logoutRef, defesas } = useAuth();
-  const [mounted, setMounted] = useState(false);
   const [lista, setLista] = useState([]);
 
   useEffect(() => {
@@ -39,11 +38,10 @@ export default function AceitarDefesas() {
     }
 
     setLista(defesas);
-    setMounted(true); 
 
   }, [user, perfil, loading, router]);
 
-  if (loading || !user || !perfil || !mounted) return null;
+  if (loading || !user || !perfil ) return null;
 
 
   return (
