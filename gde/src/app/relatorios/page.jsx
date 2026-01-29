@@ -50,9 +50,9 @@ export default function RelatoriosPage() {
         </div>
         <button
           className="btn-adicionar-defesa"
-          onClick={() => router.push("/solicitar-defesa")}
+          onClick={() => router.push("/aceitar-defesas")}
         >
-          + Adicionar Nova Defesa
+          + Aceitar novas defesas
         </button>
       </div>
 
