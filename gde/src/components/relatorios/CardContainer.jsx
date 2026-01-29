@@ -8,6 +8,7 @@ export default function CardContainer({
   data,
   onGerarEstatistica,
   estatisticasAtivas,
+  onDadosCarregados,
 }) {
   const [defesas, setDefesas] = useState([]);
   const [carregando, setCarregando] = useState(false);
@@ -51,6 +52,9 @@ export default function CardContainer({
       setErro(error.message);
     } else {
       setDefesas(resultado);
+      if (onDadosCarregados) {
+        onDadosCarregados(resultado);
+      }
     }
 
     setCarregando(false);

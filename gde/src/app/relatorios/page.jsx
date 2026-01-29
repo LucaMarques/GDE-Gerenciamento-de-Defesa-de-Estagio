@@ -1,17 +1,37 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import { useModal } from "@/contexts/ModalContext";
 import CardContainer from "@/components/relatorios/CardContainer";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  ResponsiveContainer,
+  Tooltip,
+  Legend,
+} from "recharts";
 import "../../css/relatorios.css";
 
 export default function RelatoriosPage() {
   const [statusSelecionado, setStatusSelecionado] = useState("");
   const [dataSelecionada, setDataSelecionada] = useState("");
-  // 1. Novo estado para controlar se o Card 3 (Estatísticas) aparece
   const [exibirEstatisticas, setExibirEstatisticas] = useState(false);
+
+  const [dadosAtuais, setDadosAtuais] = useState([]);
+  const dadosGrafico = useMemo(() => {
+    // Garantimos que o código não quebre se dadosAtuais for nulo
+    const lista = dadosAtuais || [];
+    const pendentes = lista.filter((d) => d.status === "Em andamento").length;
+    const concluidas = lista.filter((d) => d.status === "Concluída").length;
+
+    return [
+      { name: "Pendentes", value: pendentes, color: "#d9534f" },
+      { name: "Concluídas", value: concluidas, color: "#28a745" },
+    ];
+  }, [dadosAtuais]);
 
   const { user, loading } = useAuth();
   const { mostrarModal } = useModal();
@@ -81,11 +101,34 @@ export default function RelatoriosPage() {
               : "relatorio-resultados-card"
           }
         >
-          {/* CARD 3: ESTATÍSTICAS (Aparece na esquerda - 70%) */}
+          {/* CARD 3: ESTATÍSTICAS */}
           {exibirEstatisticas && (
             <div className="card-estatisticas-container">
               <h2>Estatísticas Gerais</h2>
-              <p>Conteúdo do Card 3 em desenvolvimento...</p>
+              <div
+                className="grafico-container"
+                style={{ width: "100%", height: 300 }}
+              >
+                <ResponsiveContainer>
+                  <PieChart>
+                    <Pie
+                      data={dadosGrafico}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={60} // Transforma em um gráfico de rosca (Donut)
+                      outerRadius={80}
+                      paddingAngle={5}
+                      dataKey="value"
+                    >
+                      {dadosGrafico.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.color} />
+                      ))}
+                    </Pie>
+                    <Tooltip />
+                    <Legend verticalAlign="bottom" height={36} />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
             </div>
           )}
 
@@ -96,6 +139,7 @@ export default function RelatoriosPage() {
               data={dataSelecionada}
               onGerarEstatistica={() => setExibirEstatisticas(true)}
               estatisticasAtivas={exibirEstatisticas}
+              onDadosCarregados={(dados) => setDadosAtuais(dados)}
             />
           </div>
         </div>
