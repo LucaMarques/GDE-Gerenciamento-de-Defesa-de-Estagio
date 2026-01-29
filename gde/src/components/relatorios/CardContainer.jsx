@@ -26,11 +26,15 @@ export default function CardContainer({
   async function getDefesas() {
     setCarregando(true);
 
-    let query = supabase.from("defesas").select("*");
+    let query = supabase.from("defesas").select(`
+    *,
+    aluno:profiles!defesas_aluno_id_fkey(nome_completo),
+    orientador:profiles!defesas_orientador_id_fkey(nome_completo)
+  `);
 
     if (tipo === "pendentes") {
       query = query.eq("status", "Em andamento");
-    } else if (tipo === "concluidas") {
+    } else if (tipo === "concluidos") {
       query = query.eq("status", "Concluída");
     }
 
@@ -72,10 +76,15 @@ export default function CardContainer({
         <div key={item.id} className="card-defesa">
           <h3>{item.tema}</h3>
           <p>
-            <strong>Aluno:</strong> {item.aluno}
+            <strong>Aluno:</strong>{" "}
+            {item.aluno?.nome_completo || "Nome não encontrado"}
           </p>
           <p>
             <strong>Data:</strong> {item.data}
+          </p>
+          <p>
+            <strong>Orientador:</strong>{" "}
+            {item.orientador?.nome_completo || "Não informado"}
           </p>
           <p>
             <strong>Banca:</strong>{" "}
