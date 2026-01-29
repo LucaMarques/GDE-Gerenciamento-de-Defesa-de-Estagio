@@ -505,3 +505,59 @@
   font-size: 12px;
   font-weight: bold;
 }
+/* CONTAINER DE FILTRO ESCURECIDO */
+.filtro-periodo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  background: #302f2f; /* Mesmo tom escuro dos botões/seletores */
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #ffffff; /* Texto branco para alto contraste */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Garante que o texto "Filtrar período:" e "até" fiquem brancos */
+.filtro-periodo-container span {
+  color: #ffffff;
+}
+
+/* CAMPOS DE DATA (INPUTS) */
+.input-data-small {
+  border: 1px solid #555;
+  background-color: #ffffff; /* Mantemos o fundo do input branco para facilitar a leitura da data */
+  color: #333;
+  border-radius: 5px;
+  padding: 4px 8px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.input-data-small:focus {
+  border-color: #5cafb8; /* Cor de destaque ao clicar */
+  outline: none;
+}
+
+/* BOTÃO DE LIMPAR */
+.btn-limpar-filtro {
+  background: #d9534f;
+  border: none;
+  color: white;
+  text-decoration: none; /* Removemos o sublinhado para parecer um mini-botão */
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 15px;
+  transition: background 0.2s;
+}
+
+.btn-limpar-filtro:hover {
+  background: #c9302c;
+  color: white;
+}
