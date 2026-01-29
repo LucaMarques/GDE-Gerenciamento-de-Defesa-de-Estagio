@@ -35,7 +35,6 @@
 }
 
 .select-relatorio {
-  /* Proporção: 4 partes de 5 (80%) */
   flex: 4;
   min-width: 200px;
 
@@ -44,7 +43,7 @@
   color: white;
   border: none;
   border-radius: 8px;
-  padding: 14px 20px; /* Aumentei o padding vertical */
+  padding: 14px 20px;
 
   /* Melhoria de Visibilidade */
   font-size: 1.15rem; /* Fonte maior */
@@ -52,7 +51,6 @@
   cursor: pointer;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
 
-  /* Estilo da seta branca */
   appearance: none;
   background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
   background-repeat: no-repeat;
@@ -66,14 +64,12 @@
 }
 
 .input-data {
-  /* Proporção: 1 parte de 5 (20%) */
   flex: 1;
   min-width: 160px;
 
-  /* Melhoria de Contraste e Cor */
   background-color: #ffffff; /* Fundo branco puro para destacar */
   border: 2px solid #666; /* Borda mais escura e grossa */
-  color: #000; /* Texto preto puro */
+  color: #000;
 
   border-radius: 8px;
   padding: 12px 15px;
@@ -138,7 +134,6 @@
   font-weight: bold;
 }
 
-/* Novo contêiner para os resultados */
 .relatorio-resultados-card {
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
@@ -147,14 +142,11 @@
   padding: 2rem 2.5rem;
   width: 100%;
   max-width: 900px;
-  margin-top: 2rem; /* Espaço entre o card de cima e o de baixo */
+  margin-top: 2rem;
 }
 
-/* Ajuste opcional para remover a borda superior dentro do CardContainer, 
-   já que agora ele está em um novo card próprio */
 .container-relatorio-lista {
   width: 100%;
-  /* Removi o padding-top e border-top aqui para ficar mais limpo no novo card */
 }
 @media (max-width: 768px) {
   .relatorio-controles {
@@ -185,8 +177,6 @@
     flex: none;
   }
 }
-
-/* Adicione estas regras ao seu relatorios.css */
 
 .btn-adicionar-defesa {
   margin-top: 1.5rem; /* Espaço abaixo dos seletores */
@@ -283,7 +273,6 @@
 .btn-gerar-estatistica:active {
   transform: scale(0.99);
 }
-
 .layout-lado-a-lado {
   display: flex;
   flex-direction: row;
@@ -305,7 +294,6 @@
   min-height: 400px;
 }
 
-/* CARD 2 (Direita - 30%) */
 .card-resultados-coluna {
   flex: 3;
   background-color: #ffffff;
@@ -313,44 +301,36 @@
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  /* Ajuste para os cards internos não ficarem muito grandes na coluna estreita */
 }
 
-/* Garantir que os cards de defesa fiquem bem na coluna de 30% */
 .card-resultados-coluna .card-defesa {
   padding: 1rem;
   font-size: 0.9rem;
 }
 
-/* 1. Padronizando as cores dos títulos principais para preto (#000) */
-
 .relatorio-container h2,
 .card-estatisticas-container h2,
 .titulo-resultados {
-  color: #000 !important; /* Força o preto puro para consistência */
+  color: #000 !important;
   font-weight: 700;
 }
 
-/* 2. Estilização Contextual: Diminuir o h3 do Card 2 quando ele estiver na coluna de 30% */
-
 .card-resultados-coluna .card-defesa h3 {
-  font-size: 1.1rem; /* Fonte menor para não quebrar o layout na coluna estreita */
+  font-size: 1.1rem;
   margin-bottom: 0.4rem;
   line-height: 1.2;
 }
 
-/* Aproveitando para diminuir um pouco o espaçamento interno dos cards na coluna 30% */
 .card-resultados-coluna .card-defesa {
   padding: 1rem;
   margin-bottom: 1rem;
 }
 
 .card-resultados-coluna .card-defesa p {
-  font-size: 0.85rem; /* Textos menores para caber melhor */
+  font-size: 0.85rem;
   margin: 0.3rem 0;
 }
 
-/* 3. Garantindo que o título de Estatísticas Gerais também siga o padrão */
 .card-estatisticas-container h2 {
   border-bottom: 2px solid #ddd;
   padding-bottom: 10px;

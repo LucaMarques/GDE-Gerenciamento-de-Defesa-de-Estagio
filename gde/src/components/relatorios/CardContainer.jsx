@@ -30,8 +30,8 @@ export default function CardContainer({
 
     if (tipo === "pendentes") {
       query = query.eq("status", "Em andamento");
-    } else if (tipo === "concluidos") {
-      query = query.eq("status", "Concluído");
+    } else if (tipo === "concluidas") {
+      query = query.eq("status", "Concluída");
     }
 
     if (data) {

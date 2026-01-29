@@ -12,7 +12,6 @@ export function ModalProvider({ children }) {
     tipo: "info", // info, warning, success, error
     aoConfirmar: null,
   });
-
   const mostrarModal = ({
     titulo,
     mensagem,
@@ -22,7 +21,6 @@ export function ModalProvider({ children }) {
     setConfig({ titulo, mensagem, tipo, aoConfirmar });
     setEstaAberto(true);
   };
-
   const fecharModal = () => {
     setEstaAberto(false);
     setConfig({ titulo: "", mensagem: "", tipo: "info", aoConfirmar: null });
