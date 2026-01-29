@@ -88,7 +88,7 @@ export default function ListaDefesas() {
         mostrarModal({
             titulo: "Sucesso!",
             mensagem: "Status atualizado",
-            tipo: "Sucess"
+            tipo: "success"
         });
 
     };

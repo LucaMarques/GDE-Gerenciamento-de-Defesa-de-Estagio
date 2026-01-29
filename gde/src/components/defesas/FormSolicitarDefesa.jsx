@@ -64,7 +64,7 @@ export default function FormSolicitarDefesa({ orientadores }) {
     mostrarModal({
                 titulo: "Sucesso!",
                 mensagem: "Defesa solicitada com sucesso!",
-                tipo: "sucess"
+                tipo: "success"
     });    
 
     router.push("/defesas");
