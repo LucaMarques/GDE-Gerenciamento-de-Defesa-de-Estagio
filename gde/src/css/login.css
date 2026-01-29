@@ -75,14 +75,12 @@ main {
     transition: 1s;
 }
 
-/* Estilos específicos dos formulários */
 .form-register{
     transform: translateX(-100%);
     z-index: -1;
     opacity: 0;
 }
 
-/* Títulos e textos */
 .form-title{
     color: var(--color-text-black);
     font-size: 2.4rem;
@@ -99,7 +97,6 @@ main {
     color: var(--color-text-light);
 }
 
-/* Inputs */
 .form-input-container {
     display: flex;
     flex-direction: column;

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabaseClient";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function CardContainer({
   tipo,
@@ -10,8 +10,8 @@ export default function CardContainer({
   estatisticasAtivas,
   onDadosCarregados,
 }) {
-  const [defesas, setDefesas] = useState([]);
-  const [carregando, setCarregando] = useState(false);
+  const { defesas } = useAuth(); 
+  const [defesasFiltradas, setDefesasFiltradas] = useState([]);
   const [erro, setErro] = useState("");
 
   const titulos = {
@@ -21,50 +21,27 @@ export default function CardContainer({
   };
 
   useEffect(() => {
-    getDefesas();
-  }, [tipo, data]);
+    if (!defesas) return;
 
-  async function getDefesas() {
-    setCarregando(true);
-
-    let query = supabase.from("defesas").select(`
-    *,
-    aluno:profiles!defesas_aluno_id_fkey(nome_completo),
-    orientador:profiles!defesas_orientador_id_fkey(nome_completo)
-  `);
+    let filtradas = [...defesas];
 
     if (tipo === "pendentes") {
-      query = query.eq("status", "Em andamento");
+      filtradas = filtradas.filter(d => d.status === "Em andamento");
     } else if (tipo === "concluidos") {
-      query = query.eq("status", "Concluída");
-    }
-
+      filtradas = filtradas.filter(d => d.status === "Concluída");
+    } 
     if (data) {
-      query = query.eq("data", data);
+      filtradas = filtradas.filter(d => d.data === data);
     }
 
-    const { data: resultado, error } = await query;
-
-    console.log("Filtros aplicados - Tipo:", tipo, "Data:", data);
-    console.log("O que o Supabase devolveu:", resultado);
-
-    if (error) {
-      setErro(error.message);
-    } else {
-      setDefesas(resultado);
-      if (onDadosCarregados) {
-        onDadosCarregados(resultado);
-      }
-    }
-
-    setCarregando(false);
+    setDefesasFiltradas(filtradas);
+  }, [defesas, tipo, data]);
+    
+  if (!defesasFiltradas || defesasFiltradas.length === 0) {
+    return <p>Nenhuma Defesa Encontrada...</p>;
   }
 
-  if (carregando) return <p>Carregando Defesas...</p>;
-  if (erro !== "") return <p style={{ color: "red" }}>Erro: {erro}</p>;
-  if (defesas.length === 0) return <p>Nenhuma Defesa Encontrada...</p>;
-
-  return (
+return (
     <div className="container-relatorio-lista">
       {!estatisticasAtivas && (
         <button className="btn-gerar-estatistica" onClick={onGerarEstatistica}>
@@ -76,7 +53,7 @@ export default function CardContainer({
         {data &&
           ` em ${new Date(data).toLocaleDateString("pt-BR", { timeZone: "UTC" })}`}
       </h2>
-      {defesas.map((item) => (
+      {defesasFiltradas.map((item) => (
         <div key={item.id} className="card-defesa">
           <h3>{item.tema}</h3>
           <p>

@@ -34,8 +34,6 @@ export default function PainelUsuario() {
   const nomeTipo =
     tipoUsuario.charAt(0).toUpperCase() + tipoUsuario.slice(1);
 
-  console.log(perfil);
-
   return (
     <main className="painel">
 

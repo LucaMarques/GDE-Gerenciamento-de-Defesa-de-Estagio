@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ModalProvider } from "@/contexts/ModalContext";
 import Modal from "@/components/Modal";
+import { NotificacaoProvider } from "@/contexts/NotificacaoContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,10 +36,12 @@ export default function RootLayout({ children }) {
       <body>
         <AuthProvider>
           <ModalProvider>
+          <NotificacaoProvider>
             <Header />
             <Modal />
             {children}
             <Footer />
+          </NotificacaoProvider>
           </ModalProvider>
         </AuthProvider>
       </body>

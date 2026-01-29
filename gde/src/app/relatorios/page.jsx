@@ -6,7 +6,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useModal } from "@/contexts/ModalContext";
 import CardContainer from "@/components/relatorios/CardContainer";
 import EstatisticasContainer from "@/components/relatorios/EstatisticasContainer";
-import "../../css/relatorios.css";
+import "@/css/relatorios.css";
 
 export default function RelatoriosPage() {
   const [statusSelecionado, setStatusSelecionado] = useState("");
@@ -14,26 +14,9 @@ export default function RelatoriosPage() {
   const [exibirEstatisticas, setExibirEstatisticas] = useState(false);
   const [dadosAtuais, setDadosAtuais] = useState([]);
 
-  const { user, loading } = useAuth();
-  const { mostrarModal } = useModal();
+  const { user, loading, logoutRef } = useAuth(); 
+  const { mostrarModal } = useModal(); 
   const router = useRouter();
-
-  // Bloqueio de segurança (descomente quando for testar o login real)
-  /*
-  useEffect(() => {
-    if (!loading && !user) {
-      mostrarModal({
-        titulo: "Acesso restrito",
-        mensagem: "Faça login para acessar os relatórios.",
-        tipo: "warning",
-        aoConfirmar: () => router.push("/"),
-      });
-    }
-  }, [user, loading, mostrarModal, router]);
-
-  if (loading) return <p className="main-wrapper">Verificando permissões...</p>;
-  if (!user) return null;
-  */
 
   return (
     <main className="main-wrapper">
@@ -85,7 +68,6 @@ export default function RelatoriosPage() {
           {/* CARD 3 - ESTATÍSTICAS*/}
           {exibirEstatisticas && (
             <EstatisticasContainer
-              dadosAtuais={dadosAtuais}
               statusSelecionado={statusSelecionado}
             />
           )}

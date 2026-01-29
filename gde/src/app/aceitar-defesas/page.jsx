@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
+import { useModal } from "@/contexts/ModalContext";
 
 import ListaDefesas from "@/components/defesas/ListaDefesas";
 
@@ -12,7 +13,7 @@ export default function AceitarDefesas() {
 
   const router = useRouter();
   const { user, perfil, loading, logoutRef, defesas } = useAuth();
-
+  const { mostrarModal } = useModal();
   const [lista, setLista] = useState([]);
 
   useEffect(() => {
@@ -28,6 +29,8 @@ export default function AceitarDefesas() {
       router.push("/");
     }
 
+    if (!perfil) return;
+
     if (perfil.tipo_usuario !== "orientador") {
       mostrarModal({
                 titulo: "Acesso negado!",
@@ -42,7 +45,8 @@ export default function AceitarDefesas() {
 
   }, [user, perfil, loading, router]);
 
-  if (loading || !user || !perfil) return null;
+  if (loading || !user || !perfil ) return null;
+
 
   return (
     <main className="solicitacoes-container">
