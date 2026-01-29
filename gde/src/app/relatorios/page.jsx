@@ -18,23 +18,6 @@ export default function RelatoriosPage() {
   const { mostrarModal } = useModal(); 
   const router = useRouter();
 
-  useEffect(() => {
-    if (!loading && !user && !logoutRef.current) {
-      mostrarModal({
-          titulo: "Acesso negado!",
-          mensagem: "Você precisa fazer login primeiro!",
-          tipo: "warning",
-          aoConfirmar: () => {
-            router.push("/");
-          },
-      });
-    }  
-  }, [user, loading, mostrarModal, router]);
-
-  if (loading) return <p className="main-wrapper">Verificando permissões...</p>;
-
-  if (!user) return null;
-
   return (
     <main className="main-wrapper">
       {/* CARD 1 - SELEÇÃO */}
