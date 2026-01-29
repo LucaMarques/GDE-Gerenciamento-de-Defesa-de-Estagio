@@ -4,11 +4,12 @@ import CardDefesa from "./CardDefesa";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/lib/supabaseClient";
 import { useModal } from "@/contexts/ModalContext";
-// import { enviarNotificacao } from "@/components/notificacao";
+import { useNotificacao } from "@/contexts/NotificacaoContext";
 
 export default function ListaDefesas() {
     const { defesas, setDefesas, perfil } = useAuth();
     const { mostrarModal } = useModal();
+    const { enviarNotificacao } = useNotificacao();
 
     const defesasAguardando = defesas?.filter(
         (defesa) => defesa.status === "Aguardando"
@@ -36,19 +37,59 @@ export default function ListaDefesas() {
                 d.id === defesa.id ? { ...d, status: novoStatus } : d)
         );
 
-        /*
-        enviarNotificacao(
-            defesa.aluno_id,
-            `Sua defesa sobre "${defesa.tema}" foi ${statusTexto}.`,
-            tipoNotif
-        );
-        */
+
+        const { data: pessoas, error: erroPessoas } = await supabase
+            .from("profiles")
+            .select("id, nome_completo")
+            .in("id", [defesa.aluno_id, defesa.orientador_id]);
+
+        if (erroPessoas) {
+            console.error("Erro ao buscar nomes:", erroPessoas);
+            return;
+        }
+
+        const aluno = pessoas.find(p => p.id === defesa.aluno_id);
+        const orientador = pessoas.find(p => p.id === defesa.orientador_id);
+
+        const { data: coordenador, error: erroCoord } = await supabase
+            .from("profiles")
+            .select("id, nome_completo")
+            .eq("tipo_usuario", "coordenador")
+            .maybeSingle();
+
+        if (erroCoord) {
+            console.error("Erro ao buscar coordenador:", erroCoord);
+        }
+
+        // Envia mensagem para o aluno
+        await enviarNotificacao({
+            usuario_id: defesa.aluno_id,
+            tipo_usuario: "aluno",
+            mensagem:
+                novoStatus === "Aceita"
+                ? `Sua defesa foi aceita pelo orientador ${orientador.nome_completo}. Tema: "${defesa.tema}".`
+                : `Sua defesa foi recusada pelo orientador ${orientador.nome_completo}. Tema: "${defesa.tema}".`,
+            tipo: novoStatus === "Aceita" ? "sucesso" : "alerta",
+        });
+        
+        // Envia mensagem para o coordenador (se encontrado)
+        if (coordenador && coordenador.id) {
+            await enviarNotificacao({
+                usuario_id: coordenador.id,
+                tipo_usuario: "coordenador",
+                mensagem:
+                    novoStatus === "Aceita"
+                    ? `A defesa do aluno ${aluno.nome_completo} foi aceita pelo orientador ${orientador.nome_completo}. Tema: "${defesa.tema}".`
+                    : `A defesa do aluno ${aluno.nome_completo} foi recusada pelo orientador ${orientador.nome_completo}. Tema: "${defesa.tema}".`,
+                tipo: "info",
+            });
+        }
 
         mostrarModal({
-                titulo: "Sucesso!",
-                mensagem: "Status atualizado",
-                tipo: "Sucess"
-            });
+            titulo: "Sucesso!",
+            mensagem: "Status atualizado",
+            tipo: "Sucess"
+        });
 
     };
 

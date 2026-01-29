@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
+import { useNotificacao } from '@/contexts/NotificacaoContext';
 
 function tempoRelativo(dataISO){
   const agora = new Date();
@@ -39,66 +40,15 @@ function iconePorTipo(tipo){
 
 export default function MenuNotification() {
   const [aberto, setAberto] = useState(false);
-  const [notificacao, setNotificacao] = useState([]);
-  const [userId, setUserId] = useState(null);
-
   const toggle = () => setAberto(!aberto);
 
-  useEffect(() => {
-    async function buscarUsuario(){
-      const { data } = await supabase.auth.getUser();
-      if (data?.user) setUserId(data.user.id);
-    }
-    buscarUsuario();
-  }, []);
+  const {
+    notificacoes,
+    naoLidas,
+    marcarComoLida,
+    loadingNotif
+  } = useNotificacao();
 
-  useEffect(() => {
-    if (!userId) return;
-    async function buscarNotificacoes() {
-      const { data, error } = await supabase
-        .from('notificacoes')
-        .select('id, mensagem, lida, tipo, criada_em')
-        .eq('usuario_id', userId)
-        .order('criada_em', { ascending: false });
-      
-      if (!error) setNotificacao(data);
-    }
-    buscarNotificacoes();
-
-    const channel = supabase
-      .channel('notificacoes-realtime')
-      .on(
-        'postgres_changes',
-        {
-          event: '*',
-          schema:'public',
-          table: 'notificacoes',
-          filter: `usuario_id=eq.${userId}`,
-        },
-        () => {
-          buscarNotificacoes();
-        }
-      )
-      .subscribe();
-    return () => {
-      supabase.removeChannel(channel);
-    };
-    }, [userId]);
-
-  async function notificacaoLida(id){
-      setNotificacao((prev) =>
-        prev.map((n) =>
-          n.id === id && !n.lida ? { ...n, lida: true } : n
-        )
-      );
-
-      await supabase
-        .from('notificacoes')
-        .update({ lida: true })
-        .eq('id', id);
-  }
-
-  const naoLidas = notificacao.filter(n => !n.lida).length;
 
   return (
     <div className="notificacao">
@@ -110,12 +60,15 @@ export default function MenuNotification() {
       {aberto && (
         <div className="menu-notificacao">
           <h3>Notificações</h3>
-          <ul>
-            {notificacao.length === 0 ? (
-              <p className="sem-notificacao">Nenhuma notificação</p>
-            ) : (
-              notificacao.map((n) => (
-                <li key={n.id} onClick={() => notificacaoLida(n.id)} className={`tipo-${n.tipo} ${n.lida ? "lida" : ""}`}>
+
+          {loadingNotif ? (
+            <p className="sem-notificacao">Carregando...</p>
+          ) : notificacoes.length === 0 ? (
+            <p className="sem-notificacao">Nenhuma notificação</p>
+          ) : (
+            <ul>
+              {notificacoes.map((n) => (
+                <li key={n.id} onClick={() => marcarComoLida(n.id)} className={`tipo-${n.tipo} ${n.lida ? "lida" : ""}`}>
                   <div className="notificacao-item-content">
                     <div className="notificacao-header">
                       <i className={`bi ${iconePorTipo(n.tipo)} notificacao-icone`}></i>
@@ -127,15 +80,15 @@ export default function MenuNotification() {
                       {!n.lida && (
                         <button className="btn-acao-notif" onClick={(e) => {
                             e.stopPropagation();
-                            notificacaoLida(n.id);
+                            marcarComoLida(n.id);
                           }}>Marcar como lida</button>
-                      )}
+                       )}
                     </div>
                   </div>
                 </li>
-              ))
-            )}
+              ))}
           </ul>
+          )}
         </div>
       )}
     </div>
