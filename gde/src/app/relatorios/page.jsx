@@ -21,17 +21,49 @@ export default function RelatoriosPage() {
   const [exibirEstatisticas, setExibirEstatisticas] = useState(false);
 
   const [dadosAtuais, setDadosAtuais] = useState([]);
+  const [dataInicioLocal, setDataInicioLocal] = useState("");
+  const [dataFimLocal, setDataFimLocal] = useState("");
+
+  // --- LÓGICA DE FILTRAGEM LOCAL ---
+  const dadosFiltradosLocal = useMemo(() => {
+    return dadosAtuais.filter((defesa) => {
+      const dataDefesa = defesa.data; // Formato AAAA-MM-DD
+
+      // Se não houver filtros locais, mantém o item
+      const passaInicio = dataInicioLocal
+        ? dataDefesa >= dataInicioLocal
+        : true;
+      const passaFim = dataFimLocal ? dataDefesa <= dataFimLocal : true;
+
+      return passaInicio && passaFim;
+    });
+  }, [dadosAtuais, dataInicioLocal, dataFimLocal]);
+
+  // --- ATUALIZAMOS O GRÁFICO PARA USAR OS DADOS FILTRADOS ---
   const dadosGrafico = useMemo(() => {
-    // Garantimos que o código não quebre se dadosAtuais for nulo
-    const lista = dadosAtuais || [];
-    const pendentes = lista.filter((d) => d.status === "Em andamento").length;
-    const concluidas = lista.filter((d) => d.status === "Concluída").length;
+    const totalNoUniverso = dadosAtuais.length;
+    const totalNoPeriodo = dadosFiltradosLocal.length;
+    const foraDoPeriodo = totalNoUniverso - totalNoPeriodo;
 
     return [
-      { name: "Pendentes", value: pendentes, color: "#d9534f" },
-      { name: "Concluídas", value: concluidas, color: "#28a745" },
+      { name: "No Período", value: totalNoPeriodo, color: "#004a91" }, // Azul (mesma cor do seletor)
+      { name: "Fora do Período", value: foraDoPeriodo, color: "#e0e0e0" }, // Cinza neutro
     ];
-  }, [dadosAtuais]);
+  }, [dadosAtuais, dadosFiltradosLocal]);
+
+  // Cálculos para o Grid
+  const totalFiltrado = dadosFiltradosLocal.length;
+  const pendentesFiltrado = dadosFiltradosLocal.filter(
+    (d) => d.status === "Em andamento",
+  ).length;
+  const concluidasFiltrado = dadosFiltradosLocal.filter(
+    (d) => d.status === "Concluída",
+  ).length;
+
+  const porcentagemRepresentada =
+    totalFiltrado > 0
+      ? ((totalFiltrado / dadosAtuais.length) * 100).toFixed(1)
+      : 0;
 
   const { user, loading } = useAuth();
   const { mostrarModal } = useModal();
@@ -105,6 +137,48 @@ export default function RelatoriosPage() {
           {exibirEstatisticas && (
             <div className="card-estatisticas-container">
               <h2>Estatísticas Gerais</h2>
+              {/* --- SELETOR DE PERÍODO LOCAL --- */}
+              <div className="filtro-periodo-container">
+                <span>Filtrar período:</span>
+                <input
+                  type="date"
+                  value={dataInicioLocal}
+                  onChange={(e) => setDataInicioLocal(e.target.value)}
+                  className="input-data-small"
+                />
+                <span>até</span>
+                <input
+                  type="date"
+                  value={dataFimLocal}
+                  onChange={(e) => setDataFimLocal(e.target.value)}
+                  className="input-data-small"
+                />
+                {(dataInicioLocal || dataFimLocal) && (
+                  <button
+                    className="btn-limpar-filtro"
+                    onClick={() => {
+                      setDataInicioLocal("");
+                      setDataFimLocal("");
+                    }}
+                  >
+                    Limpar
+                  </button>
+                )}
+              </div>
+              <div className="estatisticas-grid">
+                <div className="estatistica-item">
+                  <span>Total Selecionado ({statusSelecionado})</span>
+                  <strong>{dadosAtuais.length}</strong>
+                </div>
+                <div className="estatistica-item periodo-destaque">
+                  <span>No Período Filtrado</span>
+                  <strong>{totalFiltrado}</strong>
+                </div>
+                <div className="estatistica-item porcentagem">
+                  <span>Representação</span>
+                  <strong>{porcentagemRepresentada}%</strong>
+                </div>
+              </div>
               <div
                 className="grafico-container"
                 style={{ width: "100%", height: 300 }}
