@@ -22,7 +22,7 @@ export default function RelatoriosPage() {
           mensagem: "Você precisa fazer login primeiro!",
           tipo: "warning",
           aoConfirmar: () => {
-            outer.push("/");
+            router.push("/");
           },
       });
     }  
