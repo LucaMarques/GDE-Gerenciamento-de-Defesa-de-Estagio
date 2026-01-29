@@ -1,15 +1,19 @@
-#main-content {
+/* ==========================================================================
+   1. LAYOUT GERAL E WRAPPERS
+   ========================================================================== */
+.main-wrapper {
   flex-grow: 1;
   padding: 2rem;
   width: 100%;
   box-sizing: border-box;
-
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.relatorio-container {
+/* Base para os Cartões (1 e 2) */
+.relatorio-container,
+.relatorio-resultados-card {
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
   border-radius: 12px;
@@ -19,106 +23,264 @@
   max-width: 900px;
 }
 
-.relatorio-container h2 {
-  color: var(--color-header, #009174);
+.relatorio-resultados-card {
+  margin-top: 2rem;
+}
+
+.relatorio-container h2,
+.card-estatisticas-container h2,
+.titulo-resultados {
+  color: #000 !important;
+  font-weight: 700;
   border-bottom: 2px solid #ddd;
   padding-bottom: 10px;
-  text-align: center;
   margin-bottom: 1.5rem;
 }
 
+/* ==========================================================================
+   2. CONTROLES DE SELEÇÃO (CARD 1)
+   ========================================================================== */
 .relatorio-controles {
   display: flex;
-  flex-wrap: wrap; 
-  justify-content: space-between; 
+  flex-direction: row;
   align-items: center;
-  gap: 1.5rem; 
-  margin-bottom: 1.5rem;
+  gap: 1rem;
+  width: 100%;
 }
 
-#select-relatorio {
-  font-family: var(--font-primary, 'Poppins', sans-serif);
-  background-color: var(--color-header, #004a91);
-  color: var(--color-text-light, white);
+.select-relatorio {
+  flex: 4;
+  min-width: 200px;
+  font-family: var(--font-primary, "Poppins", sans-serif);
+  background-color: #302f2f !important;
+  color: white !important;
   border: none;
   border-radius: 8px;
-  padding: 12px 20px;
-  font-size: 1rem;
-  font-weight: bold;
+  padding: 14px 20px;
+  font-size: 1.15rem;
+  font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
   appearance: none;
-  -webkit-appearance: none; 
-  -moz-appearance: none;
   background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
   background-repeat: no-repeat;
   background-position: right 15px center;
   background-size: 24px;
-  padding-right: 50px;
-  flex-grow: 1; 
-  min-width: 250px; 
 }
 
-#select-relatorio option {
+.select-relatorio option {
   background-color: #ffffff;
-  color: var(--color-text-black, #000);
+  color: #333;
 }
 
-#input-data {
-  font-family: var(--font-primary, 'Poppins', sans-serif);
-  background-color: #f9f9f9;
-  color: var(--color-text-black, #333);
-  border: 1px solid #ccc;
+.input-data {
+  flex: 1;
+  min-width: 160px;
+  background-color: #ffffff;
+  border: 2px solid #666;
+  color: #000;
   border-radius: 8px;
-  padding: 11px 20px; 
-  font-size: 1rem;
-  font-weight: bold; 
-  cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-  flex-grow: 1;
-  min-width: 250px;
-  appearance: none;
-  -webkit-appearance: none; 
-  -moz-appearance: none;
+  padding: 12px 15px;
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 
-#select-relatorio:focus-visible,
-#input-data:focus-visible {
-  outline: 2px solid var(--color-primary, #5cb85c);
-  outline-offset: 2px;
-}
-
-.container-relatorio-lista {
-  padding-top: 1.5rem;
+.btn-adicionar-defesa {
   margin-top: 1.5rem;
-  border-top: 1px solid #eee;
+  width: 100%;
+  background-color: #18786e;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* ==========================================================================
+   3. LAYOUT LADO A LADO (CARDS 2 E 3)
+   ========================================================================== */
+.layout-lado-a-lado {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1350px;
+  margin-top: 2rem;
+  align-items: flex-start;
+}
+
+/* CARD 3 - ESTATÍSTICAS (70%) */
+.card-estatisticas-container {
+  flex: 7;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  min-height: 400px;
+}
+
+/* CARD 2 - RESULTADOS EM COLUNA (30%) */
+.card-resultados-coluna {
+  flex: 3;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* ==========================================================================
+   4. COMPONENTES DE ESTATÍSTICAS (DENTRO DO CARD 3)
+   ========================================================================== */
+.header-estatisticas {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.filtro-periodo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  background: #302f2f;
+  padding: 10px 20px;
+  border-radius: 30px;
+  color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.input-data-small {
+  border: 1px solid #555;
+  background-color: #ffffff;
+  color: #333;
+  border-radius: 5px;
+  padding: 4px 8px;
+  font-weight: 700;
+}
+
+.btn-limpar-filtro {
+  background: #d9534f;
+  color: white;
+  border-radius: 15px;
+  padding: 4px 12px;
+  font-size: 0.75rem;
+  border: none;
+}
+
+.estatisticas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.estatistica-item {
+  background: #f1f3f5; /* Um cinza um pouco mais sólido que o #f8f9fa */
+  padding: 1.5rem;
+  border-radius: 10px;
+  border: 1px solid #dee2e6;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.estatistica-item strong {
+  font-size: 2.2rem;
+  display: block;
+  margin-top: 5px;
+  color: #383737;
+}
+.estatistica-item span {
+  font-size: 0.95rem;
+  color: #4c4b4b;
+  margin-bottom: 0.6rem;
+  font-weight: 600;
+  display: block;
+}
+
+.estatistica-item.periodo-destaque strong {
+  color: #004a91;
+}
+.estatistica-item.porcentagem strong {
+  color: #5cb85c;
+}
+
+/* ==========================================================================
+   5. LISTA DE RESULTADOS E CARDS DE DEFESA
+   ========================================================================== */
+.container-relatorio-lista {
   width: 100%;
 }
 
-/* Estilos de Card  */
+.btn-gerar-estatistica {
+  width: 100%;
+  background-color: #302f2f;
+  color: white;
+  border-radius: 8px;
+  padding: 12px;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  border: none;
+}
+
 .card-defesa {
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
   border-radius: 10px;
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
+  padding: 1.2rem;
+  margin-bottom: 1rem;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .card-defesa h3 {
-  margin-top: 0;
-  color: var(--color-header, #003866);
+  font-size: 1.1rem;
+  color: #222;
+  margin-bottom: 5px;
+  border: none;
+  font-weight: bold;
 }
 .card-defesa p {
-  margin: 0.5rem 0;
-  line-height: 1.6;
+  font-size: 0.9rem;
+  margin: 4px 0;
+  color: #444;
 }
 
-.card-defesa .status-aberto {
-  color: #c9302c; /* Vermelho para pendentes */
+.status-pendente {
+  color: #d9534f;
   font-weight: bold;
 }
-.card-defesa .status-concluida {
-  color: #4cae4c; /* Verde para concluídos */
+.status-concluido {
+  color: #28a745;
   font-weight: bold;
+}
+
+/* ==========================================================================
+   6. RESPONSIVIDADE
+   ========================================================================== */
+@media (max-width: 1100px) {
+  .layout-lado-a-lado {
+    flex-direction: column;
+    align-items: center;
+  }
+  .card-estatisticas-container,
+  .card-resultados-coluna {
+    width: 100%;
+    flex: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .relatorio-controles {
+    flex-direction: column;
+  }
+  .select-relatorio,
+  .input-data {
+    width: 100%;
+  }
 }
