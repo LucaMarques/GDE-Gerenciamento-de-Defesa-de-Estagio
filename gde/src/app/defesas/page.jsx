@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { useAuth } from "@/contexts/AuthContext";
-import DefesaCard from "@/components/defesa-card";
+import DefesaCard from "@/components/defesas/defesa-card";
 
 export default function DefesasPage() {
     const searchParams = useSearchParams();

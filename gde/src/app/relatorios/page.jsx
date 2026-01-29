@@ -11,24 +11,21 @@ export default function RelatoriosPage() {
   const [statusSelecionado, setStatusSelecionado] = useState("");
   const [dataSelecionada, setDataSelecionada] = useState("");
 
-  const { user, loading } = useAuth(); // Pega os dados do Supabase Auth
-  const { mostrarModal } = useModal(); // Pega a função pra setar os dados de ModalContext
+  const { user, loading, defesas, logoutRef } = useAuth(); 
+  const { mostrarModal } = useModal(); 
   const router = useRouter();
 
   useEffect(() => {
-    if (!loading) {
-      if (!user) {
-        mostrarModal({
-          titulo: "Acesso restrito",
-          mensagem:
-            "Você precisa fazer login para acessar os relatórios de defesas.",
+    if (!loading && !user && !logoutRef.current) {
+      mostrarModal({
+          titulo: "Acesso negado!",
+          mensagem: "Você precisa fazer login primeiro!",
           tipo: "warning",
           aoConfirmar: () => {
-            router.push("/");
+            outer.push("/");
           },
-        });
-      }
-    }
+      });
+    }  
   }, [user, loading, mostrarModal, router]);
 
   if (loading) return <p className="main-wrapper">Verificando permissões...</p>;
