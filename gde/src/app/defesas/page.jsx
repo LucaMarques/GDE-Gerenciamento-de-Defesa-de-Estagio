@@ -1,16 +1,19 @@
 'use client'
 
 import '@/css/defesas.css'
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useModal } from "@/contexts/ModalContext";
 import DefesaCard from "@/components/defesa-card";
 
 export default function DefesasPage() {
     const searchParams = useSearchParams();
     const filtro = searchParams.get("filtro");
-    const { user, perfil, loading, defesas } = useAuth();
+    const { user, perfil, loading, defesas, logoutRef } = useAuth();
     const [defesasFiltradas, setDefesasFiltradas] = useState([]);
+    const { mostrarModal } = useModal();
+    const router = useRouter();
 
     useEffect(() => {
         if (loading || !user || !perfil) return;

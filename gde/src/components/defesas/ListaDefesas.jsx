@@ -51,14 +51,13 @@ export default function ListaDefesas() {
         const aluno = pessoas.find(p => p.id === defesa.aluno_id);
         const orientador = pessoas.find(p => p.id === defesa.orientador_id);
 
-        const { data: coordenador, error: erroCoord } = await supabase
+        const { data: coordenadores, error: erroCoord } = await supabase
             .from("profiles")
             .select("id, nome_completo")
-            .eq("tipo_usuario", "coordenador")
-            .maybeSingle();
+            .eq("tipo_usuario", "coordenador");
 
         if (erroCoord) {
-            console.error("Erro ao buscar coordenador:", erroCoord);
+            console.error("Erro ao buscar coordenadores:", erroCoord);
         }
 
         // Envia mensagem para o aluno
@@ -66,23 +65,25 @@ export default function ListaDefesas() {
             usuario_id: defesa.aluno_id,
             tipo_usuario: "aluno",
             mensagem:
-                novoStatus === "Aceita"
+                novoStatus === "Em andamento"
                 ? `Sua defesa foi aceita pelo orientador ${orientador.nome_completo}. Tema: "${defesa.tema}".`
                 : `Sua defesa foi recusada pelo orientador ${orientador.nome_completo}. Tema: "${defesa.tema}".`,
-            tipo: novoStatus === "Aceita" ? "sucesso" : "alerta",
+            tipo: novoStatus === "Em andamento" ? "sucesso" : "alerta",
         });
         
-        // Envia mensagem para o coordenador (se encontrado)
-        if (coordenador && coordenador.id) {
-            await enviarNotificacao({
-                usuario_id: coordenador.id,
-                tipo_usuario: "coordenador",
-                mensagem:
-                    novoStatus === "Aceita"
-                    ? `A defesa do aluno ${aluno.nome_completo} foi aceita pelo orientador ${orientador.nome_completo}. Tema: "${defesa.tema}".`
-                    : `A defesa do aluno ${aluno.nome_completo} foi recusada pelo orientador ${orientador.nome_completo}. Tema: "${defesa.tema}".`,
-                tipo: "info",
-            });
+        // Envia mensagem para todos os coordenadores (se houver)
+        if (coordenadores && coordenadores.length) {
+            for (const c of coordenadores) {
+                await enviarNotificacao({
+                    usuario_id: c.id,
+                    tipo_usuario: "coordenador",
+                    mensagem:
+                        novoStatus === "Em andamento"
+                        ? `A defesa do aluno ${aluno.nome_completo} foi aceita pelo orientador ${orientador.nome_completo}. Tema: "${defesa.tema}".`
+                        : `A defesa do aluno ${aluno.nome_completo} foi recusada pelo orientador ${orientador.nome_completo}. Tema: "${defesa.tema}".`,
+                    tipo: "info",
+                });
+            }
         }
 
         mostrarModal({

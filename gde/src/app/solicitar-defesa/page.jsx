@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/lib/supabaseClient";
 import { useModal } from "@/contexts/ModalContext";
+import { useNotificacao } from '@/contexts/NotificacaoContext'
 
 import FormSolicitarDefesa from "@/components/defesas/FormSolicitarDefesa";
 import "@/css/solicitar-defesa.css";
@@ -14,6 +15,7 @@ export default function SolicitarDefesa() {
   const { user, perfil, loading, logoutRef } = useAuth();
   const [orientadores, setOrientadores] = useState([]);
   const { mostrarModal } = useModal();
+  const { enviarNotificacao } = useNotificacao();
 
   useEffect(() => {
     if (loading) return;
@@ -57,7 +59,6 @@ export default function SolicitarDefesa() {
     };
 
     buscarOrientadores();
-
   }, [loading, user, perfil, router]);
 
   if (loading || !user || !perfil || orientadores.length === 0) return <p>Carregando...</p>;

@@ -5,7 +5,7 @@ import { useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { useModal } from "@/contexts/ModalContext";
 import { useAuth } from "@/contexts/AuthContext";
-
+import { useNotificacao } from "@/contexts/NotificacaoContext";
 import SelectOrientador from "./SelectOrientador";
 
 export default function FormSolicitarDefesa({ orientadores }) {
@@ -15,7 +15,7 @@ export default function FormSolicitarDefesa({ orientadores }) {
   const [tema, setTema] = useState("");
   const [orientadorId, setOrientadorId] = useState("");
   const [dataDefesa, setDataDefesa] = useState("");
-
+  const { enviarNotificacao } = useNotificacao();
   const handleVoltar = () => router.push("/dashboard");
 
   const handleSubmit = async (e) => {
@@ -59,6 +59,45 @@ export default function FormSolicitarDefesa({ orientadores }) {
                 tipo: "error"
       });
       return;
+    }
+
+    const { data: aluno } = await supabase
+      .from("profiles")
+      .select("nome_completo")
+      .eq("id", user.id)
+      .single();
+
+    const { data: orientador } = await supabase
+      .from("profiles")
+      .select("nome_completo")
+      .eq("id", orientadorId)
+      .single();
+
+    await enviarNotificacao({
+      usuario_id: orientadorId,
+      tipo_usuario: "orientador",
+      mensagem: `O aluno ${aluno.nome_completo} enviou uma solicitação de defesa com o tema: "${tema}".`,
+      tipo: "info",
+    });
+
+    const { data: coordenadores, error: erroCoord } = await supabase
+      .from("profiles")
+      .select("id, nome_completo")
+      .eq("tipo_usuario", "coordenador");
+
+    if (erroCoord) {
+      console.error("Erro ao buscar coordenadores:", erroCoord);
+    }
+
+    if (coordenadores && coordenadores.length) {
+      for (const c of coordenadores) {
+        await enviarNotificacao({
+          usuario_id: c.id,
+          tipo_usuario: "coordenador",
+          mensagem: `Nova solicitação de defesa enviada por ${aluno.nome_completo}. Tema: "${tema}".`,
+          tipo: "info",
+        });
+      }
     }
 
     mostrarModal({
