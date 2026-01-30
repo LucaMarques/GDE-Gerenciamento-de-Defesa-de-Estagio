@@ -24,12 +24,83 @@ a{
     color: var(--color-text-black);
 }
 
-main {
+.main {
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: var(--color-muted);
+    background: linear-gradient(135deg, #0a2342 0%, #18786e 50%, #0fa394 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Orbes animadas de fundo */
+.main::before {
+    content: "";
+    position: fixed;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(15, 163, 148, 0.3) 0%, transparent 70%);
+    border-radius: 50%;
+    top: -100px;
+    left: -100px;
+    animation: float 8s ease-in-out infinite;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.main::after {
+    content: "";
+    position: fixed;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(23, 199, 181, 0.2) 0%, transparent 70%);
+    border-radius: 50%;
+    bottom: -50px;
+    right: -100px;
+    animation: floatReverse 10s ease-in-out infinite;
+    z-index: 0;
+    pointer-events: none;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px) translateX(0px);
+    }
+    25% {
+        transform: translateY(-20px) translateX(10px);
+    }
+    50% {
+        transform: translateY(-40px) translateX(-10px);
+    }
+    75% {
+        transform: translateY(-20px) translateX(10px);
+    }
+}
+
+@keyframes floatReverse {
+    0%, 100% {
+        transform: translateY(0px) translateX(0px);
+    }
+    25% {
+        transform: translateY(20px) translateX(-10px);
+    }
+    50% {
+        transform: translateY(40px) translateX(10px);
+    }
+    75% {
+        transform: translateY(20px) translateX(-10px);
+    }
+}
+
+.login-container{
+    position: relative;
+    z-index: 10;
+    height: 480px;
+    width: 768px;
+    border-radius: 12px;
+    box-shadow: 0 5px 10px var(--color-header);
+    overflow: hidden;
 }
 
 .login-container{

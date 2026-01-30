@@ -29,7 +29,7 @@ export default function HomePage() {
     return (
         <>
         <CanvasBackground />
-        <main>
+        <main className="main">
             <div className={`login-container ${modo === "register" ? "move" : ""}`}>
             
             <div className="form-container">
