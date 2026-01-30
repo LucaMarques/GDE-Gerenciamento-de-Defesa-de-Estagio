@@ -107,17 +107,20 @@ export default function PerfilForm({ perfil, setPerfil, finalizarEdicao }) {
            <label style={s.label}>Matrícula</label>
            <input value={form.matricula || ''} disabled style={{...s.input, background: '#f1f5f9', color: '#94a3b8'}} />
         </div>
-        <input
-            name="cpf"
-            value={form.cpf || ''}
-            onChange={handleChange}
-            disabled={!!perfil.cpf} // 🔒 só bloqueia se já existir no banco
-            style={{
-              ...s.input,
-              background: perfil.cpf ? '#f1f5f9' : '#fff',
-              color: perfil.cpf ? '#94a3b8' : '#1e293b'
-            }}
-        />
+        <div>
+          <label style={s.label}>CPF</label>
+          <input
+              name="cpf"
+              value={form.cpf || ''}
+              onChange={handleChange}
+              disabled={!!perfil.cpf} // 🔒 só bloqueia se já existir no banco
+              style={{
+                ...s.input,
+                background: perfil.cpf ? '#f1f5f9' : '#fff',
+                color: perfil.cpf ? '#94a3b8' : '#1e293b'
+              }}
+          />
+        </div>
       </div>
       
       <div style={{ textAlign: 'right', marginTop: '20px', display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
