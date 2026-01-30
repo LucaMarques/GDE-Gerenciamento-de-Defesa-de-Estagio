@@ -42,6 +42,7 @@ export default function PerfilForm({ perfil, setPerfil, finalizarEdicao }) {
           endereco: form.endereco,
           data_nascimento: form.data_nascimento,
           cpf: form.cpf,
+          curso: form.curso,
           // Não enviamos email/matricula/cpf pois geralmente são travados
         })
         .eq('id', perfil.id)
@@ -113,7 +114,21 @@ export default function PerfilForm({ perfil, setPerfil, finalizarEdicao }) {
               name="cpf"
               value={form.cpf || ''}
               onChange={handleChange}
-              disabled={!!perfil.cpf} // 🔒 só bloqueia se já existir no banco
+              disabled={!!perfil.cpf} // Só bloqueia se já existir no banco
+              style={{
+                ...s.input,
+                background: perfil.cpf ? '#f1f5f9' : '#fff',
+                color: perfil.cpf ? '#94a3b8' : '#1e293b'
+              }}
+          />
+        </div>
+        <div>
+          <label style={s.label}>Curso</label>
+          <input
+              name="curso"
+              value={form.curso || ''}
+              onChange={handleChange}
+              disabled={!!perfil.curso}
               style={{
                 ...s.input,
                 background: perfil.cpf ? '#f1f5f9' : '#fff',
