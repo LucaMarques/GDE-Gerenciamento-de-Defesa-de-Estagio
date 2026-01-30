@@ -14,12 +14,28 @@ export function NotificacaoProvider({ children }) {
 
     async function buscarNotificacoes(){
         if (!user) return;
-        
-        const{ data } = await supabase
+
+        let query = supabase
             .from("notificacoes")
             .select("*")
-            .eq("usuario_id", user.id)
             .order("criada_em", { ascending: false });
+
+        if (user.user_metadata?.tipo_usuario === "coordenador") {
+            query = query
+                .eq("tipo_usuario", "coordenador")
+                .eq("lida", false);
+        } else {
+            query = query.eq("usuario_id", user.id);
+        }
+
+        const { data, error } = await query;
+
+        if (error) {
+            console.error("Erro ao buscar notificações:", error);
+            setNotificacoes([]);
+            return;
+        }
+
         setNotificacoes(data || []);
         setLoadingNotif(false);
     }

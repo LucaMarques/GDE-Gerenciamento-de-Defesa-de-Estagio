@@ -54,11 +54,14 @@ export default function ListaDefesas() {
         const { data: coordenadores, error: erroCoord } = await supabase
             .from("profiles")
             .select("id, nome_completo")
-            .eq("tipo_usuario", "coordenador");
+            .eq("tipo_usuario", "coordenador")
+            .limit(1);
 
         if (erroCoord) {
-            console.error("Erro ao buscar coordenadores:", erroCoord);
+            console.error("Erro ao buscar coordenador:", erroCoord);
         }
+
+        const coordenador = coordenadores?.[0] || null;
 
         // Envia mensagem para o aluno
         await enviarNotificacao({
@@ -72,18 +75,16 @@ export default function ListaDefesas() {
         });
         
         // Envia mensagem para todos os coordenadores (se houver)
-        if (coordenadores && coordenadores.length) {
-            for (const c of coordenadores) {
-                await enviarNotificacao({
-                    usuario_id: c.id,
-                    tipo_usuario: "coordenador",
-                    mensagem:
-                        novoStatus === "Em andamento"
+        if (coordenador) {
+            await enviarNotificacao({
+                usuario_id: coordenador.id,
+                tipo_usuario: "coordenador",
+                mensagem:
+                    novoStatus === "Em andamento"
                         ? `A defesa do aluno ${aluno.nome_completo} foi aceita pelo orientador ${orientador.nome_completo}. Tema: "${defesa.tema}".`
                         : `A defesa do aluno ${aluno.nome_completo} foi recusada pelo orientador ${orientador.nome_completo}. Tema: "${defesa.tema}".`,
-                    tipo: "info",
-                });
-            }
+                tipo: "info",
+            });
         }
 
         mostrarModal({
