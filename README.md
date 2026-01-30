@@ -8,7 +8,8 @@ Criado como projeto para a disciplina de **Programação para Web 2**, o sistema
 ##  Tecnologias Utilizadas
 
 - **JavaScript (ESModules)**
-- **Vite**
+- **NEXT**
+- **REACT**
 - **HTML5**
 - **CSS3**
 
@@ -30,6 +31,18 @@ Ele acompanha várias etapas da defesa de estágio, desde o cadastro do aluno at
 - **Mariana Farias de Brito**  
 - **Ryan Monteiro Gomes**
 - **Thatyane Iasmyn**
+
+---
+
+##  Como Iniciar
+
+Primeiro, instale os pacotes e depois rode para testar.
+
+```bash
+npm install
+
+npm run dev
+```
 
 ---
 
