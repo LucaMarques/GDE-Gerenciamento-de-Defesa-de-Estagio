@@ -63,7 +63,6 @@ export default function ListaDefesas() {
 
         const coordenador = coordenadores?.[0] || null;
 
-        // Envia mensagem para o aluno
         await enviarNotificacao({
             usuario_id: defesa.aluno_id,
             tipo_usuario: "aluno",
@@ -74,7 +73,7 @@ export default function ListaDefesas() {
             tipo: novoStatus === "Em andamento" ? "sucesso" : "alerta",
         });
         
-        // Envia mensagem para todos os coordenadores (se houver)
+
         if (coordenador) {
             await enviarNotificacao({
                 usuario_id: coordenador.id,

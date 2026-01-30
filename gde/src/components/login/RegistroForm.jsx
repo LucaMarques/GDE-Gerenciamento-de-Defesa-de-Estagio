@@ -18,7 +18,7 @@ export default function RegistroForm({ abrirLogin }) {
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const senhaRegex = /^.{6,}$/;
-  const nomeRegex = /^[A-Za-zÀ-ÿ]+ [A-Za-zÀ-ÿ]+$/;
+  const nomeRegex = /^[A-Za-zÀ-ÿ]+(?:[- ][A-Za-zÀ-ÿ]+)*(?: (?:de|da|do|dos|das) [A-Za-zÀ-ÿ]+)*$/i;
 
   const handleNomeChange = (e) =>{
     let valor = e.target.value;
@@ -34,7 +34,7 @@ export default function RegistroForm({ abrirLogin }) {
   
     if (!nome || !matricula || !email || !senha || !tipo) {
       mostrarModal({
-        titulo: "Campos Obrigatórios ❌",
+        titulo: "Campos Obrigatórios",
         mensagem: "Preencha todos os campos para continuar.",
         tipo: "warning",
       });
@@ -43,8 +43,8 @@ export default function RegistroForm({ abrirLogin }) {
 
     if (!nomeRegex.test(nome)) {
       mostrarModal({
-        titulo: "Nome Inválido ❌",
-        mensagem: "Informe seu nome completo (nome e sobrenome).",
+        titulo: "Nome Inválido",
+        mensagem: "Informe seu nome completo.",
         tipo: "warning",
       });
       return;
@@ -52,7 +52,7 @@ export default function RegistroForm({ abrirLogin }) {
 
     if (!emailRegex.test(email)) {
       mostrarModal({
-        titulo: "Email Inválido ❌",
+        titulo: "Email Inválido",
         mensagem: "Formato de email inválido. Verifique e tente novamente.",
         tipo: "warning",
       });
@@ -61,7 +61,7 @@ export default function RegistroForm({ abrirLogin }) {
 
     if (!senhaRegex.test(senha)) {
       mostrarModal({
-        titulo: "Senha Fraca ❌",
+        titulo: "Senha Fraca",
         mensagem: "A senha deve ter no mínimo 6 caracteres.",
         tipo: "warning",
       });
@@ -85,7 +85,7 @@ export default function RegistroForm({ abrirLogin }) {
       
       if (error) {
         mostrarModal({
-          titulo: "Erro no Cadastro ❌",
+          titulo: "Erro no Cadastro",
           mensagem: error.message,
           tipo: "error",
         });
@@ -95,7 +95,7 @@ export default function RegistroForm({ abrirLogin }) {
 
       if (!data.user){
         mostrarModal({
-          titulo: "Cadastro Realizado! 🎉",
+          titulo: "Cadastro Realizado!",
           mensagem: "Verifique seu email para confirmar a conta. Após confirmação, você poderá fazer login.",
           tipo: "success",
           aoConfirmar: () => {
@@ -107,7 +107,7 @@ export default function RegistroForm({ abrirLogin }) {
       }
 
       mostrarModal({
-        titulo: "Cadastro Concluído! 🎉",
+        titulo: "Cadastro Concluído!",
         mensagem: "Sua conta foi criada com sucesso! Verifique seu email para ativar a conta.",
         tipo: "success",
         aoConfirmar: () => {
@@ -117,7 +117,7 @@ export default function RegistroForm({ abrirLogin }) {
     }catch (err) {
       console.error(err);
       mostrarModal({
-        titulo: "Erro Inesperado ❌",
+        titulo: "Erro Inesperado",
         mensagem: "Erro inesperado. Tente novamente mais tarde.",
         tipo: "error",
       });

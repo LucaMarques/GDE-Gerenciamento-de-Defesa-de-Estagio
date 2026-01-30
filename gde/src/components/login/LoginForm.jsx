@@ -67,7 +67,7 @@ export default function LoginForm({ abrirCadastro }) {
     const handleResetSenha = async () => {
         if (!email) {
             mostrarModal({
-                titulo: "Email Obrigatório ❌",
+                titulo: "Email Obrigatório",
                 mensagem: "Informe seu email para redefinir a senha.",
                 tipo: "warning",
             });
@@ -84,13 +84,13 @@ export default function LoginForm({ abrirCadastro }) {
 
         if (error) {
             mostrarModal({
-                titulo: "Erro ao Enviar Email ❌",
+                titulo: "Erro ao Enviar Email",
                 mensagem: "Não conseguimos enviar o email de redefinição. Verifique o email e tente novamente.",
                 tipo: "error",
             });
         } else {
             mostrarModal({
-                titulo: "Email Enviado! 📧",
+                titulo: "Email Enviado!",
                 mensagem: `Um link de redefinição foi enviado para ${email}. Verifique sua caixa de entrada e spam.`,
                 tipo: "success",
             });
