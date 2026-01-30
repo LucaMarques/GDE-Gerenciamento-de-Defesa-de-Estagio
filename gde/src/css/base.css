@@ -320,7 +320,8 @@ main, section:first-of-type {
 .sem-notificacao{
     font-size: 14px;
     text-align: center;
-    margin-top: 10px;
+    margin-top: 12px;
+    margin-bottom: 12px;
     opacity: 0.5;
 }
 
